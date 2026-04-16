@@ -204,9 +204,10 @@ const Index = () => {
             <Button
               onClick={() => setJoinOpen(true)}
               size="sm"
-              className="h-8 px-3 font-bold uppercase tracking-widest text-[11px] bg-gradient-to-r from-win to-accent text-primary-foreground shadow-[0_0_18px_hsl(var(--win)/0.4)]"
+              className="h-10 px-3 mr-1 flex flex-col items-center justify-center gap-0 leading-none font-bold uppercase tracking-widest text-[11px] bg-gradient-to-b from-[hsl(45_100%_60%)] to-[hsl(40_95%_45%)] text-background border border-[hsl(45_100%_70%)] shadow-[0_0_18px_hsl(45_100%_55%/0.55)]"
             >
-              join
+              <span>join</span>
+              <span className="text-[8px] tracking-[0.25em] opacity-90">free</span>
             </Button>
           </div>
         </div>
