@@ -50,6 +50,7 @@ export default {
         hot: "hsl(var(--hot))",
         win: "hsl(var(--win))",
         hud: "hsl(var(--hud))",
+        gold: "hsl(var(--gold))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
