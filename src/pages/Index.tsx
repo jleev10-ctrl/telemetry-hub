@@ -432,6 +432,15 @@ const Index = () => {
                 {b.name} <ChevronRight className="h-3 w-3" />
               </a>
             ))}
+            <div
+              className={cn(
+                "rounded-md px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-muted-foreground",
+                "bg-secondary/40 border border-dashed border-hud/30",
+                "flex items-center justify-center gap-1"
+              )}
+            >
+              coming soon
+            </div>
           </div>
         </section>
       </main>
