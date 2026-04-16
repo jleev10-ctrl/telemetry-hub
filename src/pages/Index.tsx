@@ -237,7 +237,7 @@ const Index = () => {
         </div>
       </header>
 
-      <div className="h-[120px]" />
+      <div className="h-[132px]" />
 
       <main className="container max-w-2xl px-4 pb-24 space-y-6">
         {/* Consensus ticker */}
