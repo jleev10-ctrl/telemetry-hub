@@ -144,7 +144,7 @@ const sportsbooks: Sportsbook[] = [
   { name: "FanDuel", slug: "fanduel", url: "https://sportsbook.fanduel.com/", color: "from-[hsl(220_90%_55%)] to-[hsl(220_90%_40%)]" },
   { name: "BetMGM", slug: "betmgm", url: "https://sports.betmgm.com/", color: "from-[hsl(40_90%_55%)] to-[hsl(30_90%_45%)]" },
   { name: "Caesars", slug: "caesars", url: "https://www.caesars.com/sportsbook-and-casino", color: "from-[hsl(0_75%_50%)] to-[hsl(0_75%_38%)]" },
-  { name: "ESPN BET", slug: "espnbet", url: "https://espnbet.com/", color: "from-[hsl(15_90%_55%)] to-[hsl(0_85%_45%)]" },
+  { name: "bet365", slug: "bet365", url: "https://www.bet365.com/", color: "from-[hsl(50_90%_50%)] to-[hsl(45_90%_38%)]" },
 ];
 
 const withUtm = (url: string, book: string, placement: string) => {
@@ -190,8 +190,8 @@ const Index = () => {
               <span className="font-mono text-xs font-bold text-hud tracking-tighter">SS</span>
             </div>
             <div className="leading-none text-center min-w-0">
-              <div className="font-mono text-base sm:text-lg font-black tracking-[0.35em] text-hud drop-shadow-[0_0_8px_hsl(var(--hud)/0.6)]">
-                GRAND<span className="ml-2 text-win drop-shadow-[0_0_8px_hsl(var(--win)/0.6)]">13</span>
+              <div className="font-mono text-sm sm:text-base font-black tracking-[0.3em] text-hud drop-shadow-[0_0_8px_hsl(var(--hud)/0.6)]">
+                GRAND<span className="ml-1.5 text-win drop-shadow-[0_0_8px_hsl(var(--win)/0.6)]">13</span>
               </div>
               <div className="mt-1 font-mono text-[8px] tracking-[0.3em] text-muted-foreground uppercase">
                 the sports syndicate
@@ -251,6 +251,24 @@ const Index = () => {
                     <span>MLB SYNDICATE: <span className="text-win">REDS +167</span></span>
                     <span>NHL EDGE: <span className="text-hud">RANGERS ML</span></span>
                     <span>SHARP $: <span className="text-hot">78% RAIDERS</span></span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center border-t border-hud/20">
+            <div className="px-3 py-1.5 border-r border-hud/30 bg-secondary/60 shrink-0">
+              <span className="font-mono text-[9px] tracking-[0.3em] text-win">G13</span>
+            </div>
+            <div className="relative flex-1 overflow-hidden py-1.5">
+              <div className="ticker-reverse flex gap-8 whitespace-nowrap font-mono text-[11px] text-foreground/80 pl-4">
+                {[...Array(2)].map((_, i) => (
+                  <div key={i} className="flex gap-8">
+                    {grand13.slice(0, 7).map((r) => (
+                      <span key={r.rank}>
+                        #{r.rank} <span className="text-hud">{r.name}</span> <span className="text-win">{r.winPct}</span> <span className={r.units.startsWith("+") ? "text-win" : "text-hot"}>{r.units}</span>
+                      </span>
+                    ))}
                   </div>
                 ))}
               </div>

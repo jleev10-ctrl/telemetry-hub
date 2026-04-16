@@ -141,9 +141,16 @@ All colors MUST be HSL.
   .ticker {
     animation: ticker-scroll 40s linear infinite;
   }
+  .ticker-reverse {
+    animation: ticker-scroll-reverse 45s linear infinite;
+  }
   .pulse-dot {
     animation: pulse-dot 1.4s ease-in-out infinite;
   }
+}
+@keyframes ticker-scroll-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
 }
 
 @keyframes ticker-scroll {
