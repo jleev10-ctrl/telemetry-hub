@@ -290,7 +290,7 @@ const Index = () => {
                 </tr>
               </thead>
               <tbody>
-                {grand13.map((row) => (
+                {grand13.slice(0, 7).map((row) => (
                   <tr
                     key={row.rank}
                     className={cn(
