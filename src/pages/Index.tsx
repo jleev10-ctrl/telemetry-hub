@@ -205,11 +205,11 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Affiliates sub-header */}
+        {/* Partners sub-header */}
         <div className="border-b border-border/60 bg-secondary/70">
-          <div className="container flex items-center gap-1.5 overflow-x-auto py-1.5 px-4 no-scrollbar">
+          <div className="container flex items-center justify-center flex-wrap gap-1.5 py-1.5 px-4">
             <span className="shrink-0 font-mono text-[9px] tracking-[0.3em] text-muted-foreground uppercase pr-1">
-              affiliates
+              partners
             </span>
             {sportsbooks.map((b) => (
               <a
@@ -296,19 +296,34 @@ const Index = () => {
                       row.rank <= 3 && "bg-secondary/30"
                     )}
                   >
-                    <td className="px-3 py-2.5 text-muted-foreground">
-                      {row.rank <= 3 ? (
+                    <td className="px-2 py-2">
+                      <div className="relative h-9 w-9">
+                        <img
+                          src={row.avatar}
+                          alt={row.name}
+                          width={72}
+                          height={72}
+                          loading="lazy"
+                          className={cn(
+                            "h-9 w-9 rounded-full object-cover border-2",
+                            row.rank === 1 && "border-[hsl(45_100%_55%)] shadow-[0_0_10px_hsl(45_100%_55%/0.5)]",
+                            row.rank === 2 && "border-[hsl(0_0%_75%)]",
+                            row.rank === 3 && "border-[hsl(30_70%_50%)]",
+                            row.rank > 3 && "border-hud/40",
+                          )}
+                        />
                         <span className={cn(
-                          "inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold",
-                          row.rank === 1 && "bg-[hsl(45_100%_50%/0.2)] text-[hsl(45_100%_60%)]",
-                          row.rank === 2 && "bg-[hsl(0_0%_75%/0.15)] text-[hsl(0_0%_75%)]",
-                          row.rank === 3 && "bg-[hsl(30_70%_45%/0.15)] text-[hsl(30_70%_55%)]",
+                          "absolute -bottom-1 -right-1 grid place-items-center h-4 w-4 rounded-full text-[9px] font-bold font-mono border border-background",
+                          row.rank === 1 && "bg-[hsl(45_100%_55%)] text-background",
+                          row.rank === 2 && "bg-[hsl(0_0%_80%)] text-background",
+                          row.rank === 3 && "bg-[hsl(30_70%_50%)] text-background",
+                          row.rank > 3 && "bg-secondary text-foreground",
                         )}>
                           {row.rank}
                         </span>
-                      ) : row.rank}
+                      </div>
                     </td>
-                    <td className="px-3 py-2.5">
+                    <td className="px-2 py-2.5">
                       <div className="font-bold text-foreground text-xs leading-tight">{row.name}</div>
                       <div className="text-[9px] text-muted-foreground uppercase tracking-wider">{row.league} · {row.record}</div>
                     </td>
@@ -350,16 +365,16 @@ const Index = () => {
         <section className="hud-panel border border-hud/30 p-5">
           <div className="flex items-center gap-2 mb-3">
             <Database className="h-4 w-4 text-hud" />
-            <span className="font-mono text-[10px] tracking-[0.3em] text-hud">SYNDICATE EDGE</span>
+            <span className="font-mono text-[10px] tracking-[0.3em] text-hud">PROPRIETARY MATH · TELEMETRY</span>
           </div>
-          <h3 className="text-lg font-bold mb-1">proprietary insights · toto historical</h3>
+          <h3 className="text-lg font-bold mb-1">proprietary insights · syndicate engine</h3>
           <p className="text-xs text-muted-foreground mb-4 font-mono">
             cross-league correlation index · 12-season backtest
           </p>
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: "edge index", value: "+14.2%", sub: "vs market" },
-              { label: "toto ROI", value: "+22.8%", sub: "12-season" },
+              { label: "model ROI", value: "+22.8%", sub: "12-season" },
               { label: "win rate", value: "67.4%", sub: "L1000" },
             ].map((s) => (
               <div key={s.label} className="rounded-md border border-hud/20 bg-secondary/40 p-2.5">
@@ -371,11 +386,11 @@ const Index = () => {
           </div>
         </section>
 
-        {/* AFFILIATES PARLAY · final CTA */}
+        {/* PARTNERS PARLAY · final CTA */}
         <section className="hud-panel border border-primary/40 p-5 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Flame className="h-4 w-4 text-hot" />
-            <span className="font-mono text-[10px] tracking-[0.3em] text-hot">AFFILIATES PARLAY</span>
+            <span className="font-mono text-[10px] tracking-[0.3em] text-hot">PARTNERS PARLAY</span>
           </div>
           <h3 className="text-xl font-bold mb-1">deploy the syndicate edge</h3>
           <p className="text-xs text-muted-foreground mb-4 font-mono">one tap · routes to your book</p>
