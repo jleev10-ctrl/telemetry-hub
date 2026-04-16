@@ -148,6 +148,10 @@ All colors MUST be HSL.
     animation: pulse-dot 1.4s ease-in-out infinite;
   }
 }
+@keyframes ticker-scroll-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
 
 @keyframes ticker-scroll {
   0% { transform: translateX(0); }
