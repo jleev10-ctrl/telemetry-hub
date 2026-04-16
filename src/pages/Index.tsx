@@ -205,11 +205,11 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Affiliates sub-header */}
+        {/* Partners sub-header */}
         <div className="border-b border-border/60 bg-secondary/70">
-          <div className="container flex items-center gap-1.5 overflow-x-auto py-1.5 px-4 no-scrollbar">
+          <div className="container flex items-center justify-center flex-wrap gap-1.5 py-1.5 px-4">
             <span className="shrink-0 font-mono text-[9px] tracking-[0.3em] text-muted-foreground uppercase pr-1">
-              affiliates
+              partners
             </span>
             {sportsbooks.map((b) => (
               <a
