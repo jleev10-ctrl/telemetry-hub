@@ -296,19 +296,34 @@ const Index = () => {
                       row.rank <= 3 && "bg-secondary/30"
                     )}
                   >
-                    <td className="px-3 py-2.5 text-muted-foreground">
-                      {row.rank <= 3 ? (
+                    <td className="px-2 py-2">
+                      <div className="relative h-9 w-9">
+                        <img
+                          src={row.avatar}
+                          alt={row.name}
+                          width={72}
+                          height={72}
+                          loading="lazy"
+                          className={cn(
+                            "h-9 w-9 rounded-full object-cover border-2",
+                            row.rank === 1 && "border-[hsl(45_100%_55%)] shadow-[0_0_10px_hsl(45_100%_55%/0.5)]",
+                            row.rank === 2 && "border-[hsl(0_0%_75%)]",
+                            row.rank === 3 && "border-[hsl(30_70%_50%)]",
+                            row.rank > 3 && "border-hud/40",
+                          )}
+                        />
                         <span className={cn(
-                          "inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold",
-                          row.rank === 1 && "bg-[hsl(45_100%_50%/0.2)] text-[hsl(45_100%_60%)]",
-                          row.rank === 2 && "bg-[hsl(0_0%_75%/0.15)] text-[hsl(0_0%_75%)]",
-                          row.rank === 3 && "bg-[hsl(30_70%_45%/0.15)] text-[hsl(30_70%_55%)]",
+                          "absolute -bottom-1 -right-1 grid place-items-center h-4 w-4 rounded-full text-[9px] font-bold font-mono border border-background",
+                          row.rank === 1 && "bg-[hsl(45_100%_55%)] text-background",
+                          row.rank === 2 && "bg-[hsl(0_0%_80%)] text-background",
+                          row.rank === 3 && "bg-[hsl(30_70%_50%)] text-background",
+                          row.rank > 3 && "bg-secondary text-foreground",
                         )}>
                           {row.rank}
                         </span>
-                      ) : row.rank}
+                      </div>
                     </td>
-                    <td className="px-3 py-2.5">
+                    <td className="px-2 py-2.5">
                       <div className="font-bold text-foreground text-xs leading-tight">{row.name}</div>
                       <div className="text-[9px] text-muted-foreground uppercase tracking-wider">{row.league} · {row.record}</div>
                     </td>
