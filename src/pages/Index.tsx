@@ -185,15 +185,17 @@ const Index = () => {
       {/* Sticky Header */}
       <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl">
         <div className="border-b border-border/60 bg-background/85">
-          <div className="container flex h-12 items-center justify-between px-4">
-            <div className="flex items-center gap-2">
-              <div className="relative h-8 w-8 grid place-items-center rounded-md hud-panel">
-                <span className="font-mono text-xs font-bold text-hud tracking-tighter">SS</span>
-              </div>
+          <div className="container grid grid-cols-[auto_1fr_auto] items-center gap-2 h-14 px-3">
+            <div className="relative h-9 w-9 grid place-items-center rounded-md hud-panel">
+              <span className="font-mono text-xs font-bold text-hud tracking-tighter">SS</span>
             </div>
-            <div className="leading-tight text-center">
-              <div className="font-mono text-sm font-bold tracking-[0.35em] text-hud">GRAND 13</div>
-              <div className="font-mono text-[8px] tracking-[0.3em] text-muted-foreground">the sports syndicate</div>
+            <div className="leading-none text-center min-w-0">
+              <div className="font-mono text-base sm:text-lg font-black tracking-[0.35em] text-hud drop-shadow-[0_0_8px_hsl(var(--hud)/0.6)]">
+                GRAND<span className="ml-2 text-win drop-shadow-[0_0_8px_hsl(var(--win)/0.6)]">13</span>
+              </div>
+              <div className="mt-1 font-mono text-[8px] tracking-[0.3em] text-muted-foreground uppercase">
+                the sports syndicate
+              </div>
             </div>
             <Button
               onClick={() => setJoinOpen(true)}
@@ -207,8 +209,8 @@ const Index = () => {
 
         {/* Partners sub-header */}
         <div className="border-b border-border/60 bg-secondary/70">
-          <div className="container flex items-center justify-center flex-wrap gap-1.5 py-1.5 px-4">
-            <span className="shrink-0 font-mono text-[9px] tracking-[0.3em] text-muted-foreground uppercase pr-1">
+          <div className="mx-auto flex w-full max-w-full items-center justify-center flex-wrap gap-1.5 py-1.5 px-2">
+            <span className="w-full text-center font-mono text-[9px] tracking-[0.3em] text-muted-foreground uppercase pb-0.5">
               partners
             </span>
             {sportsbooks.map((b) => (
@@ -231,7 +233,7 @@ const Index = () => {
         </div>
       </header>
 
-      <div className="h-[88px]" />
+      <div className="h-[120px]" />
 
       <main className="container max-w-2xl px-4 pb-24 space-y-6">
         {/* Consensus ticker */}
