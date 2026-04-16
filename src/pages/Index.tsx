@@ -92,6 +92,31 @@ const drivers: Driver[] = [
   },
 ];
 
+interface Sportsbook {
+  name: string;
+  slug: string;
+  url: string;
+  color: string;
+}
+
+const sportsbooks: Sportsbook[] = [
+  { name: "DraftKings", slug: "draftkings", url: "https://sportsbook.draftkings.com/", color: "from-[hsl(142_76%_45%)] to-[hsl(142_76%_35%)]" },
+  { name: "FanDuel", slug: "fanduel", url: "https://sportsbook.fanduel.com/", color: "from-[hsl(220_90%_55%)] to-[hsl(220_90%_40%)]" },
+  { name: "BetMGM", slug: "betmgm", url: "https://sports.betmgm.com/", color: "from-[hsl(40_90%_55%)] to-[hsl(30_90%_45%)]" },
+  { name: "Caesars", slug: "caesars", url: "https://www.caesars.com/sportsbook-and-casino", color: "from-[hsl(0_75%_50%)] to-[hsl(0_75%_38%)]" },
+  { name: "ESPN BET", slug: "espnbet", url: "https://espnbet.com/", color: "from-[hsl(15_90%_55%)] to-[hsl(0_85%_45%)]" },
+];
+
+const withUtm = (url: string, book: string, placement: string) => {
+  const u = new URL(url);
+  u.searchParams.set("utm_source", "synthetic_syndicate");
+  u.searchParams.set("utm_medium", "affiliate");
+  u.searchParams.set("utm_campaign", "telemetry_funnel");
+  u.searchParams.set("utm_content", placement);
+  u.searchParams.set("utm_term", book);
+  return u.toString();
+};
+
 const statusColor: Record<Driver["status"], string> = {
   HOT: "text-hot border-hot/40 bg-hot/10",
   COOLDOWN: "text-hud border-hud/40 bg-hud/10",
@@ -132,16 +157,13 @@ const Index = () => {
             <span className="hud-chip shrink-0">
               <Flame className="h-3 w-3" /> place action
             </span>
-            {[
-              { name: "DraftKings", color: "from-[hsl(142_76%_45%)] to-[hsl(142_76%_35%)]" },
-              { name: "FanDuel", color: "from-[hsl(220_90%_55%)] to-[hsl(220_90%_40%)]" },
-              { name: "BetMGM", color: "from-[hsl(40_90%_55%)] to-[hsl(30_90%_45%)]" },
-              { name: "Caesars", color: "from-[hsl(0_75%_50%)] to-[hsl(0_75%_38%)]" },
-              { name: "ESPN BET", color: "from-[hsl(15_90%_55%)] to-[hsl(0_85%_45%)]" },
-            ].map((b) => (
+            {sportsbooks.map((b) => (
               <a
                 key={b.name}
-                href="#"
+                href={withUtm(b.url, b.slug, "header_strip")}
+                target="_blank"
+                rel="sponsored noopener noreferrer"
+                data-book={b.slug}
                 className={cn(
                   "shrink-0 rounded-md px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-primary-foreground",
                   "bg-gradient-to-b shadow-lg shadow-black/40 hover:scale-105 transition-transform",
@@ -308,9 +330,16 @@ const Index = () => {
           <h3 className="text-xl sm:text-2xl font-bold mb-1">join the consensus. fade the public.</h3>
           <p className="text-sm text-muted-foreground mb-4">5 ai drivers · 1 verified edge · zero noise.</p>
           <div className="flex flex-wrap justify-center gap-2">
-            {["DraftKings", "FanDuel", "BetMGM"].map((b) => (
-              <a key={b} href="#" className="rounded-md px-4 py-2 text-xs font-bold uppercase tracking-wider bg-gradient-to-b from-primary to-accent text-primary-foreground hover:scale-105 transition">
-                deploy on {b} →
+            {sportsbooks.slice(0, 3).map((b) => (
+              <a
+                key={b.name}
+                href={withUtm(b.url, b.slug, "edge_cta")}
+                target="_blank"
+                rel="sponsored noopener noreferrer"
+                data-book={b.slug}
+                className="rounded-md px-4 py-2 text-xs font-bold uppercase tracking-wider bg-gradient-to-b from-primary to-accent text-primary-foreground hover:scale-105 transition"
+              >
+                deploy on {b.name} →
               </a>
             ))}
           </div>
