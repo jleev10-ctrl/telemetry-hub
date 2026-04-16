@@ -159,73 +159,64 @@ const Index = () => {
                 <div className="font-mono text-sm tracking-[0.3em] text-hud">SYNTHETIC</div>
                 <div className="font-mono text-[11px] tracking-[0.4em] text-muted-foreground">SYNDICATE</div>
               </div>
-              <div className="hidden sm:block h-8 w-px bg-border/60 mx-1" />
-              <div className="font-bold tracking-[0.2em] text-sm sm:text-base text-hot drop-shadow-[0_0_12px_hsl(var(--hot)/0.6)]">
-                THE GRAND 13
-              </div>
             </div>
-            <Button
-              size="sm"
-              className="font-bold tracking-widest uppercase text-xs bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 shadow-[0_0_20px_hsl(var(--primary)/0.5)] px-4 sm:px-6"
-            >
-              join
-            </Button>
+            <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-muted-foreground">
+              <span className="pulse-dot inline-block h-2 w-2 rounded-full bg-win" />
+              live telemetry · {new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+            </div>
           </div>
         </div>
 
-        {/* Second Bar — Sportsbook strip + centered ticker */}
         <div className="border-b border-border/60 bg-gradient-to-r from-secondary/80 via-background/80 to-secondary/80">
-          <div className="container relative">
-            {/* Sportsbook row */}
-            <div className="flex items-center gap-2 overflow-x-auto py-2 no-scrollbar">
-              <span className="hud-chip shrink-0">
-                <Flame className="h-3 w-3" /> place action
-              </span>
-              {sportsbooks.map((b) => (
-                <a
-                  key={b.name}
-                  href={withUtm(b.url, b.slug, "header_strip")}
-                  target="_blank"
-                  rel="sponsored noopener noreferrer"
-                  data-book={b.slug}
-                  className={cn(
-                    "shrink-0 rounded-md px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-primary-foreground",
-                    "bg-gradient-to-b shadow-lg shadow-black/40 hover:scale-105 transition-transform",
-                    b.color
-                  )}
-                >
-                  {b.name} →
-                </a>
-              ))}
-            </div>
-
-            {/* Centered Telemetry Ticker — heartbeat under the sportsbook strip */}
-            <div className="flex items-stretch border-t border-hud/20 bg-background/60">
-              <div className="px-3 py-1.5 border-r border-hud/30 bg-secondary/60 flex items-center gap-1.5">
-                <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-win" />
-                <span className="font-mono text-[9px] tracking-[0.3em] text-hud">TELEMETRY</span>
-              </div>
-              <div className="relative flex-1 overflow-hidden py-1.5">
-                <div className="ticker flex gap-8 whitespace-nowrap font-mono text-[11px] text-foreground/80 pl-4">
-                  {[...Array(2)].map((_, i) => (
-                    <div key={i} className="flex gap-8">
-                      <span>4/5 PREDICT <span className="text-win">RAIDERS +3.5</span></span>
-                      <span>NBA UNDERDOG ALERT: <span className="text-hud">LAKERS ML</span></span>
-                      <span>MLB SYNDICATE: <span className="text-win">REDS +167</span></span>
-                      <span>NHL EDGE: <span className="text-hud">RANGERS ML</span></span>
-                      <span>SHARP $ FLOW: <span className="text-hot">78% RAIDERS</span></span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+          <div className="container flex items-center gap-2 overflow-x-auto py-2 no-scrollbar">
+            <span className="hud-chip shrink-0">
+              <Flame className="h-3 w-3" /> place action
+            </span>
+            {sportsbooks.map((b) => (
+              <a
+                key={b.name}
+                href={withUtm(b.url, b.slug, "header_strip")}
+                target="_blank"
+                rel="sponsored noopener noreferrer"
+                data-book={b.slug}
+                className={cn(
+                  "shrink-0 rounded-md px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-primary-foreground",
+                  "bg-gradient-to-b shadow-lg shadow-black/40 hover:scale-105 transition-transform",
+                  b.color
+                )}
+              >
+                {b.name} →
+              </a>
+            ))}
           </div>
         </div>
       </header>
 
-      <div className="h-[140px]" />
+      <div className="h-[108px]" />
 
       <main className="container pb-24">
+        {/* Consensus Feed Ticker */}
+        <section className="my-4 hud-panel border border-hud/30 overflow-hidden">
+          <div className="flex items-center">
+            <div className="px-3 py-2 border-r border-hud/30 bg-secondary/60">
+              <span className="font-mono text-[10px] tracking-[0.3em] text-hud">CONSENSUS FEED</span>
+            </div>
+            <div className="relative flex-1 overflow-hidden py-2">
+              <div className="ticker flex gap-8 whitespace-nowrap font-mono text-xs text-foreground/80 pl-4">
+                {[...Array(2)].map((_, i) => (
+                  <div key={i} className="flex gap-8">
+                    <span>4/5 PREDICT <span className="text-win">RAIDERS +3.5</span></span>
+                    <span>NBA UNDERDOG ALERT: <span className="text-hud">LAKERS ML</span></span>
+                    <span>MLB SYNDICATE: <span className="text-win">REDS +167</span></span>
+                    <span>NHL EDGE: <span className="text-hud">RANGERS ML</span></span>
+                    <span>SHARP $ FLOW: <span className="text-hot">78% RAIDERS</span></span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* HERO STAGE — Full Width */}
         <section className="hud-panel border border-hud/30 overflow-hidden">
           <div className="flex items-center justify-between px-4 py-2 border-b border-hud/20 bg-secondary/40">
