@@ -144,7 +144,7 @@ const sportsbooks: Sportsbook[] = [
   { name: "FanDuel", slug: "fanduel", url: "https://sportsbook.fanduel.com/", color: "from-[hsl(220_90%_55%)] to-[hsl(220_90%_40%)]" },
   { name: "BetMGM", slug: "betmgm", url: "https://sports.betmgm.com/", color: "from-[hsl(40_90%_55%)] to-[hsl(30_90%_45%)]" },
   { name: "Caesars", slug: "caesars", url: "https://www.caesars.com/sportsbook-and-casino", color: "from-[hsl(0_75%_50%)] to-[hsl(0_75%_38%)]" },
-  { name: "ESPN BET", slug: "espnbet", url: "https://espnbet.com/", color: "from-[hsl(15_90%_55%)] to-[hsl(0_85%_45%)]" },
+  { name: "bet365", slug: "bet365", url: "https://www.bet365.com/", color: "from-[hsl(50_90%_50%)] to-[hsl(45_90%_38%)]" },
 ];
 
 const withUtm = (url: string, book: string, placement: string) => {
