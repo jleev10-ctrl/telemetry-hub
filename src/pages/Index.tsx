@@ -9,6 +9,16 @@ import swoosh from "@/assets/swoosh.jpg";
 import sarah from "@/assets/sarah.jpg";
 import mlb from "@/assets/mlb.jpg";
 import nhl from "@/assets/nhl.jpg";
+import g1 from "@/assets/g13/p1.jpg";
+import g2 from "@/assets/g13/p2.jpg";
+import g3 from "@/assets/g13/p3.jpg";
+import g4 from "@/assets/g13/p4.jpg";
+import g5 from "@/assets/g13/p5.jpg";
+import g6 from "@/assets/g13/p6.jpg";
+import g7 from "@/assets/g13/p7.jpg";
+import g8 from "@/assets/g13/p8.jpg";
+import g9 from "@/assets/g13/p9.jpg";
+import g10 from "@/assets/g13/p10.jpg";
 
 const drivers: DriverData[] = [
   {
@@ -148,19 +158,16 @@ const withUtm = (url: string, book: string, placement: string) => {
 };
 
 const grand13 = [
-  { rank: 1, name: '"stats" sarah', league: "MLB", record: "25-5", winPct: "83%", units: "+29.5u", trend: "↑" },
-  { rank: 2, name: 'rick "baseburner"', league: "MLB", record: "24-10", winPct: "71%", units: "+29.5u", trend: "↑" },
-  { rank: 3, name: 'iron "mike" k.', league: "NFL", record: "22-8", winPct: "73%", units: "+18.5u", trend: "↑" },
-  { rank: 4, name: 'tommy "mask"', league: "NHL", record: "21-10", winPct: "68%", units: "+22.5u", trend: "→" },
-  { rank: 5, name: '"swoosh" james', league: "NBA", record: "15-15", winPct: "50%", units: "+2.1u", trend: "↓" },
-  { rank: 6, name: '"the oracle"', league: "NFL", record: "19-11", winPct: "63%", units: "+14.2u", trend: "→" },
-  { rank: 7, name: '"parlay pete"', league: "NBA", record: "18-12", winPct: "60%", units: "+12.8u", trend: "↑" },
-  { rank: 8, name: '"ace" martinez', league: "MLB", record: "17-13", winPct: "57%", units: "+9.4u", trend: "↓" },
-  { rank: 9, name: '"iceman" j.', league: "NHL", record: "16-12", winPct: "57%", units: "+8.1u", trend: "→" },
-  { rank: 10, name: '"professor" d.', league: "NFL", record: "20-14", winPct: "59%", units: "+7.5u", trend: "↓" },
-  { rank: 11, name: '"money" mike r.', league: "NBA", record: "14-14", winPct: "50%", units: "+3.2u", trend: "↑" },
-  { rank: 12, name: '"diamond" dave', league: "MLB", record: "13-15", winPct: "46%", units: "-1.2u", trend: "↓" },
-  { rank: 13, name: '"the rook" n.', league: "NHL", record: "11-14", winPct: "44%", units: "-3.8u", trend: "↓" },
+  { rank: 1, name: '"stats" sarah', league: "MLB", record: "25-5", winPct: "83%", units: "+29.5u", trend: "↑", avatar: g2 },
+  { rank: 2, name: 'rick "baseburner"', league: "MLB", record: "24-10", winPct: "71%", units: "+29.5u", trend: "↑", avatar: g3 },
+  { rank: 3, name: 'iron "mike" k.', league: "NFL", record: "22-8", winPct: "73%", units: "+18.5u", trend: "↑", avatar: g1 },
+  { rank: 4, name: 'tommy "mask"', league: "NHL", record: "21-10", winPct: "68%", units: "+22.5u", trend: "→", avatar: g4 },
+  { rank: 5, name: '"swoosh" james', league: "NBA", record: "15-15", winPct: "50%", units: "+2.1u", trend: "↓", avatar: g5 },
+  { rank: 6, name: '"the oracle"', league: "NFL", record: "19-11", winPct: "63%", units: "+14.2u", trend: "→", avatar: g6 },
+  { rank: 7, name: '"parlay pete"', league: "NBA", record: "18-12", winPct: "60%", units: "+12.8u", trend: "↑", avatar: g7 },
+  { rank: 8, name: '"ace" martinez', league: "MLB", record: "17-13", winPct: "57%", units: "+9.4u", trend: "↓", avatar: g8 },
+  { rank: 9, name: '"iceman" j.', league: "NHL", record: "16-12", winPct: "57%", units: "+8.1u", trend: "→", avatar: g9 },
+  { rank: 10, name: '"professor" d.', league: "NFL", record: "20-14", winPct: "59%", units: "+7.5u", trend: "↓", avatar: g10 },
 ];
 
 const Index = () => {
