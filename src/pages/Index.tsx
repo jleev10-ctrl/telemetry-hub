@@ -239,7 +239,7 @@ const Index = () => {
         {/* Consensus ticker */}
         <section className="hud-panel border border-hud/30 overflow-hidden">
           <div className="flex items-center">
-            <div className="px-3 py-1.5 border-r border-hud/30 bg-secondary/60 shrink-0">
+            <div className="w-14 px-3 py-1.5 border-r border-hud/30 bg-secondary/60 shrink-0 text-center">
               <span className="font-mono text-[9px] tracking-[0.3em] text-hud">FEED</span>
             </div>
             <div className="relative flex-1 overflow-hidden py-1.5">
@@ -257,7 +257,7 @@ const Index = () => {
             </div>
           </div>
           <div className="flex items-center border-t border-hud/20">
-            <div className="px-3 py-1.5 border-r border-hud/30 bg-secondary/60 shrink-0">
+            <div className="w-14 px-3 py-1.5 border-r border-hud/30 bg-secondary/60 shrink-0 text-center">
               <span className="font-mono text-[9px] tracking-[0.3em] text-win">G13</span>
             </div>
             <div className="relative flex-1 overflow-hidden py-1.5">
