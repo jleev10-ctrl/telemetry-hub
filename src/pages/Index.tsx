@@ -190,8 +190,8 @@ const Index = () => {
               <span className="font-mono text-xs font-bold text-hud tracking-tighter">SS</span>
             </div>
             <div className="leading-none text-center min-w-0">
-              <div className="font-mono text-base sm:text-lg font-black tracking-[0.35em] text-hud drop-shadow-[0_0_8px_hsl(var(--hud)/0.6)]">
-                GRAND<span className="ml-2 text-win drop-shadow-[0_0_8px_hsl(var(--win)/0.6)]">13</span>
+              <div className="font-mono text-sm sm:text-base font-black tracking-[0.3em] text-hud drop-shadow-[0_0_8px_hsl(var(--hud)/0.6)]">
+                GRAND<span className="ml-1.5 text-win drop-shadow-[0_0_8px_hsl(var(--win)/0.6)]">13</span>
               </div>
               <div className="mt-1 font-mono text-[8px] tracking-[0.3em] text-muted-foreground uppercase">
                 the sports syndicate
