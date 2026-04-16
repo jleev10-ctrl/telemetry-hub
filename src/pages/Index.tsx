@@ -386,11 +386,11 @@ const Index = () => {
           </div>
         </section>
 
-        {/* AFFILIATES PARLAY · final CTA */}
+        {/* PARTNERS PARLAY · final CTA */}
         <section className="hud-panel border border-primary/40 p-5 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Flame className="h-4 w-4 text-hot" />
-            <span className="font-mono text-[10px] tracking-[0.3em] text-hot">AFFILIATES PARLAY</span>
+            <span className="font-mono text-[10px] tracking-[0.3em] text-hot">PARTNERS PARLAY</span>
           </div>
           <h3 className="text-xl font-bold mb-1">deploy the syndicate edge</h3>
           <p className="text-xs text-muted-foreground mb-4 font-mono">one tap · routes to your book</p>
