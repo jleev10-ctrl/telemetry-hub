@@ -365,16 +365,16 @@ const Index = () => {
         <section className="hud-panel border border-hud/30 p-5">
           <div className="flex items-center gap-2 mb-3">
             <Database className="h-4 w-4 text-hud" />
-            <span className="font-mono text-[10px] tracking-[0.3em] text-hud">SYNDICATE EDGE</span>
+            <span className="font-mono text-[10px] tracking-[0.3em] text-hud">PROPRIETARY MATH · TELEMETRY</span>
           </div>
-          <h3 className="text-lg font-bold mb-1">proprietary insights · toto historical</h3>
+          <h3 className="text-lg font-bold mb-1">proprietary insights · syndicate engine</h3>
           <p className="text-xs text-muted-foreground mb-4 font-mono">
             cross-league correlation index · 12-season backtest
           </p>
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: "edge index", value: "+14.2%", sub: "vs market" },
-              { label: "toto ROI", value: "+22.8%", sub: "12-season" },
+              { label: "model ROI", value: "+22.8%", sub: "12-season" },
               { label: "win rate", value: "67.4%", sub: "L1000" },
             ].map((s) => (
               <div key={s.label} className="rounded-md border border-hud/20 bg-secondary/40 p-2.5">
