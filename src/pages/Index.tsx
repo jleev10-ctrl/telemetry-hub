@@ -9,6 +9,16 @@ import swoosh from "@/assets/swoosh.jpg";
 import sarah from "@/assets/sarah.jpg";
 import mlb from "@/assets/mlb.jpg";
 import nhl from "@/assets/nhl.jpg";
+import g1 from "@/assets/g13/p1.jpg";
+import g2 from "@/assets/g13/p2.jpg";
+import g3 from "@/assets/g13/p3.jpg";
+import g4 from "@/assets/g13/p4.jpg";
+import g5 from "@/assets/g13/p5.jpg";
+import g6 from "@/assets/g13/p6.jpg";
+import g7 from "@/assets/g13/p7.jpg";
+import g8 from "@/assets/g13/p8.jpg";
+import g9 from "@/assets/g13/p9.jpg";
+import g10 from "@/assets/g13/p10.jpg";
 
 const drivers: DriverData[] = [
   {
