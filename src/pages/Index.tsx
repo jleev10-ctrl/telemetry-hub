@@ -256,6 +256,24 @@ const Index = () => {
               </div>
             </div>
           </div>
+          <div className="flex items-center border-t border-hud/20">
+            <div className="px-3 py-1.5 border-r border-hud/30 bg-secondary/60 shrink-0">
+              <span className="font-mono text-[9px] tracking-[0.3em] text-win">G13</span>
+            </div>
+            <div className="relative flex-1 overflow-hidden py-1.5">
+              <div className="ticker-reverse flex gap-8 whitespace-nowrap font-mono text-[11px] text-foreground/80 pl-4">
+                {[...Array(2)].map((_, i) => (
+                  <div key={i} className="flex gap-8">
+                    {grand13.slice(0, 7).map((r) => (
+                      <span key={r.rank}>
+                        #{r.rank} <span className="text-hud">{r.name}</span> <span className="text-win">{r.winPct}</span> <span className={r.units.startsWith("+") ? "text-win" : "text-hot"}>{r.units}</span>
+                      </span>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* PRIMARY DRIVER */}
