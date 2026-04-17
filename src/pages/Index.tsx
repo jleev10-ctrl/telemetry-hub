@@ -186,8 +186,8 @@ const Index = () => {
       <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl">
         <div className="border-b border-border/60 bg-background/85">
           <div className="mx-auto w-full max-w-2xl grid grid-cols-[auto_1fr_auto] items-center gap-2 h-16 px-4">
-            <div className="relative h-9 grid place-items-center rounded-md hud-panel px-2">
-              <span className="font-mono text-sm font-black tracking-tighter text-[hsl(45_100%_55%)] drop-shadow-[0_0_6px_hsl(45_100%_55%/0.7)]">
+            <div className="relative h-10 grid place-items-center rounded-md hud-panel px-1.5">
+              <span className="font-mono text-xl font-black tracking-tighter text-[hsl(45_100%_55%)] drop-shadow-[0_0_6px_hsl(45_100%_55%/0.7)] leading-none">
                 $$$
               </span>
             </div>
