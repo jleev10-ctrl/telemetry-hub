@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ironmike from "@/assets/ironmike.jpg";
+import ironmikeStadium from "@/assets/ironmike-stadium.jpg";
 
 export const FeaturedDriver = () => {
   const [voiceActive, setVoiceActive] = useState(false);
