@@ -96,8 +96,29 @@ export const DriverCard = ({ driver, onFreeze }: DriverCardProps) => {
       </div>
 
       {/* Hero portrait */}
-      <div className="relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden">
-        <img src={driver.image} alt={driver.name} className="absolute inset-0 h-full w-full object-cover" />
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={handleTap}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleTap();
+          }
+        }}
+        className={cn(
+          "group relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden cursor-pointer outline-none",
+          "transition-shadow duration-300",
+          "hover:shadow-[inset_0_0_60px_hsl(var(--win)/0.35)]",
+          "focus-visible:shadow-[inset_0_0_60px_hsl(var(--win)/0.5)]",
+          voicePulse && "shadow-[inset_0_0_80px_hsl(var(--win)/0.55)]"
+        )}
+      >
+        <img
+          src={driver.image}
+          alt={driver.name}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
 
         <div className="absolute top-3 left-3 flex flex-col gap-1.5">
