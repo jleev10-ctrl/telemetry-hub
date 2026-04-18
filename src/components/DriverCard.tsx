@@ -2,6 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronRight, Lock, Radio, RefreshCw, Trophy, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import mikeStadium from "@/assets/mike-stadium.jpg";
+
+const MIKE_QUOTE = "Money moving on Dallas — should be a piece of cake for you.";
 
 export interface Game {
   matchup: string;
@@ -49,8 +52,22 @@ export const DriverCard = ({ driver, onFreeze }: DriverCardProps) => {
     setVoicePulse(true);
     setTimeout(() => setVoicePulse(false), 1800);
 
-    if (tap === 0) setTap(1);
-    else if (tap === 1) setTap(2);
+    if (tap === 0) {
+      setTap(1);
+      // Speak Mike's line on first tap
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const u = new SpeechSynthesisUtterance(MIKE_QUOTE);
+          u.rate = 0.95;
+          u.pitch = 0.7;
+          u.volume = 1;
+          window.speechSynthesis.speak(u);
+        } catch {
+          /* ignore */
+        }
+      }
+    } else if (tap === 1) setTap(2);
     else if (tap === 2) {
       setTap(3);
       onFreeze();
@@ -64,7 +81,8 @@ export const DriverCard = ({ driver, onFreeze }: DriverCardProps) => {
   }, [tap]);
 
   const games = tap >= 2 ? driver.gamesV2 : driver.games;
-  const currentPrompt = tap === 1 ? driver.voicePrompt1 : tap >= 2 ? driver.voicePrompt2 : "";
+  const currentPrompt = tap === 1 ? MIKE_QUOTE : tap >= 2 ? driver.voicePrompt2 : "";
+  const heroSrc = tap >= 1 ? mikeStadium : driver.image;
 
   const ctaLabel =
     tap === 0 ? "tap to engage driver" :
@@ -108,16 +126,18 @@ export const DriverCard = ({ driver, onFreeze }: DriverCardProps) => {
         }}
         className={cn(
           "group relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden cursor-pointer outline-none",
-          "transition-shadow duration-300",
+          "transition-shadow duration-500",
           "hover:shadow-[inset_0_0_60px_hsl(var(--win)/0.35)]",
           "focus-visible:shadow-[inset_0_0_60px_hsl(var(--win)/0.5)]",
-          voicePulse && "shadow-[inset_0_0_80px_hsl(var(--win)/0.55)]"
+          tap >= 1 && "shadow-[inset_0_0_90px_hsl(var(--win)/0.45),0_0_50px_hsl(var(--gold,45_95%_55%)/0.35)]",
+          voicePulse && "shadow-[inset_0_0_110px_hsl(var(--win)/0.6)]"
         )}
       >
         <img
-          src={driver.image}
+          key={heroSrc}
+          src={heroSrc}
           alt={driver.name}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] animate-fade-in"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
 
