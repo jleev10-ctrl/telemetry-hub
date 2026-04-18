@@ -39,25 +39,15 @@ export const MikeImageBox = ({
   const CtaIcon = tap === 0 ? Radio : RefreshCw;
 
   return (
-    <div className="relative">
-      {/* Outer glow layer — paints OUTSIDE the box, unaffected by transform/overflow clipping */}
-      <div
-        key={speaking ? `glow-${meterTick}` : "glow-idle"}
-        aria-hidden
-        className={cn(
-          "pointer-events-none absolute -inset-6 sm:-inset-8 rounded-2xl",
-          "bg-[radial-gradient(ellipse_at_center,hsl(var(--win)/0.55),hsl(var(--win)/0.15)_45%,transparent_70%)]",
-          speaking ? "opacity-100" : tap >= 1 ? "opacity-30" : "opacity-0",
-          "transition-opacity duration-300"
-        )}
-        style={speaking ? { animation: "mike-glow-burst 520ms ease-out forwards" } : undefined}
-      />
-      <div
-        className={cn(
-          "hud-panel border transition-all relative rounded-md",
-          tap >= 1 ? "border-win/60" : "border-hud/30"
-        )}
-      >
+    <div
+      key={speaking ? `pulse-${meterTick}` : "idle"}
+      className={cn(
+        "hud-panel border transition-all relative rounded-md",
+        tap >= 1 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30",
+        speaking && "shadow-[0_0_40px_hsl(var(--win)/0.55),0_0_90px_hsl(var(--win)/0.3)]"
+      )}
+      style={speaking ? { animation: "mike-outer-pulse 380ms ease-out forwards" } : undefined}
+    >
       {/* Status bar */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-hud/20 bg-secondary/40">
         <div className="flex items-center gap-2">
