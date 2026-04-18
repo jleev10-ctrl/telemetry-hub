@@ -51,6 +51,16 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
   const fallbackArmedRef = useRef<number | null>(null);
   const sawBoundaryRef = useRef(false);
   const voiceRef = useRef<SpeechSynthesisVoice | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Pre-recorded MP3 slots (drop real recordings into public/audio/mike/call-N.mp3)
+  const MIKE_CLIPS = [
+    "/audio/mike/call-1.mp3",
+    "/audio/mike/call-2.mp3",
+    "/audio/mike/call-3.mp3",
+    "/audio/mike/call-4.mp3",
+    "/audio/mike/call-5.mp3",
+  ];
 
   const sceneIndex = tap === 0 ? 0 : tap % MIKE_SCENES.length;
   const quoteIndex = tap === 0 ? 0 : (tap - 1) % MIKE_QUOTES.length;
