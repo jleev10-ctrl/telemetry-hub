@@ -63,11 +63,15 @@ const Index = () => {
       <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl">
         <div className="border-b border-border/60 bg-background/85">
           <div className="mx-auto w-full max-w-2xl grid grid-cols-[auto_1fr_auto] items-center gap-2 h-16 px-4">
-            <div className="relative h-10 grid place-items-center rounded-md hud-panel px-1.5">
+            <a
+              href="/"
+              aria-label="Back to home"
+              className="relative h-10 grid place-items-center rounded-md hud-panel px-1.5 hover:brightness-125 transition"
+            >
               <span className="font-mono text-xl font-black tracking-tighter text-[hsl(45_100%_55%)] drop-shadow-[0_0_6px_hsl(45_100%_55%/0.7)] leading-none">
                 $$$
               </span>
-            </div>
+            </a>
             <div className="leading-none text-center min-w-0 flex justify-center">
               <div className="inline-flex flex-col items-center rounded-md border-2 border-[hsl(45_100%_55%)] bg-gradient-to-b from-[hsl(45_100%_55%/0.15)] to-[hsl(45_100%_45%/0.05)] px-3 py-1.5 shadow-[0_0_18px_hsl(45_100%_55%/0.45),inset_0_0_12px_hsl(45_100%_55%/0.15)]">
                 <div className="font-mono text-base sm:text-lg font-black tracking-[0.3em] text-[hsl(45_100%_60%)] drop-shadow-[0_0_8px_hsl(45_100%_55%/0.8)]">
@@ -117,9 +121,9 @@ const Index = () => {
 
       <div className="h-[132px]" />
 
-      <main className="container max-w-2xl px-4 pb-24">
-        {/* MIKE — proportional scale-down on phones (same look, just smaller) */}
-        <div className="origin-top scale-[0.82] sm:scale-100 -mb-[18%] sm:mb-0">
+      <main className="container max-w-2xl px-1 sm:px-4 pb-24">
+        {/* MIKE — proportional scale-down on phones; padding gives the outer glow room to bleed */}
+        <div className="origin-top scale-[0.82] sm:scale-100 -mb-[18%] sm:mb-0 px-6 sm:px-0">
           <DriverCard driver={mike} onFreeze={() => {}} />
         </div>
       </main>
