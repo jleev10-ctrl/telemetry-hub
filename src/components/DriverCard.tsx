@@ -94,7 +94,7 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
       ref={ref}
       className={cn(
         "hud-panel border overflow-hidden transition-all",
-        tap === 3 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30"
+        tap >= 1 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30"
       )}
     >
       {/* Status bar */}
@@ -257,30 +257,20 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
       <div className="p-3 border-t border-hud/20 bg-gradient-to-b from-transparent to-secondary/60">
         <Button
           onClick={handleTap}
-          disabled={tap === 3}
           size="lg"
-          className={cn(
-            "w-full font-bold tracking-wider uppercase text-sm shadow-[0_0_30px_hsl(var(--win)/0.35)]",
-            tap === 3
-              ? "bg-win/20 text-win border border-win/40"
-              : "bg-gradient-to-r from-win to-accent text-primary-foreground hover:opacity-90"
-          )}
+          className="w-full font-bold tracking-wider uppercase text-sm shadow-[0_0_30px_hsl(var(--win)/0.35)] bg-gradient-to-r from-win to-accent text-primary-foreground hover:opacity-90"
         >
-          <CtaIcon className={cn("mr-2 h-4 w-4", tap === 1 && voicePulse && "animate-spin")} />
+          <CtaIcon className={cn("mr-2 h-4 w-4", voicePulse && "animate-pulse")} />
           {ctaLabel}
-          {tap < 3 && <ChevronRight className="ml-1 h-4 w-4" />}
+          <ChevronRight className="ml-1 h-4 w-4" />
         </Button>
-        <div className="flex items-center justify-center gap-1.5 mt-2">
-          {[1, 2, 3].map((n) => (
-            <span
-              key={n}
-              className={cn(
-                "h-1 rounded-full transition-all",
-                tap >= n ? "w-6 bg-win" : "w-3 bg-border"
-              )}
-            />
-          ))}
-        </div>
+        {tap > 0 && (
+          <div className="flex items-center justify-center gap-1.5 mt-2">
+            <span className="font-mono text-[9px] tracking-[0.3em] text-hud uppercase">
+              call {tap} · scene {sceneIndex + 1}/{MIKE_SCENES.length}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
