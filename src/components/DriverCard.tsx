@@ -206,20 +206,8 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
         speaking && "shadow-[0_0_70px_hsl(var(--win)/0.55),0_0_140px_hsl(var(--win)/0.25)]"
       )}
     >
-      {/* Voice-driven aura — flashes hard on each word, decays smoothly via CSS transition.
-          Keyed by meterTick so the layer remounts each word → instant peak, then ease-out. */}
-      {speaking && (
-        <div
-          key={`aura-${meterTick}`}
-          aria-hidden
-          className="pointer-events-none absolute -inset-px rounded-[inherit] z-20"
-          style={{
-            boxShadow:
-              "inset 0 0 60px hsl(var(--win) / 0.55), 0 0 0 2px hsl(var(--win) / 0.85), 0 0 80px hsl(var(--win) / 0.6)",
-            animation: "mike-aura-flash 380ms ease-out forwards",
-          }}
-        />
-      )}
+      {/* Outer aura removed — was being clipped by overflow-hidden parent.
+          Real flash now lives inside the hero portrait below. */}
       {/* Status bar */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-hud/20 bg-secondary/40">
         <div className="flex items-center gap-2">
