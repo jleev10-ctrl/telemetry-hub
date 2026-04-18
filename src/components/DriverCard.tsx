@@ -183,6 +183,30 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
         </div>
       </div>
 
+      {/* Live ticker — directly under hero, only after engagement */}
+      {tap >= 1 && (
+        <div className="border-t border-hud/20 bg-background/60 overflow-hidden animate-fade-in">
+          <div className="flex items-center">
+            <div className="px-2.5 py-1 border-r border-hud/30 bg-secondary/60 shrink-0">
+              <span className="font-mono text-[9px] tracking-[0.25em] text-win">MIKE</span>
+            </div>
+            <div className="relative flex-1 overflow-hidden py-1">
+              <div className="ticker flex gap-8 whitespace-nowrap font-mono text-[10px] text-foreground/80 pl-4">
+                {[...Array(2)].map((_, i) => (
+                  <div key={i} className="flex gap-8">
+                    <span>SHARP $ <span className="text-win">78% DAL</span></span>
+                    <span>LINE <span className="text-hud">-3 → -2.5</span></span>
+                    <span><span className="text-hot">STEAM ALERT</span> · DAL ML</span>
+                    <span>HANDLE <span className="text-win">62%</span> · TICKETS <span className="text-hud">71%</span></span>
+                    <span>MIKE'S CALL: <span className="text-[hsl(45_100%_60%)]">RIDE IT</span></span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Stat strip */}
       <div className="grid grid-cols-3 divide-x divide-border border-t border-hud/20">
         {[
