@@ -43,34 +43,72 @@ interface DriverCardProps {
 export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
   // tap counter — infinite. Cycles through MIKE_SCENES / MIKE_QUOTES via modulo.
   const [tap, setTap] = useState(0);
-  const [voicePulse, setVoicePulse] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
+  const [spokenWords, setSpokenWords] = useState(0); // count of words spoken so far
+  const [meterTick, setMeterTick] = useState(0); // bumps on each word boundary
   const ref = useRef<HTMLDivElement>(null);
 
   const sceneIndex = tap === 0 ? 0 : tap % MIKE_SCENES.length;
   const quoteIndex = tap === 0 ? 0 : (tap - 1) % MIKE_QUOTES.length;
   const currentPrompt = tap === 0 ? "" : MIKE_QUOTES[quoteIndex];
-  const heroSrc = MIKE_SCENES[sceneIndex];
+
+  // Word-by-word caption reveal driven by real onboundary events
+  const promptWords = currentPrompt ? currentPrompt.split(/\s+/) : [];
+  const revealedCaption = speaking
+    ? promptWords.slice(0, spokenWords).join(" ")
+    : currentPrompt;
+
+  // Cleanup any in-flight speech on unmount
+  useEffect(() => {
+    return () => {
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        try { window.speechSynthesis.cancel(); } catch { /* ignore */ }
+      }
+    };
+  }, []);
 
   const handleTap = () => {
-    setVoicePulse(true);
-    setTimeout(() => setVoicePulse(false), 1800);
-
     const next = tap + 1;
     setTap(next);
     if (tap === 0) onEngage?.();
     if (next === 3) onFreeze();
 
+    const quote = MIKE_QUOTES[(next - 1) % MIKE_QUOTES.length];
+
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       try {
         window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(MIKE_QUOTES[(next - 1) % MIKE_QUOTES.length]);
+        setSpokenWords(0);
+        setMeterTick(0);
+
+        const u = new SpeechSynthesisUtterance(quote);
         u.rate = 0.95;
         u.pitch = 0.7;
         u.volume = 1;
+
+        u.onstart = () => setSpeaking(true);
+        u.onboundary = (e) => {
+          if (e.name === "word" || e.name === undefined) {
+            setSpokenWords((n) => n + 1);
+            setMeterTick((n) => n + 1);
+          }
+        };
+        const stop = () => {
+          setSpeaking(false);
+          setSpokenWords(quote.split(/\s+/).length);
+        };
+        u.onend = stop;
+        u.onerror = stop;
+
         window.speechSynthesis.speak(u);
       } catch {
-        /* ignore */
+        // Fallback: still flash the visuals briefly so UI doesn't feel dead
+        setSpeaking(true);
+        setTimeout(() => setSpeaking(false), 1500);
       }
+    } else {
+      setSpeaking(true);
+      setTimeout(() => setSpeaking(false), 1500);
     }
   };
 
