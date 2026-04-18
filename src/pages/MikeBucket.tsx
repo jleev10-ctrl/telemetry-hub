@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Game } from "@/components/DriverCard";
@@ -182,19 +183,15 @@ const Index = () => {
       <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl">
         <div className="border-b border-border/60 bg-background/85">
           <div className="mx-auto w-full max-w-2xl grid grid-cols-[auto_1fr_auto] items-center gap-2 h-16 px-4">
-            <a
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-              aria-label="Back to top"
+            <Link
+              to="/"
+              aria-label="Back to home"
               className="relative h-10 grid place-items-center rounded-md hud-panel px-1.5 hover:brightness-125 transition"
             >
               <span className="font-mono text-xl font-black tracking-tighter text-[hsl(45_100%_55%)] drop-shadow-[0_0_6px_hsl(45_100%_55%/0.7)] leading-none">
                 $$$
               </span>
-            </a>
+            </Link>
             <div className="leading-none text-center min-w-0 flex justify-center">
               <div className="inline-flex flex-col items-center rounded-md border-2 border-[hsl(45_100%_55%)] bg-gradient-to-b from-[hsl(45_100%_55%/0.15)] to-[hsl(45_100%_45%/0.05)] px-3 py-1.5 shadow-[0_0_18px_hsl(45_100%_55%/0.45),inset_0_0_12px_hsl(45_100%_55%/0.15)]">
                 <div className="font-mono text-base sm:text-lg font-black tracking-[0.3em] text-[hsl(45_100%_60%)] drop-shadow-[0_0_8px_hsl(45_100%_55%/0.8)]">
@@ -326,6 +323,14 @@ const Index = () => {
             ))}
           </div>
         </section>
+
+        {/* BACK TO HOME BOX */}
+        <Link
+          to="/"
+          className="block hud-panel border border-hud/30 rounded-md px-4 py-3 text-center hover:brightness-125 transition"
+        >
+          <span className="font-mono text-[11px] tracking-[0.3em] text-hud uppercase">← back to home</span>
+        </Link>
       </main>
 
       <JoinModal open={joinOpen} onOpenChange={setJoinOpen} />

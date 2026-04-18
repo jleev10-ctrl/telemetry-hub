@@ -5,7 +5,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "./pages/Home.tsx";
 import MikeBucket from "./pages/MikeBucket.tsx";
-import ComingSoon from "./pages/ComingSoon.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -18,8 +17,12 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* All 5 driver tiles route here for now — each will get its own bucket next step */}
           <Route path="/drivers/mike" element={<MikeBucket />} />
-          <Route path="/drivers/coming-soon" element={<ComingSoon />} />
+          <Route path="/drivers/swoosh" element={<MikeBucket />} />
+          <Route path="/drivers/sarah" element={<MikeBucket />} />
+          <Route path="/drivers/baseburner" element={<MikeBucket />} />
+          <Route path="/drivers/tommy" element={<MikeBucket />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
