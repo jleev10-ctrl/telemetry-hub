@@ -41,36 +41,36 @@ interface DriverCardProps {
 }
 
 export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
-  // tap state machine: 0 = idle, 1 = games revealed, 2 = telemetry refreshed, 3 = frozen
+  // tap counter — infinite. Cycles through MIKE_SCENES / MIKE_QUOTES via modulo.
   const [tap, setTap] = useState(0);
   const [voicePulse, setVoicePulse] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
+  const sceneIndex = tap === 0 ? 0 : tap % MIKE_SCENES.length;
+  const quoteIndex = tap === 0 ? 0 : (tap - 1) % MIKE_QUOTES.length;
+  const currentPrompt = tap === 0 ? "" : MIKE_QUOTES[quoteIndex];
+  const heroSrc = MIKE_SCENES[sceneIndex];
+
   const handleTap = () => {
-    if (tap === 3) return;
     setVoicePulse(true);
     setTimeout(() => setVoicePulse(false), 1800);
 
-    if (tap === 0) {
-      setTap(1);
-      onEngage?.();
-      // Speak Mike's line on first tap
-      if (typeof window !== "undefined" && "speechSynthesis" in window) {
-        try {
-          window.speechSynthesis.cancel();
-          const u = new SpeechSynthesisUtterance(MIKE_QUOTE);
-          u.rate = 0.95;
-          u.pitch = 0.7;
-          u.volume = 1;
-          window.speechSynthesis.speak(u);
-        } catch {
-          /* ignore */
-        }
+    const next = tap + 1;
+    setTap(next);
+    if (tap === 0) onEngage?.();
+    if (next === 3) onFreeze();
+
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(MIKE_QUOTES[(next - 1) % MIKE_QUOTES.length]);
+        u.rate = 0.95;
+        u.pitch = 0.7;
+        u.volume = 1;
+        window.speechSynthesis.speak(u);
+      } catch {
+        /* ignore */
       }
-    } else if (tap === 1) setTap(2);
-    else if (tap === 2) {
-      setTap(3);
-      onFreeze();
     }
   };
 
@@ -81,32 +81,27 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
   }, [tap]);
 
   const games = tap >= 2 ? driver.gamesV2 : driver.games;
-  const currentPrompt = tap === 1 ? MIKE_QUOTE : tap >= 2 ? driver.voicePrompt2 : "";
-  const heroSrc = tap >= 1 ? mikeStadium : driver.image;
 
   const ctaLabel =
     tap === 0 ? "tap to engage driver" :
     tap === 1 ? "tap to refresh telemetry" :
-    tap === 2 ? "tap to lock & enter grand 13" :
-    "driver locked · routed";
+    "tap mike for next call";
 
-  const CtaIcon = tap === 0 ? Radio : tap === 1 ? RefreshCw : tap === 2 ? Trophy : Lock;
+  const CtaIcon = tap === 0 ? Radio : RefreshCw;
 
   return (
     <div
       ref={ref}
       className={cn(
         "hud-panel border overflow-hidden transition-all",
-        tap === 3 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30"
+        tap >= 1 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30"
       )}
     >
       {/* Status bar */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-hud/20 bg-secondary/40">
         <div className="flex items-center gap-2">
-          <span className={cn("pulse-dot inline-block h-2 w-2 rounded-full", tap === 3 ? "bg-win" : "bg-win")} />
-          <span className="font-mono text-[10px] tracking-[0.3em] text-hud">
-            {tap === 3 ? "DRIVER LOCKED" : "DRIVER ONLINE"}
-          </span>
+          <span className="pulse-dot inline-block h-2 w-2 rounded-full bg-win" />
+          <span className="font-mono text-[10px] tracking-[0.3em] text-hud">DRIVER ONLINE</span>
         </div>
         <span className={cn("rounded px-1.5 py-0.5 text-[9px] font-mono border", statusColor[driver.status])}>
           {driver.status}
@@ -125,7 +120,7 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
           }
         }}
         className={cn(
-          "group relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden cursor-pointer outline-none",
+          "group relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden cursor-pointer outline-none bg-background",
           "transition-shadow duration-500",
           "hover:shadow-[inset_0_0_60px_hsl(var(--win)/0.35)]",
           "focus-visible:shadow-[inset_0_0_60px_hsl(var(--win)/0.5)]",
@@ -133,12 +128,19 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
           voicePulse && "shadow-[inset_0_0_110px_hsl(var(--win)/0.6)]"
         )}
       >
-        <img
-          key={heroSrc}
-          src={heroSrc}
-          alt={driver.name}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] animate-fade-in"
-        />
+        {/* Crossfade stack — render every scene, fade only the active one */}
+        {MIKE_SCENES.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt={driver.name}
+            loading={i === 0 ? "eager" : "lazy"}
+            className={cn(
+              "absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out",
+              i === sceneIndex ? "opacity-100" : "opacity-0"
+            )}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
 
         <div className="absolute top-3 left-3 flex flex-col gap-1.5">
@@ -255,30 +257,20 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
       <div className="p-3 border-t border-hud/20 bg-gradient-to-b from-transparent to-secondary/60">
         <Button
           onClick={handleTap}
-          disabled={tap === 3}
           size="lg"
-          className={cn(
-            "w-full font-bold tracking-wider uppercase text-sm shadow-[0_0_30px_hsl(var(--win)/0.35)]",
-            tap === 3
-              ? "bg-win/20 text-win border border-win/40"
-              : "bg-gradient-to-r from-win to-accent text-primary-foreground hover:opacity-90"
-          )}
+          className="w-full font-bold tracking-wider uppercase text-sm shadow-[0_0_30px_hsl(var(--win)/0.35)] bg-gradient-to-r from-win to-accent text-primary-foreground hover:opacity-90"
         >
-          <CtaIcon className={cn("mr-2 h-4 w-4", tap === 1 && voicePulse && "animate-spin")} />
+          <CtaIcon className={cn("mr-2 h-4 w-4", voicePulse && "animate-pulse")} />
           {ctaLabel}
-          {tap < 3 && <ChevronRight className="ml-1 h-4 w-4" />}
+          <ChevronRight className="ml-1 h-4 w-4" />
         </Button>
-        <div className="flex items-center justify-center gap-1.5 mt-2">
-          {[1, 2, 3].map((n) => (
-            <span
-              key={n}
-              className={cn(
-                "h-1 rounded-full transition-all",
-                tap >= n ? "w-6 bg-win" : "w-3 bg-border"
-              )}
-            />
-          ))}
-        </div>
+        {tap > 0 && (
+          <div className="flex items-center justify-center gap-1.5 mt-2">
+            <span className="font-mono text-[9px] tracking-[0.3em] text-hud uppercase">
+              call {tap} · scene {sceneIndex + 1}/{MIKE_SCENES.length}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
