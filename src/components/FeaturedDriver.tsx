@@ -68,6 +68,21 @@ export const FeaturedDriver = () => {
           {/* Pulse frame */}
           <div className={`absolute inset-0 pointer-events-none ${voiceActive ? "animate-frame-pulse" : ""}`} />
 
+          {/* Voice line */}
+          {voiceActive && (
+            <div className="absolute top-2.5 left-2.5 right-[130px] animate-fade-in">
+              <div className="bg-background/90 border border-green px-2 py-1.5">
+                <div className="text-[9px] text-green tracking-[1.5px] uppercase font-bold flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green animate-pulse" />
+                  Mike · live
+                </div>
+                <div className="text-[11px] text-foreground font-bold mt-0.5 italic">
+                  "Money's moving to Dallas — heavy."
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-b from-transparent to-black/90">
             <div className="text-[20px] font-black text-foreground tracking-[1px]">"Iron" Mike K.</div>
