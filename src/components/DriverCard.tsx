@@ -128,16 +128,21 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
 
     const quote = MIKE_QUOTES[(next - 1) % MIKE_QUOTES.length];
     const totalWords = quote.split(/\s+/).length;
-    // Rough estimate: ~340ms per word at rate 0.95
     const estDurationMs = totalWords * 360;
+
+    // Reset + arm visuals IMMEDIATELY (don't wait for onstart — iOS silent mode never fires it)
+    clearSyntheticTicker();
+    setSpokenWords(0);
+    setMeterTick(0);
+    setSpeaking(true);
+    sawBoundaryRef.current = false;
+
+    // Start synthetic ticker right away — real boundaries (if any) will cancel it
+    startSyntheticTicker(totalWords, estDurationMs);
 
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       try {
         window.speechSynthesis.cancel();
-        clearSyntheticTicker();
-        setSpokenWords(0);
-        setMeterTick(0);
-        sawBoundaryRef.current = false;
 
         const u = new SpeechSynthesisUtterance(quote);
         if (voiceRef.current) u.voice = voiceRef.current;
@@ -145,44 +150,35 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
         u.pitch = 0.7;
         u.volume = 1;
 
-        u.onstart = () => {
-          setSpeaking(true);
-          // If no real boundary fires within 400ms, run the synthetic ticker (iOS Safari, etc.)
-          fallbackArmedRef.current = window.setTimeout(() => {
-            if (!sawBoundaryRef.current) startSyntheticTicker(totalWords, estDurationMs);
-          }, 400);
-        };
         u.onboundary = (e) => {
           if (e.name === "word" || e.name === undefined) {
-            sawBoundaryRef.current = true;
-            // Real boundaries arrived — kill any synthetic fallback
-            clearSyntheticTicker();
+            if (!sawBoundaryRef.current) {
+              // Real boundaries arrived — kill the synthetic ticker, take over
+              sawBoundaryRef.current = true;
+              clearSyntheticTicker();
+              // Reset to current word position so we don't double-count
+              setSpokenWords(0);
+            }
             setSpokenWords((n) => Math.min(totalWords, n + 1));
             setMeterTick((n) => n + 1);
           }
         };
         const stop = () => {
-          clearSyntheticTicker();
-          setSpeaking(false);
-          setSpokenWords(totalWords);
+          // Only stop visuals if real speech ended AND we were following real events
+          if (sawBoundaryRef.current) {
+            clearSyntheticTicker();
+            setSpeaking(false);
+            setSpokenWords(totalWords);
+          }
+          // Otherwise let the synthetic ticker finish on its own clock
         };
         u.onend = stop;
         u.onerror = stop;
 
         window.speechSynthesis.speak(u);
       } catch {
-        // Hard fallback: animate visuals only
-        setSpeaking(true);
-        setSpokenWords(0);
-        setMeterTick(0);
-        startSyntheticTicker(totalWords, estDurationMs);
+        /* synthetic ticker is already running, visuals are covered */
       }
-    } else {
-      // No SpeechSynthesis at all — still pop the visuals
-      setSpeaking(true);
-      setSpokenWords(0);
-      setMeterTick(0);
-      startSyntheticTicker(totalWords, estDurationMs);
     }
   };
 
@@ -210,20 +206,8 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
         speaking && "shadow-[0_0_70px_hsl(var(--win)/0.55),0_0_140px_hsl(var(--win)/0.25)]"
       )}
     >
-      {/* Voice-driven aura — flashes hard on each word, decays smoothly via CSS transition.
-          Keyed by meterTick so the layer remounts each word → instant peak, then ease-out. */}
-      {speaking && (
-        <div
-          key={`aura-${meterTick}`}
-          aria-hidden
-          className="pointer-events-none absolute -inset-px rounded-[inherit] z-20"
-          style={{
-            boxShadow:
-              "inset 0 0 60px hsl(var(--win) / 0.55), 0 0 0 2px hsl(var(--win) / 0.85), 0 0 80px hsl(var(--win) / 0.6)",
-            animation: "mike-aura-flash 380ms ease-out forwards",
-          }}
-        />
-      )}
+      {/* Outer aura removed — was being clipped by overflow-hidden parent.
+          Real flash now lives inside the hero portrait below. */}
       {/* Status bar */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-hud/20 bg-secondary/40">
         <div className="flex items-center gap-2">
@@ -255,6 +239,28 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
           speaking && "shadow-[inset_0_0_110px_hsl(var(--win)/0.6)]"
         )}
       >
+        {/* Voice flash — bright color overlay that pops + decays on each word.
+            Lives INSIDE the hero (overflow-hidden won't clip it here). Opacity-only animation. */}
+        {speaking && (
+          <div
+            key={`flash-${meterTick}`}
+            aria-hidden
+            className="pointer-events-none absolute inset-0 z-[15] mix-blend-screen"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, hsl(var(--win) / 0.6) 0%, hsl(var(--win) / 0.25) 45%, transparent 75%)",
+              animation: "mike-flash 420ms ease-out forwards",
+            }}
+          />
+        )}
+        {/* Steady speaking glow — always-on under the per-word flash */}
+        {speaking && (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 z-[14]"
+            style={{ boxShadow: "inset 0 0 90px hsl(var(--win) / 0.5)" }}
+          />
+        )}
         {/* Crossfade stack — render every scene, fade only the active one */}
         {MIKE_SCENES.map((src, i) => (
           <img
