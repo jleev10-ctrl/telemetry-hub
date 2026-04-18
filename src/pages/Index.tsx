@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { Activity, ChevronRight, Database, Flame, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -292,9 +293,12 @@ const Index = () => {
         <section className="space-y-2">
           <div className="flex items-center justify-between px-1">
             <span className="font-mono text-[10px] tracking-[0.3em] text-hud">★ FEATURED DRIVER</span>
-            <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
-              tap sequence active
-            </span>
+            <Link
+              to="/mike"
+              className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground hover:text-win transition-colors"
+            >
+              [dev] mike sandbox →
+            </Link>
           </div>
           <DriverCard driver={primary} onFreeze={scrollToGrand13} onEngage={() => setEngaged(true)} />
         </section>
