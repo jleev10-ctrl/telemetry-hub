@@ -157,12 +157,11 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
     <div
       ref={ref}
       className={cn(
-        "hud-panel border overflow-hidden transition-all relative",
-        tap >= 1 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30"
+        "hud-panel border transition-all relative rounded-md",
+        tap >= 1 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30",
+        speaking && "shadow-[0_0_40px_hsl(var(--win)/0.55),0_0_90px_hsl(var(--win)/0.3)]"
       )}
     >
-      {/* Outer aura removed — was being clipped by overflow-hidden parent.
-          Real flash now lives inside the hero portrait below. */}
       {/* Status bar */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-hud/20 bg-secondary/40">
         <div className="flex items-center gap-2">
@@ -187,27 +186,9 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
         }}
         className={cn(
           "group relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden cursor-pointer outline-none bg-background",
-          "transition-shadow duration-500",
-          "hover:shadow-[inset_0_0_60px_hsl(var(--win)/0.35)]",
-          "focus-visible:shadow-[inset_0_0_60px_hsl(var(--win)/0.5)]",
-          tap >= 1 && "shadow-[inset_0_0_90px_hsl(var(--win)/0.45),0_0_50px_hsl(var(--gold,45_95%_55%)/0.35)]"
+          "transition-shadow duration-500"
         )}
       >
-        {/* Speaking pulse — thin ring hugging the outer edge only. No center bleed, no slash. */}
-        {speaking && (
-          <div
-            key={`flash-${meterTick}`}
-            aria-hidden
-            className="pointer-events-none absolute inset-0 z-[15] rounded-[inherit] ring-2 ring-inset ring-win"
-            style={{ animation: "mike-flash 420ms ease-out forwards" }}
-          />
-        )}
-        {speaking && (
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 z-[14] rounded-[inherit] ring-1 ring-inset ring-win/40"
-          />
-        )}
         {/* Crossfade stack — render every scene, fade only the active one */}
         {MIKE_SCENES.map((src, i) => (
           <img
