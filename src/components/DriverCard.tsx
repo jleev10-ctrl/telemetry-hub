@@ -193,23 +193,19 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
           tap >= 1 && "shadow-[inset_0_0_90px_hsl(var(--win)/0.45),0_0_50px_hsl(var(--gold,45_95%_55%)/0.35)]"
         )}
       >
-        {/* Speaking pulse reduced to a thin diagonal slash hugging the outside edge only. */}
+        {/* Speaking pulse — thin ring hugging the outer edge only. No center bleed, no slash. */}
         {speaking && (
           <div
             key={`flash-${meterTick}`}
             aria-hidden
-            className="pointer-events-none absolute inset-0 z-[15]"
-            style={{
-              background:
-                "linear-gradient(115deg, transparent 84%, hsl(var(--win) / 0.9) 89%, transparent 94%)",
-              animation: "mike-flash 420ms ease-out forwards",
-            }}
+            className="pointer-events-none absolute inset-0 z-[15] rounded-[inherit] ring-2 ring-inset ring-win"
+            style={{ animation: "mike-flash 420ms ease-out forwards" }}
           />
         )}
         {speaking && (
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 z-[14] border-r border-win/40"
+            className="pointer-events-none absolute inset-0 z-[14] rounded-[inherit] ring-1 ring-inset ring-win/40"
           />
         )}
         {/* Crossfade stack — render every scene, fade only the active one */}
