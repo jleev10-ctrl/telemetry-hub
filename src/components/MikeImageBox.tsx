@@ -147,7 +147,6 @@ export const MikeImageBox = ({
           </div>
         )}
       </div>
-      </div>
     </div>
   );
 };
