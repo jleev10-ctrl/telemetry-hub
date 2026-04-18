@@ -52,8 +52,22 @@ export const DriverCard = ({ driver, onFreeze }: DriverCardProps) => {
     setVoicePulse(true);
     setTimeout(() => setVoicePulse(false), 1800);
 
-    if (tap === 0) setTap(1);
-    else if (tap === 1) setTap(2);
+    if (tap === 0) {
+      setTap(1);
+      // Speak Mike's line on first tap
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const u = new SpeechSynthesisUtterance(MIKE_QUOTE);
+          u.rate = 0.95;
+          u.pitch = 0.7;
+          u.volume = 1;
+          window.speechSynthesis.speak(u);
+        } catch {
+          /* ignore */
+        }
+      }
+    } else if (tap === 1) setTap(2);
     else if (tap === 2) {
       setTap(3);
       onFreeze();
