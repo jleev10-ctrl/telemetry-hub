@@ -54,9 +54,9 @@ export const InfluencerGrid = () => (
     <div className="pt-3 pb-1.5 text-[10px] font-bold text-muted-foreground tracking-[3px] uppercase">
       AI Influencer Picks
     </div>
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2 mt-2">
+    <div className="flex flex-col gap-3 mt-2">
       {roster.map((r) => (
-        <Link key={r.slug} to={`/drivers/${r.slug}`} className="block">
+        <Link key={r.slug} to={`/drivers/${r.slug}`} className="block w-full">
           <ExpertCard expert={r.expert} />
         </Link>
       ))}
