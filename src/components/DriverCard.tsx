@@ -128,16 +128,21 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
 
     const quote = MIKE_QUOTES[(next - 1) % MIKE_QUOTES.length];
     const totalWords = quote.split(/\s+/).length;
-    // Rough estimate: ~340ms per word at rate 0.95
     const estDurationMs = totalWords * 360;
+
+    // Reset + arm visuals IMMEDIATELY (don't wait for onstart — iOS silent mode never fires it)
+    clearSyntheticTicker();
+    setSpokenWords(0);
+    setMeterTick(0);
+    setSpeaking(true);
+    sawBoundaryRef.current = false;
+
+    // Start synthetic ticker right away — real boundaries (if any) will cancel it
+    startSyntheticTicker(totalWords, estDurationMs);
 
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       try {
         window.speechSynthesis.cancel();
-        clearSyntheticTicker();
-        setSpokenWords(0);
-        setMeterTick(0);
-        sawBoundaryRef.current = false;
 
         const u = new SpeechSynthesisUtterance(quote);
         if (voiceRef.current) u.voice = voiceRef.current;
@@ -145,44 +150,35 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
         u.pitch = 0.7;
         u.volume = 1;
 
-        u.onstart = () => {
-          setSpeaking(true);
-          // If no real boundary fires within 400ms, run the synthetic ticker (iOS Safari, etc.)
-          fallbackArmedRef.current = window.setTimeout(() => {
-            if (!sawBoundaryRef.current) startSyntheticTicker(totalWords, estDurationMs);
-          }, 400);
-        };
         u.onboundary = (e) => {
           if (e.name === "word" || e.name === undefined) {
-            sawBoundaryRef.current = true;
-            // Real boundaries arrived — kill any synthetic fallback
-            clearSyntheticTicker();
+            if (!sawBoundaryRef.current) {
+              // Real boundaries arrived — kill the synthetic ticker, take over
+              sawBoundaryRef.current = true;
+              clearSyntheticTicker();
+              // Reset to current word position so we don't double-count
+              setSpokenWords(0);
+            }
             setSpokenWords((n) => Math.min(totalWords, n + 1));
             setMeterTick((n) => n + 1);
           }
         };
         const stop = () => {
-          clearSyntheticTicker();
-          setSpeaking(false);
-          setSpokenWords(totalWords);
+          // Only stop visuals if real speech ended AND we were following real events
+          if (sawBoundaryRef.current) {
+            clearSyntheticTicker();
+            setSpeaking(false);
+            setSpokenWords(totalWords);
+          }
+          // Otherwise let the synthetic ticker finish on its own clock
         };
         u.onend = stop;
         u.onerror = stop;
 
         window.speechSynthesis.speak(u);
       } catch {
-        // Hard fallback: animate visuals only
-        setSpeaking(true);
-        setSpokenWords(0);
-        setMeterTick(0);
-        startSyntheticTicker(totalWords, estDurationMs);
+        /* synthetic ticker is already running, visuals are covered */
       }
-    } else {
-      // No SpeechSynthesis at all — still pop the visuals
-      setSpeaking(true);
-      setSpokenWords(0);
-      setMeterTick(0);
-      startSyntheticTicker(totalWords, estDurationMs);
     }
   };
 
