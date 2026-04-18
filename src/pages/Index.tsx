@@ -118,8 +118,10 @@ const Index = () => {
       <div className="h-[132px]" />
 
       <main className="container max-w-2xl px-4 pb-24">
-        {/* MIKE — alone, centered, full size */}
-        <DriverCard driver={mike} onFreeze={() => {}} />
+        {/* MIKE — proportional scale-down on phones (same look, just smaller) */}
+        <div className="origin-top scale-[0.82] sm:scale-100 -mb-[18%] sm:mb-0">
+          <DriverCard driver={mike} onFreeze={() => {}} />
+        </div>
       </main>
 
       <JoinModal open={joinOpen} onOpenChange={setJoinOpen} />
