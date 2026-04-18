@@ -81,7 +81,8 @@ export const DriverCard = ({ driver, onFreeze }: DriverCardProps) => {
   }, [tap]);
 
   const games = tap >= 2 ? driver.gamesV2 : driver.games;
-  const currentPrompt = tap === 1 ? driver.voicePrompt1 : tap >= 2 ? driver.voicePrompt2 : "";
+  const currentPrompt = tap === 1 ? MIKE_QUOTE : tap >= 2 ? driver.voicePrompt2 : "";
+  const heroSrc = tap >= 1 ? mikeStadium : driver.image;
 
   const ctaLabel =
     tap === 0 ? "tap to engage driver" :
