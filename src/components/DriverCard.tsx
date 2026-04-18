@@ -84,6 +84,9 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
         try { audioRef.current.pause(); } catch { /* ignore */ }
         audioRef.current = null;
       }
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        try { window.speechSynthesis.cancel(); } catch { /* ignore */ }
+      }
     };
   }, []);
 
@@ -113,28 +116,39 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
     const totalWords = quote.split(/\s+/).length;
     const estDurationMs = totalWords * 360;
 
-    // Reset + arm visuals IMMEDIATELY (don't wait for onstart — iOS silent mode never fires it)
+    // Reset + arm visuals IMMEDIATELY
     clearSyntheticTicker();
     setSpokenWords(0);
     setMeterTick(0);
     setSpeaking(true);
 
-    // Synthetic ticker drives meter + caption (audio is the soundtrack)
-    startSyntheticTicker(totalWords, estDurationMs);
-
-    // Play pre-recorded MP3 (silent placeholder until real clips dropped in)
+    // AUDIO: create utterance synchronously inside the gesture (browser requirement).
+    // Real word-boundary events drive caption + meter for true sync; ticker is fallback.
+    let usingSpeech = false;
     try {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.src = "";
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(quote);
+        u.rate = 0.95;
+        u.pitch = 0.85;
+        u.volume = 1;
+        u.lang = "en-US";
+        u.onboundary = (ev) => {
+          if (ev.name === "word" || typeof ev.charIndex === "number") {
+            setSpokenWords((n) => Math.min(totalWords, n + 1));
+            setMeterTick((n) => n + 1);
+          }
+        };
+        u.onend = () => setSpeaking(false);
+        window.speechSynthesis.speak(u);
+        usingSpeech = true;
       }
-      const clipSrc = MIKE_CLIPS[(next - 1) % MIKE_CLIPS.length];
-      const audio = new Audio(clipSrc);
-      audio.volume = 1;
-      audioRef.current = audio;
-      audio.play().catch(() => { /* autoplay blocked or missing — ticker covers visuals */ });
     } catch {
-      /* ticker covers visuals */
+      /* fall through to ticker */
+    }
+
+    if (!usingSpeech) {
+      startSyntheticTicker(totalWords, estDurationMs);
     }
   };
 
@@ -156,11 +170,13 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
   return (
     <div
       ref={ref}
+      key={speaking ? `pulse-${meterTick}` : "idle"}
       className={cn(
         "hud-panel border transition-all relative rounded-md",
         tap >= 1 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30",
         speaking && "shadow-[0_0_40px_hsl(var(--win)/0.55),0_0_90px_hsl(var(--win)/0.3)]"
       )}
+      style={speaking ? { animation: "mike-outer-pulse 380ms ease-out forwards" } : undefined}
     >
       {/* Status bar */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-hud/20 bg-secondary/40">
