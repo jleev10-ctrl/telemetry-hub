@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import type { Game } from "@/components/DriverCard";
 import { MikeImageBox } from "@/components/MikeImageBox";
 import { MikeTelemetryBox } from "@/components/MikeTelemetryBox";
+import { TodaysBoardBox } from "@/components/TodaysBoardBox";
 import { JoinModal } from "@/components/JoinModal";
 import { MIKE_QUOTES } from "@/data/mikeScenes";
 
@@ -244,8 +245,10 @@ const Index = () => {
           winPct={MIKE.winPct}
           record={MIKE.record}
           units={MIKE.units}
-          games={games}
         />
+
+        {/* TODAY'S BOARD BOX */}
+        <TodaysBoardBox tap={tap} games={games} />
 
         {/* NFL SCORES BOX — full slate, 14 games */}
         <section className="hud-panel border border-hud/30 rounded-md overflow-hidden">
