@@ -173,6 +173,7 @@ const grand13 = [
 
 const Index = () => {
   const [joinOpen, setJoinOpen] = useState(false);
+  const [engaged, setEngaged] = useState(false);
   const grand13Ref = useRef<HTMLDivElement>(null);
 
   // Order: NFL (featured) → NBA → Sarah → MLB → NHL
