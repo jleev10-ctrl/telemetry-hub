@@ -187,3 +187,9 @@ All colors MUST be HSL.
   0%, 100% { opacity: 1; box-shadow: 0 0 0 0 hsl(var(--win) / 0.6); }
   50% { opacity: 0.6; box-shadow: 0 0 0 8px hsl(var(--win) / 0); }
 }
+
+@keyframes mike-aura-flash {
+  0%   { opacity: 1;    transform: scale(1.012); filter: brightness(1.25); }
+  60%  { opacity: 0.55; transform: scale(1.004); filter: brightness(1.05); }
+  100% { opacity: 0.35; transform: scale(1);     filter: brightness(1); }
+}
