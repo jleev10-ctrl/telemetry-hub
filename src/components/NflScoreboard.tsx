@@ -63,7 +63,7 @@ const games: Game[] = [
 const TeamRow = ({ team, winning }: { team: Team; winning: boolean }) => (
   <div className="flex items-center justify-between gap-2 py-0.5">
     <div className="flex items-center gap-2 min-w-0">
-      <Helmet className="h-4 w-4 shrink-0" style={{ color: `hsl(${team.color})` } as React.CSSProperties} />
+      <Helmet className="h-4 w-4 shrink-0" style={{ color: `hsl(${team.color})` }} />
       <span className={cn("font-mono text-[11px] tracking-wider", winning ? "font-bold text-foreground" : "text-foreground/70")}>
         {team.abbr}
       </span>
