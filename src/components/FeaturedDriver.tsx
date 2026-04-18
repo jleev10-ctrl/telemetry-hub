@@ -5,10 +5,29 @@ export const FeaturedDriver = () => {
   const [voiceActive, setVoiceActive] = useState(false);
   const [tapped, setTapped] = useState(false);
 
+  const speak = (text: string) => {
+    try {
+      const synth = window.speechSynthesis;
+      if (!synth) return;
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.95;
+      u.pitch = 0.85;
+      u.volume = 1;
+      const voices = synth.getVoices();
+      const preferred =
+        voices.find((v) => /male|daniel|fred|alex|david/i.test(v.name)) ||
+        voices.find((v) => v.lang.startsWith("en"));
+      if (preferred) u.voice = preferred;
+      synth.speak(u);
+    } catch {}
+  };
+
   const handleTap = () => {
     setTapped(true);
     setVoiceActive(true);
-    setTimeout(() => setVoiceActive(false), 3000);
+    speak("Money's moving to Dallas — heavy.");
+    setTimeout(() => setVoiceActive(false), 3500);
   };
 
   return (
