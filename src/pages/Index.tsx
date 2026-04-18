@@ -296,8 +296,11 @@ const Index = () => {
               tap sequence active
             </span>
           </div>
-          <DriverCard driver={primary} onFreeze={scrollToGrand13} />
+          <DriverCard driver={primary} onFreeze={scrollToGrand13} onEngage={() => setEngaged(true)} />
         </section>
+
+        {/* NFL SCOREBOARD — appears once Mike is engaged */}
+        {engaged && primary.league === "NFL" && <NflScoreboard />}
 
         {/* GRAND 13 LEADERBOARD */}
         <section ref={grand13Ref} className="hud-panel border border-hud/30 overflow-hidden scroll-mt-24">
