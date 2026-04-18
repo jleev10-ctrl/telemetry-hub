@@ -468,6 +468,17 @@ const Index = () => {
         <div>21+ · play responsibly · 1-800-gambler</div>
       </footer>
 
+      {/* Back-to-top — appears once Mike is engaged */}
+      {engaged && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-5 right-5 z-40 grid place-items-center h-11 w-11 rounded-full border border-[hsl(45_100%_55%/0.6)] bg-background/85 backdrop-blur-md text-[hsl(45_100%_60%)] shadow-[0_0_18px_hsl(45_100%_55%/0.45)] hover:scale-105 transition-transform animate-fade-in"
+          aria-label="Back to top"
+        >
+          <span className="font-mono text-base leading-none">↑</span>
+        </button>
+      )}
+
       <JoinModal open={joinOpen} onOpenChange={setJoinOpen} />
     </div>
   );
