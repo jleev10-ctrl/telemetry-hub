@@ -6,9 +6,12 @@ export const FeaturedDriver = () => {
   const [tapped, setTapped] = useState(false);
 
   const speak = (text: string) => {
-    try {
-      const synth = window.speechSynthesis;
-      if (!synth) return;
+    const synth = window.speechSynthesis;
+    if (!synth) {
+      console.warn("[Mike] speechSynthesis not available");
+      return;
+    }
+    const doSpeak = () => {
       synth.cancel();
       const u = new SpeechSynthesisUtterance(text);
       u.rate = 0.95;
@@ -19,11 +22,19 @@ export const FeaturedDriver = () => {
         voices.find((v) => /male|daniel|fred|alex|david/i.test(v.name)) ||
         voices.find((v) => v.lang.startsWith("en"));
       if (preferred) u.voice = preferred;
+      console.log("[Mike] speaking:", text, "voice:", preferred?.name || "default");
       synth.speak(u);
-    } catch {}
+    };
+    if (synth.getVoices().length === 0) {
+      synth.addEventListener("voiceschanged", doSpeak, { once: true });
+      synth.speak(new SpeechSynthesisUtterance(""));
+    } else {
+      doSpeak();
+    }
   };
 
   const handleTap = () => {
+    console.log("[Mike] tap fired");
     setTapped(true);
     setVoiceActive(true);
     speak("Money's moving to Dallas — heavy.");
