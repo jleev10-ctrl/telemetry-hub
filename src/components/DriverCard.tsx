@@ -43,34 +43,72 @@ interface DriverCardProps {
 export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
   // tap counter — infinite. Cycles through MIKE_SCENES / MIKE_QUOTES via modulo.
   const [tap, setTap] = useState(0);
-  const [voicePulse, setVoicePulse] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
+  const [spokenWords, setSpokenWords] = useState(0); // count of words spoken so far
+  const [meterTick, setMeterTick] = useState(0); // bumps on each word boundary
   const ref = useRef<HTMLDivElement>(null);
 
   const sceneIndex = tap === 0 ? 0 : tap % MIKE_SCENES.length;
   const quoteIndex = tap === 0 ? 0 : (tap - 1) % MIKE_QUOTES.length;
   const currentPrompt = tap === 0 ? "" : MIKE_QUOTES[quoteIndex];
-  const heroSrc = MIKE_SCENES[sceneIndex];
+
+  // Word-by-word caption reveal driven by real onboundary events
+  const promptWords = currentPrompt ? currentPrompt.split(/\s+/) : [];
+  const revealedCaption = speaking
+    ? promptWords.slice(0, spokenWords).join(" ")
+    : currentPrompt;
+
+  // Cleanup any in-flight speech on unmount
+  useEffect(() => {
+    return () => {
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        try { window.speechSynthesis.cancel(); } catch { /* ignore */ }
+      }
+    };
+  }, []);
 
   const handleTap = () => {
-    setVoicePulse(true);
-    setTimeout(() => setVoicePulse(false), 1800);
-
     const next = tap + 1;
     setTap(next);
     if (tap === 0) onEngage?.();
     if (next === 3) onFreeze();
 
+    const quote = MIKE_QUOTES[(next - 1) % MIKE_QUOTES.length];
+
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       try {
         window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(MIKE_QUOTES[(next - 1) % MIKE_QUOTES.length]);
+        setSpokenWords(0);
+        setMeterTick(0);
+
+        const u = new SpeechSynthesisUtterance(quote);
         u.rate = 0.95;
         u.pitch = 0.7;
         u.volume = 1;
+
+        u.onstart = () => setSpeaking(true);
+        u.onboundary = (e) => {
+          if (e.name === "word" || e.name === undefined) {
+            setSpokenWords((n) => n + 1);
+            setMeterTick((n) => n + 1);
+          }
+        };
+        const stop = () => {
+          setSpeaking(false);
+          setSpokenWords(quote.split(/\s+/).length);
+        };
+        u.onend = stop;
+        u.onerror = stop;
+
         window.speechSynthesis.speak(u);
       } catch {
-        /* ignore */
+        // Fallback: still flash the visuals briefly so UI doesn't feel dead
+        setSpeaking(true);
+        setTimeout(() => setSpeaking(false), 1500);
       }
+    } else {
+      setSpeaking(true);
+      setTimeout(() => setSpeaking(false), 1500);
     }
   };
 
@@ -93,10 +131,22 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
     <div
       ref={ref}
       className={cn(
-        "hud-panel border overflow-hidden transition-all",
-        tap >= 1 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30"
+        "hud-panel border overflow-hidden transition-all relative",
+        tap >= 1 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30",
+        speaking && "shadow-[0_0_70px_hsl(var(--win)/0.55),0_0_140px_hsl(var(--win)/0.25)]"
       )}
     >
+      {/* Breathing aura ring while speaking */}
+      {speaking && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-px rounded-[inherit] z-20 animate-pulse"
+          style={{
+            boxShadow:
+              "inset 0 0 30px hsl(var(--win) / 0.35), 0 0 0 1px hsl(var(--win) / 0.6)",
+          }}
+        />
+      )}
       {/* Status bar */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-hud/20 bg-secondary/40">
         <div className="flex items-center gap-2">
@@ -125,7 +175,7 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
           "hover:shadow-[inset_0_0_60px_hsl(var(--win)/0.35)]",
           "focus-visible:shadow-[inset_0_0_60px_hsl(var(--win)/0.5)]",
           tap >= 1 && "shadow-[inset_0_0_90px_hsl(var(--win)/0.45),0_0_50px_hsl(var(--gold,45_95%_55%)/0.35)]",
-          voicePulse && "shadow-[inset_0_0_110px_hsl(var(--win)/0.6)]"
+          speaking && "shadow-[inset_0_0_110px_hsl(var(--win)/0.6)]"
         )}
       >
         {/* Crossfade stack — render every scene, fade only the active one */}
@@ -148,11 +198,11 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
         </div>
 
         {/* Voice prompt visual */}
-        {voicePulse && currentPrompt && (
+        {speaking && currentPrompt && (
           <div className="absolute top-3 right-3 animate-fade-in">
             <div className="hud-chip border-win/60 text-win">
               <Radio className="h-3 w-3 animate-pulse" />
-              voice prompt
+              live · speaking
             </div>
           </div>
         )}
@@ -163,21 +213,38 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
             {driver.tag}
           </div>
 
-          {voicePulse && currentPrompt && (
+          {(speaking || (tap > 0 && currentPrompt)) && (
             <div className="mt-3 animate-fade-in">
-              <div className="flex items-center gap-1 mb-1.5">
-                {[...Array(20)].map((_, i) => (
-                  <span
-                    key={i}
-                    className="block w-0.5 bg-win rounded-full animate-pulse"
-                    style={{
-                      height: `${6 + Math.sin((i + Date.now() / 100) * 0.5) * 8 + Math.random() * 10}px`,
-                      animationDelay: `${i * 40}ms`,
-                    }}
-                  />
-                ))}
+              <div className="flex items-end gap-1 mb-1.5 h-5">
+                {[...Array(24)].map((_, i) => {
+                  // Each word boundary bumps meterTick → bars burst, then decay via CSS transition.
+                  // Center bars react harder than edges (bell curve) for a natural meter feel.
+                  const center = 11.5;
+                  const distance = Math.abs(i - center);
+                  const bell = Math.max(0.25, 1 - distance / 14);
+                  const burst = speaking
+                    ? 4 + bell * (10 + ((meterTick * 7 + i * 13) % 11))
+                    : 3;
+                  return (
+                    <span
+                      key={i}
+                      className="block w-0.5 bg-win rounded-full transition-[height,opacity] duration-200 ease-out"
+                      style={{
+                        height: `${burst}px`,
+                        opacity: speaking ? 0.7 + bell * 0.3 : 0.3,
+                      }}
+                    />
+                  );
+                })}
               </div>
-              <p className="font-mono text-[11px] text-win/90 italic">"{currentPrompt}"</p>
+              <p className="font-mono text-[11px] text-win/90 italic min-h-[1.25rem]">
+                "{revealedCaption}
+                {speaking && spokenWords < promptWords.length && (
+                  <span className="inline-block w-1.5 h-3 ml-0.5 bg-win align-middle animate-pulse" />
+                )}
+                {!speaking && '"'}
+                {speaking && spokenWords >= promptWords.length && '"'}
+              </p>
             </div>
           )}
         </div>
@@ -260,7 +327,7 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
           size="lg"
           className="w-full font-bold tracking-wider uppercase text-sm shadow-[0_0_30px_hsl(var(--win)/0.35)] bg-gradient-to-r from-win to-accent text-primary-foreground hover:opacity-90"
         >
-          <CtaIcon className={cn("mr-2 h-4 w-4", voicePulse && "animate-pulse")} />
+          <CtaIcon className={cn("mr-2 h-4 w-4", speaking && "animate-pulse")} />
           {ctaLabel}
           <ChevronRight className="ml-1 h-4 w-4" />
         </Button>
