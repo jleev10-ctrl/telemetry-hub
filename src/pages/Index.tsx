@@ -136,12 +136,25 @@ const Index = () => {
     let usingSpeech = false;
     try {
       if (typeof window !== "undefined" && "speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
+        const synth = window.speechSynthesis;
+        synth.cancel();
+        // Android Chrome / Samsung Internet: must call resume() inside gesture
+        try { synth.resume(); } catch { /* ignore */ }
+
         const u = new SpeechSynthesisUtterance(quote);
         u.rate = 0.95;
         u.pitch = 0.85;
         u.volume = 1;
         u.lang = "en-US";
+
+        // Pick an English voice if available (Samsung often needs explicit voice)
+        const voices = synth.getVoices();
+        const enVoice =
+          voices.find((v) => /en[-_]US/i.test(v.lang) && /male/i.test(v.name)) ||
+          voices.find((v) => /en[-_]US/i.test(v.lang)) ||
+          voices.find((v) => /^en/i.test(v.lang));
+        if (enVoice) u.voice = enVoice;
+
         u.onboundary = (ev) => {
           if (ev.name === "word" || typeof ev.charIndex === "number") {
             setSpokenWords((n) => Math.min(totalWords, n + 1));
@@ -149,7 +162,11 @@ const Index = () => {
           }
         };
         u.onend = () => setSpeaking(false);
-        window.speechSynthesis.speak(u);
+        u.onerror = () => {
+          setSpeaking(false);
+          startSyntheticTicker(totalWords, estDurationMs);
+        };
+        synth.speak(u);
         usingSpeech = true;
       }
     } catch { /* ignore */ }
@@ -167,7 +184,11 @@ const Index = () => {
           <div className="mx-auto w-full max-w-2xl grid grid-cols-[auto_1fr_auto] items-center gap-2 h-16 px-4">
             <a
               href="/"
-              aria-label="Back to home"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              aria-label="Back to top"
               className="relative h-10 grid place-items-center rounded-md hud-panel px-1.5 hover:brightness-125 transition"
             >
               <span className="font-mono text-xl font-black tracking-tighter text-[hsl(45_100%_55%)] drop-shadow-[0_0_6px_hsl(45_100%_55%/0.7)] leading-none">
