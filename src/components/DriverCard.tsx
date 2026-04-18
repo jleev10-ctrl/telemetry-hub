@@ -45,27 +45,80 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
   const [tap, setTap] = useState(0);
   const [speaking, setSpeaking] = useState(false);
   const [spokenWords, setSpokenWords] = useState(0); // count of words spoken so far
-  const [meterTick, setMeterTick] = useState(0); // bumps on each word boundary
+  const [meterTick, setMeterTick] = useState(0); // bumps on each word boundary (real or synthetic)
   const ref = useRef<HTMLDivElement>(null);
+  const tickerRef = useRef<number | null>(null);
+  const fallbackArmedRef = useRef<number | null>(null);
+  const sawBoundaryRef = useRef(false);
+  const voiceRef = useRef<SpeechSynthesisVoice | null>(null);
 
   const sceneIndex = tap === 0 ? 0 : tap % MIKE_SCENES.length;
   const quoteIndex = tap === 0 ? 0 : (tap - 1) % MIKE_QUOTES.length;
   const currentPrompt = tap === 0 ? "" : MIKE_QUOTES[quoteIndex];
 
-  // Word-by-word caption reveal driven by real onboundary events
+  // Word-by-word caption reveal driven by real OR synthetic word ticks
   const promptWords = currentPrompt ? currentPrompt.split(/\s+/) : [];
   const revealedCaption = speaking
     ? promptWords.slice(0, spokenWords).join(" ")
     : currentPrompt;
 
-  // Cleanup any in-flight speech on unmount
+  // Pick a deeper male English voice once available (helps Mike sound the part)
+  useEffect(() => {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    const pick = () => {
+      const voices = window.speechSynthesis.getVoices();
+      if (!voices.length) return;
+      const preferred = [
+        /Daniel/i, /Alex/i, /Fred/i, /Aaron/i, /Arthur/i,
+        /Google UK English Male/i, /Microsoft.*(David|Guy|Mark)/i,
+      ];
+      for (const re of preferred) {
+        const match = voices.find((v) => re.test(v.name) && /en[-_]/i.test(v.lang));
+        if (match) { voiceRef.current = match; return; }
+      }
+      voiceRef.current = voices.find((v) => /en[-_]/i.test(v.lang)) ?? voices[0];
+    };
+    pick();
+    window.speechSynthesis.addEventListener?.("voiceschanged", pick);
+    return () => window.speechSynthesis.removeEventListener?.("voiceschanged", pick);
+  }, []);
+
+  const clearSyntheticTicker = () => {
+    if (tickerRef.current !== null) {
+      window.clearInterval(tickerRef.current);
+      tickerRef.current = null;
+    }
+    if (fallbackArmedRef.current !== null) {
+      window.clearTimeout(fallbackArmedRef.current);
+      fallbackArmedRef.current = null;
+    }
+  };
+
+  // Cleanup any in-flight speech / timers on unmount
   useEffect(() => {
     return () => {
+      clearSyntheticTicker();
       if (typeof window !== "undefined" && "speechSynthesis" in window) {
         try { window.speechSynthesis.cancel(); } catch { /* ignore */ }
       }
     };
   }, []);
+
+  const startSyntheticTicker = (totalWords: number, estDurationMs: number) => {
+    clearSyntheticTicker();
+    if (totalWords <= 0) return;
+    const interval = Math.max(160, Math.round(estDurationMs / totalWords));
+    let i = 0;
+    tickerRef.current = window.setInterval(() => {
+      i += 1;
+      setSpokenWords((n) => Math.min(totalWords, n + 1));
+      setMeterTick((n) => n + 1);
+      if (i >= totalWords) {
+        clearSyntheticTicker();
+        setSpeaking(false);
+      }
+    }, interval);
+  };
 
   const handleTap = () => {
     const next = tap + 1;
@@ -74,41 +127,62 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
     if (next === 3) onFreeze();
 
     const quote = MIKE_QUOTES[(next - 1) % MIKE_QUOTES.length];
+    const totalWords = quote.split(/\s+/).length;
+    // Rough estimate: ~340ms per word at rate 0.95
+    const estDurationMs = totalWords * 360;
 
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       try {
         window.speechSynthesis.cancel();
+        clearSyntheticTicker();
         setSpokenWords(0);
         setMeterTick(0);
+        sawBoundaryRef.current = false;
 
         const u = new SpeechSynthesisUtterance(quote);
+        if (voiceRef.current) u.voice = voiceRef.current;
         u.rate = 0.95;
         u.pitch = 0.7;
         u.volume = 1;
 
-        u.onstart = () => setSpeaking(true);
+        u.onstart = () => {
+          setSpeaking(true);
+          // If no real boundary fires within 400ms, run the synthetic ticker (iOS Safari, etc.)
+          fallbackArmedRef.current = window.setTimeout(() => {
+            if (!sawBoundaryRef.current) startSyntheticTicker(totalWords, estDurationMs);
+          }, 400);
+        };
         u.onboundary = (e) => {
           if (e.name === "word" || e.name === undefined) {
-            setSpokenWords((n) => n + 1);
+            sawBoundaryRef.current = true;
+            // Real boundaries arrived — kill any synthetic fallback
+            clearSyntheticTicker();
+            setSpokenWords((n) => Math.min(totalWords, n + 1));
             setMeterTick((n) => n + 1);
           }
         };
         const stop = () => {
+          clearSyntheticTicker();
           setSpeaking(false);
-          setSpokenWords(quote.split(/\s+/).length);
+          setSpokenWords(totalWords);
         };
         u.onend = stop;
         u.onerror = stop;
 
         window.speechSynthesis.speak(u);
       } catch {
-        // Fallback: still flash the visuals briefly so UI doesn't feel dead
+        // Hard fallback: animate visuals only
         setSpeaking(true);
-        setTimeout(() => setSpeaking(false), 1500);
+        setSpokenWords(0);
+        setMeterTick(0);
+        startSyntheticTicker(totalWords, estDurationMs);
       }
     } else {
+      // No SpeechSynthesis at all — still pop the visuals
       setSpeaking(true);
-      setTimeout(() => setSpeaking(false), 1500);
+      setSpokenWords(0);
+      setMeterTick(0);
+      startSyntheticTicker(totalWords, estDurationMs);
     }
   };
 
@@ -136,14 +210,17 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
         speaking && "shadow-[0_0_70px_hsl(var(--win)/0.55),0_0_140px_hsl(var(--win)/0.25)]"
       )}
     >
-      {/* Breathing aura ring while speaking */}
+      {/* Voice-driven aura — flashes hard on each word, decays smoothly via CSS transition.
+          Keyed by meterTick so the layer remounts each word → instant peak, then ease-out. */}
       {speaking && (
         <div
+          key={`aura-${meterTick}`}
           aria-hidden
-          className="pointer-events-none absolute -inset-px rounded-[inherit] z-20 animate-pulse"
+          className="pointer-events-none absolute -inset-px rounded-[inherit] z-20"
           style={{
             boxShadow:
-              "inset 0 0 30px hsl(var(--win) / 0.35), 0 0 0 1px hsl(var(--win) / 0.6)",
+              "inset 0 0 60px hsl(var(--win) / 0.55), 0 0 0 2px hsl(var(--win) / 0.85), 0 0 80px hsl(var(--win) / 0.6)",
+            animation: "mike-aura-flash 380ms ease-out forwards",
           }}
         />
       )}
