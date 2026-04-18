@@ -95,7 +95,7 @@ export const FeaturedDriver = () => {
         <div className="flex items-center justify-between py-2.5 px-3 border-t border-syndicate/50">
           <span className="text-[10px] text-muted-foreground tracking-[2px] uppercase">Voice chat ready</span>
           <button
-            onClick={() => setVoiceActive((v) => !v)}
+            onClick={(e) => { e.stopPropagation(); setVoiceActive((v) => !v); }}
             className={`border border-green text-[11px] font-bold tracking-[2px] uppercase py-[7px] px-4 transition-colors ${
               voiceActive ? "bg-green text-background" : "bg-transparent text-green hover:bg-green hover:text-background"
             }`}
