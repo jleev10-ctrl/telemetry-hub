@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 
 // Minimal helmet — single-color SVG, recolored per team via currentColor.
-const Helmet = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+const Helmet = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
+  <svg viewBox="0 0 24 24" className={className} style={style} fill="currentColor" aria-hidden="true">
     <path d="M12 3c-4.4 0-8 3.2-8 7.5 0 1.7.5 3.2 1.4 4.4l-.9 2.4c-.2.5.3 1 .8.8l2.5-.9c1.2.6 2.6.9 4.2.9 4.4 0 8-3.2 8-7.6S16.4 3 12 3Zm-5.5 8.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm9.5 1.5H8v-2h8v2Z" />
   </svg>
 );
