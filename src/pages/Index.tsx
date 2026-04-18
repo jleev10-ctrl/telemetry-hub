@@ -121,11 +121,41 @@ const Index = () => {
 
       <div className="h-[132px]" />
 
-      <main className="container max-w-2xl px-1 sm:px-4 pb-24">
+      <main className="container max-w-2xl px-1 sm:px-4 pb-24 space-y-4">
         {/* MIKE — proportional scale-down on phones; padding gives the outer glow room to bleed */}
         <div className="origin-top scale-[0.82] sm:scale-100 -mb-[18%] sm:mb-0 px-6 sm:px-0">
           <DriverCard driver={mike} onFreeze={() => {}} />
         </div>
+
+        {/* NFL SCORES BOX */}
+        <section className="hud-panel border border-hud/30 px-4 py-3">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-win" />
+            <span className="font-mono text-[10px] tracking-[0.3em] text-hud uppercase">nfl · scores</span>
+          </div>
+          <p className="font-mono text-[11px] text-muted-foreground uppercase tracking-wider">
+            live board loading…
+          </p>
+        </section>
+
+        {/* BETS BOX */}
+        <section className="hud-panel border border-hud/30 px-4 py-3">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-gold" />
+            <span className="font-mono text-[10px] tracking-[0.3em] text-[hsl(45_100%_60%)] uppercase">bets</span>
+          </div>
+          <p className="font-mono text-[11px] text-muted-foreground uppercase tracking-wider">
+            mike's slate locks soon…
+          </p>
+        </section>
+
+        {/* BACK TO HOME BOX */}
+        <a
+          href="/"
+          className="block hud-panel border border-hud/30 px-4 py-3 text-center hover:brightness-125 transition"
+        >
+          <span className="font-mono text-[11px] tracking-[0.3em] text-hud uppercase">← back to home</span>
+        </a>
       </main>
 
       <JoinModal open={joinOpen} onOpenChange={setJoinOpen} />
