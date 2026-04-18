@@ -158,8 +158,7 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
       ref={ref}
       className={cn(
         "hud-panel border overflow-hidden transition-all relative",
-        tap >= 1 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30",
-        speaking && "shadow-[0_0_70px_hsl(var(--win)/0.55),0_0_140px_hsl(var(--win)/0.25)]"
+        tap >= 1 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30"
       )}
     >
       {/* Outer aura removed — was being clipped by overflow-hidden parent.
@@ -191,28 +190,26 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
           "transition-shadow duration-500",
           "hover:shadow-[inset_0_0_60px_hsl(var(--win)/0.35)]",
           "focus-visible:shadow-[inset_0_0_60px_hsl(var(--win)/0.5)]",
-          tap >= 1 && "shadow-[inset_0_0_90px_hsl(var(--win)/0.45),0_0_50px_hsl(var(--gold,45_95%_55%)/0.35)]",
-          speaking && "shadow-[inset_0_0_110px_hsl(var(--win)/0.6)]"
+          tap >= 1 && "shadow-[inset_0_0_90px_hsl(var(--win)/0.45),0_0_50px_hsl(var(--gold,45_95%_55%)/0.35)]"
         )}
       >
-        {/* Edge-only voice flash — pulses on each word from the rim inward, never bleeds onto Mike's face. */}
+        {/* Speaking pulse reduced to a thin diagonal slash hugging the outside edge only. */}
         {speaking && (
           <div
             key={`flash-${meterTick}`}
             aria-hidden
             className="pointer-events-none absolute inset-0 z-[15]"
             style={{
-              boxShadow: "inset 0 0 60px hsl(var(--win) / 0.75), inset 0 0 120px hsl(var(--win) / 0.35)",
+              background:
+                "linear-gradient(115deg, transparent 84%, hsl(var(--win) / 0.9) 89%, transparent 94%)",
               animation: "mike-flash 420ms ease-out forwards",
             }}
           />
         )}
-        {/* Steady edge glow under the per-word pulse — also edge-only */}
         {speaking && (
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 z-[14]"
-            style={{ boxShadow: "inset 0 0 50px hsl(var(--win) / 0.4)" }}
+            className="pointer-events-none absolute inset-0 z-[14] border-r border-win/40"
           />
         )}
         {/* Crossfade stack — render every scene, fade only the active one */}
