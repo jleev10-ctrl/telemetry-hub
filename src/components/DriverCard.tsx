@@ -118,18 +118,9 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
     setSpokenWords(0);
     setMeterTick(0);
     setSpeaking(true);
-    sawBoundaryRef.current = false;
 
-    // Start synthetic ticker right away — real boundaries (if any) will cancel it
+    // Synthetic ticker drives meter + caption (audio is the soundtrack)
     startSyntheticTicker(totalWords, estDurationMs);
-
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      try {
-        window.speechSynthesis.cancel();
-      } catch {
-        /* ignore */
-      }
-    }
 
     // Play pre-recorded MP3 (silent placeholder until real clips dropped in)
     try {
@@ -141,21 +132,11 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
       const audio = new Audio(clipSrc);
       audio.volume = 1;
       audioRef.current = audio;
-      audio.play().catch(() => { /* autoplay blocked or missing file — synthetic ticker covers visuals */ });
+      audio.play().catch(() => { /* autoplay blocked or missing — ticker covers visuals */ });
     } catch {
-      /* synthetic ticker is already running, visuals are covered */
+      /* ticker covers visuals */
     }
   };
-
-  // Cleanup audio on unmount
-  useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        try { audioRef.current.pause(); } catch { /* ignore */ }
-        audioRef.current = null;
-      }
-    };
-  }, []);
 
   useEffect(() => {
     if (tap === 1 && ref.current) {
