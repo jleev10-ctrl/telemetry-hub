@@ -2,6 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronRight, Lock, Radio, RefreshCw, Trophy, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import mikeStadium from "@/assets/mike-stadium.jpg";
+
+const MIKE_QUOTE = "Money moving on Dallas — should be a piece of cake for you.";
 
 export interface Game {
   matchup: string;
