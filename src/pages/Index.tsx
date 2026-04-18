@@ -174,7 +174,12 @@ const Index = () => {
   const [joinOpen, setJoinOpen] = useState(false);
   const grand13Ref = useRef<HTMLDivElement>(null);
 
-  const [primary, ...etcDrivers] = drivers;
+  // Order: NFL (featured) → NBA → Sarah → MLB → NHL
+  const orderedIds = ["ironmike", "swoosh", "sarah", "mlb", "nhl"];
+  const orderedDrivers = orderedIds
+    .map((id) => drivers.find((d) => d.id === id))
+    .filter((d): d is DriverData => Boolean(d));
+  const [primary, ...etcDrivers] = orderedDrivers;
 
   const scrollToGrand13 = () => {
     grand13Ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
