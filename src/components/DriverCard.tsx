@@ -55,6 +55,7 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
 
     if (tap === 0) {
       setTap(1);
+      onEngage?.();
       // Speak Mike's line on first tap
       if (typeof window !== "undefined" && "speechSynthesis" in window) {
         try {
