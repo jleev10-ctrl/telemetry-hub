@@ -48,9 +48,6 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
   const [meterTick, setMeterTick] = useState(0); // bumps on each word boundary (real or synthetic)
   const ref = useRef<HTMLDivElement>(null);
   const tickerRef = useRef<number | null>(null);
-  const fallbackArmedRef = useRef<number | null>(null);
-  const sawBoundaryRef = useRef(false);
-  const voiceRef = useRef<SpeechSynthesisVoice | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Pre-recorded MP3 slots (drop real recordings into public/audio/mike/call-N.mp3)
@@ -72,44 +69,20 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
     ? promptWords.slice(0, spokenWords).join(" ")
     : currentPrompt;
 
-  // Pick a deeper male English voice once available (helps Mike sound the part)
-  useEffect(() => {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    const pick = () => {
-      const voices = window.speechSynthesis.getVoices();
-      if (!voices.length) return;
-      const preferred = [
-        /Daniel/i, /Alex/i, /Fred/i, /Aaron/i, /Arthur/i,
-        /Google UK English Male/i, /Microsoft.*(David|Guy|Mark)/i,
-      ];
-      for (const re of preferred) {
-        const match = voices.find((v) => re.test(v.name) && /en[-_]/i.test(v.lang));
-        if (match) { voiceRef.current = match; return; }
-      }
-      voiceRef.current = voices.find((v) => /en[-_]/i.test(v.lang)) ?? voices[0];
-    };
-    pick();
-    window.speechSynthesis.addEventListener?.("voiceschanged", pick);
-    return () => window.speechSynthesis.removeEventListener?.("voiceschanged", pick);
-  }, []);
-
   const clearSyntheticTicker = () => {
     if (tickerRef.current !== null) {
       window.clearInterval(tickerRef.current);
       tickerRef.current = null;
     }
-    if (fallbackArmedRef.current !== null) {
-      window.clearTimeout(fallbackArmedRef.current);
-      fallbackArmedRef.current = null;
-    }
   };
 
-  // Cleanup any in-flight speech / timers on unmount
+  // Cleanup any in-flight timers / audio on unmount
   useEffect(() => {
     return () => {
       clearSyntheticTicker();
-      if (typeof window !== "undefined" && "speechSynthesis" in window) {
-        try { window.speechSynthesis.cancel(); } catch { /* ignore */ }
+      if (audioRef.current) {
+        try { audioRef.current.pause(); } catch { /* ignore */ }
+        audioRef.current = null;
       }
     };
   }, []);
@@ -145,18 +118,9 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
     setSpokenWords(0);
     setMeterTick(0);
     setSpeaking(true);
-    sawBoundaryRef.current = false;
 
-    // Start synthetic ticker right away — real boundaries (if any) will cancel it
+    // Synthetic ticker drives meter + caption (audio is the soundtrack)
     startSyntheticTicker(totalWords, estDurationMs);
-
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      try {
-        window.speechSynthesis.cancel();
-      } catch {
-        /* ignore */
-      }
-    }
 
     // Play pre-recorded MP3 (silent placeholder until real clips dropped in)
     try {
@@ -168,21 +132,11 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
       const audio = new Audio(clipSrc);
       audio.volume = 1;
       audioRef.current = audio;
-      audio.play().catch(() => { /* autoplay blocked or missing file — synthetic ticker covers visuals */ });
+      audio.play().catch(() => { /* autoplay blocked or missing — ticker covers visuals */ });
     } catch {
-      /* synthetic ticker is already running, visuals are covered */
+      /* ticker covers visuals */
     }
   };
-
-  // Cleanup audio on unmount
-  useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        try { audioRef.current.pause(); } catch { /* ignore */ }
-        audioRef.current = null;
-      }
-    };
-  }, []);
 
   useEffect(() => {
     if (tap === 1 && ref.current) {
