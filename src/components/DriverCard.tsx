@@ -41,36 +41,36 @@ interface DriverCardProps {
 }
 
 export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
-  // tap state machine: 0 = idle, 1 = games revealed, 2 = telemetry refreshed, 3 = frozen
+  // tap counter — infinite. Cycles through MIKE_SCENES / MIKE_QUOTES via modulo.
   const [tap, setTap] = useState(0);
   const [voicePulse, setVoicePulse] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
+  const sceneIndex = tap === 0 ? 0 : tap % MIKE_SCENES.length;
+  const quoteIndex = tap === 0 ? 0 : (tap - 1) % MIKE_QUOTES.length;
+  const currentPrompt = tap === 0 ? "" : MIKE_QUOTES[quoteIndex];
+  const heroSrc = MIKE_SCENES[sceneIndex];
+
   const handleTap = () => {
-    if (tap === 3) return;
     setVoicePulse(true);
     setTimeout(() => setVoicePulse(false), 1800);
 
-    if (tap === 0) {
-      setTap(1);
-      onEngage?.();
-      // Speak Mike's line on first tap
-      if (typeof window !== "undefined" && "speechSynthesis" in window) {
-        try {
-          window.speechSynthesis.cancel();
-          const u = new SpeechSynthesisUtterance(MIKE_QUOTE);
-          u.rate = 0.95;
-          u.pitch = 0.7;
-          u.volume = 1;
-          window.speechSynthesis.speak(u);
-        } catch {
-          /* ignore */
-        }
+    const next = tap + 1;
+    setTap(next);
+    if (tap === 0) onEngage?.();
+    if (next === 3) onFreeze();
+
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(MIKE_QUOTES[(next - 1) % MIKE_QUOTES.length]);
+        u.rate = 0.95;
+        u.pitch = 0.7;
+        u.volume = 1;
+        window.speechSynthesis.speak(u);
+      } catch {
+        /* ignore */
       }
-    } else if (tap === 1) setTap(2);
-    else if (tap === 2) {
-      setTap(3);
-      onFreeze();
     }
   };
 
@@ -81,16 +81,13 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
   }, [tap]);
 
   const games = tap >= 2 ? driver.gamesV2 : driver.games;
-  const currentPrompt = tap === 1 ? MIKE_QUOTE : tap >= 2 ? driver.voicePrompt2 : "";
-  const heroSrc = tap >= 1 ? mikeStadium : driver.image;
 
   const ctaLabel =
     tap === 0 ? "tap to engage driver" :
     tap === 1 ? "tap to refresh telemetry" :
-    tap === 2 ? "tap to lock & enter grand 13" :
-    "driver locked · routed";
+    "tap mike for next call";
 
-  const CtaIcon = tap === 0 ? Radio : tap === 1 ? RefreshCw : tap === 2 ? Trophy : Lock;
+  const CtaIcon = tap === 0 ? Radio : RefreshCw;
 
   return (
     <div
