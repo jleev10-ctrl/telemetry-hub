@@ -239,6 +239,28 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
           speaking && "shadow-[inset_0_0_110px_hsl(var(--win)/0.6)]"
         )}
       >
+        {/* Voice flash — bright color overlay that pops + decays on each word.
+            Lives INSIDE the hero (overflow-hidden won't clip it here). Opacity-only animation. */}
+        {speaking && (
+          <div
+            key={`flash-${meterTick}`}
+            aria-hidden
+            className="pointer-events-none absolute inset-0 z-[15] mix-blend-screen"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, hsl(var(--win) / 0.6) 0%, hsl(var(--win) / 0.25) 45%, transparent 75%)",
+              animation: "mike-flash 420ms ease-out forwards",
+            }}
+          />
+        )}
+        {/* Steady speaking glow — always-on under the per-word flash */}
+        {speaking && (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 z-[14]"
+            style={{ boxShadow: "inset 0 0 90px hsl(var(--win) / 0.5)" }}
+          />
+        )}
         {/* Crossfade stack — render every scene, fade only the active one */}
         {MIKE_SCENES.map((src, i) => (
           <img
