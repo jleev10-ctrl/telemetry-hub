@@ -121,9 +121,9 @@ const Index = () => {
 
       <div className="h-[132px]" />
 
-      <main className="container max-w-2xl px-4 pb-24">
-        {/* MIKE — proportional scale-down on phones (same look, just smaller) */}
-        <div className="origin-top scale-[0.82] sm:scale-100 -mb-[18%] sm:mb-0">
+      <main className="container max-w-2xl px-1 sm:px-4 pb-24">
+        {/* MIKE — proportional scale-down on phones; padding gives the outer glow room to bleed */}
+        <div className="origin-top scale-[0.82] sm:scale-100 -mb-[18%] sm:mb-0 px-6 sm:px-0">
           <DriverCard driver={mike} onFreeze={() => {}} />
         </div>
       </main>
