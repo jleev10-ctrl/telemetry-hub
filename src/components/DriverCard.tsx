@@ -42,7 +42,7 @@ interface DriverCardProps {
   onEngage?: () => void;
 }
 
-export const DriverCard = ({ driver, onFreeze }: DriverCardProps) => {
+export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
   // tap state machine: 0 = idle, 1 = games revealed, 2 = telemetry refreshed, 3 = frozen
   const [tap, setTap] = useState(0);
   const [voicePulse, setVoicePulse] = useState(false);
