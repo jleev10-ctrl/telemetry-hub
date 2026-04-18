@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { DriverCard, type DriverData } from "@/components/DriverCard";
 import { JoinModal } from "@/components/JoinModal";
+import { NflScoreboard } from "@/components/NflScoreboard";
 import ironmike from "@/assets/ironmike.jpg";
 import swoosh from "@/assets/swoosh.jpg";
 import sarah from "@/assets/sarah.jpg";
