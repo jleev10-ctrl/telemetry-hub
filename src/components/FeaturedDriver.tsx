@@ -3,6 +3,13 @@ import ironmike from "@/assets/ironmike.jpg";
 
 export const FeaturedDriver = () => {
   const [voiceActive, setVoiceActive] = useState(false);
+  const [tapped, setTapped] = useState(false);
+
+  const handleTap = () => {
+    setTapped(true);
+    setVoiceActive(true);
+    setTimeout(() => setVoiceActive(false), 3000);
+  };
 
   return (
     <>
@@ -11,7 +18,12 @@ export const FeaturedDriver = () => {
         <span className="text-[9px] text-green tracking-[2px] ml-auto">TAP SEQUENCE ACTIVE</span>
       </div>
 
-      <div className="mx-2.5 mb-3 border-[1.5px] border-green bg-card overflow-hidden">
+      <div
+        onClick={handleTap}
+        className={`mx-2.5 mb-3 border-[1.5px] border-green bg-card overflow-hidden cursor-pointer transition-shadow ${
+          tapped ? "shadow-[0_0_30px_hsl(var(--green)/0.6)]" : "hover:shadow-[0_0_15px_hsl(var(--green)/0.3)]"
+        }`}
+      >
         {/* Header */}
         <div className="flex items-center justify-between py-2 px-3 border-b border-syndicate/50">
           <div className="flex items-center gap-1.5 text-[11px] font-bold text-green tracking-[1px] uppercase">
