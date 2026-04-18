@@ -84,6 +84,9 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
         try { audioRef.current.pause(); } catch { /* ignore */ }
         audioRef.current = null;
       }
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        try { window.speechSynthesis.cancel(); } catch { /* ignore */ }
+      }
     };
   }, []);
 
