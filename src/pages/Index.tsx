@@ -246,7 +246,7 @@ const Index = () => {
 
       <main className="container max-w-2xl px-1 sm:px-4 pb-24 space-y-4">
         {/* MIKE IMAGE BOX */}
-        <div className="origin-top scale-[0.82] sm:scale-100 -mb-[18%] sm:mb-0 px-6 sm:px-0">
+        <div className="origin-top scale-[0.82] sm:scale-100 -mb-[18%] sm:mb-0 px-2 sm:px-0 overflow-visible">
           <MikeImageBox
             name={MIKE.name}
             league={MIKE.league}
