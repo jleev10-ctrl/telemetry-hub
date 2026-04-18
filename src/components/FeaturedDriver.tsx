@@ -3,6 +3,13 @@ import ironmike from "@/assets/ironmike.jpg";
 
 export const FeaturedDriver = () => {
   const [voiceActive, setVoiceActive] = useState(false);
+  const [tapped, setTapped] = useState(false);
+
+  const handleTap = () => {
+    setTapped(true);
+    setVoiceActive(true);
+    setTimeout(() => setVoiceActive(false), 3000);
+  };
 
   return (
     <>
@@ -11,7 +18,12 @@ export const FeaturedDriver = () => {
         <span className="text-[9px] text-green tracking-[2px] ml-auto">TAP SEQUENCE ACTIVE</span>
       </div>
 
-      <div className="mx-2.5 mb-3 border-[1.5px] border-green bg-card overflow-hidden">
+      <div
+        onClick={handleTap}
+        className={`mx-2.5 mb-3 border-[1.5px] border-green bg-card overflow-hidden cursor-pointer transition-shadow ${
+          tapped ? "shadow-[0_0_30px_hsl(var(--green)/0.6)]" : "hover:shadow-[0_0_15px_hsl(var(--green)/0.3)]"
+        }`}
+      >
         {/* Header */}
         <div className="flex items-center justify-between py-2 px-3 border-b border-syndicate/50">
           <div className="flex items-center gap-1.5 text-[11px] font-bold text-green tracking-[1px] uppercase">
@@ -56,6 +68,21 @@ export const FeaturedDriver = () => {
           {/* Pulse frame */}
           <div className={`absolute inset-0 pointer-events-none ${voiceActive ? "animate-frame-pulse" : ""}`} />
 
+          {/* Voice line */}
+          {voiceActive && (
+            <div className="absolute top-2.5 left-2.5 right-[130px] animate-fade-in">
+              <div className="bg-background/90 border border-green px-2 py-1.5">
+                <div className="text-[9px] text-green tracking-[1.5px] uppercase font-bold flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green animate-pulse" />
+                  Mike · live
+                </div>
+                <div className="text-[11px] text-foreground font-bold mt-0.5 italic">
+                  "Money's moving to Dallas — heavy."
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-b from-transparent to-black/90">
             <div className="text-[20px] font-black text-foreground tracking-[1px]">"Iron" Mike K.</div>
@@ -68,7 +95,7 @@ export const FeaturedDriver = () => {
         <div className="flex items-center justify-between py-2.5 px-3 border-t border-syndicate/50">
           <span className="text-[10px] text-muted-foreground tracking-[2px] uppercase">Voice chat ready</span>
           <button
-            onClick={() => setVoiceActive((v) => !v)}
+            onClick={(e) => { e.stopPropagation(); setVoiceActive((v) => !v); }}
             className={`border border-green text-[11px] font-bold tracking-[2px] uppercase py-[7px] px-4 transition-colors ${
               voiceActive ? "bg-green text-background" : "bg-transparent text-green hover:bg-green hover:text-background"
             }`}
