@@ -153,44 +153,36 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       try {
         window.speechSynthesis.cancel();
-
-        const u = new SpeechSynthesisUtterance(quote);
-        if (voiceRef.current) u.voice = voiceRef.current;
-        u.rate = 0.95;
-        u.pitch = 0.7;
-        u.volume = 1;
-
-        u.onboundary = (e) => {
-          if (e.name === "word" || e.name === undefined) {
-            if (!sawBoundaryRef.current) {
-              // Real boundaries arrived — kill the synthetic ticker, take over
-              sawBoundaryRef.current = true;
-              clearSyntheticTicker();
-              // Reset to current word position so we don't double-count
-              setSpokenWords(0);
-            }
-            setSpokenWords((n) => Math.min(totalWords, n + 1));
-            setMeterTick((n) => n + 1);
-          }
-        };
-        const stop = () => {
-          // Only stop visuals if real speech ended AND we were following real events
-          if (sawBoundaryRef.current) {
-            clearSyntheticTicker();
-            setSpeaking(false);
-            setSpokenWords(totalWords);
-          }
-          // Otherwise let the synthetic ticker finish on its own clock
-        };
-        u.onend = stop;
-        u.onerror = stop;
-
-        window.speechSynthesis.speak(u);
       } catch {
-        /* synthetic ticker is already running, visuals are covered */
+        /* ignore */
       }
     }
+
+    // Play pre-recorded MP3 (silent placeholder until real clips dropped in)
+    try {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+      }
+      const clipSrc = MIKE_CLIPS[(next - 1) % MIKE_CLIPS.length];
+      const audio = new Audio(clipSrc);
+      audio.volume = 1;
+      audioRef.current = audio;
+      audio.play().catch(() => { /* autoplay blocked or missing file — synthetic ticker covers visuals */ });
+    } catch {
+      /* synthetic ticker is already running, visuals are covered */
+    }
   };
+
+  // Cleanup audio on unmount
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        try { audioRef.current.pause(); } catch { /* ignore */ }
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (tap === 1 && ref.current) {
