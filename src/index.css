@@ -8,42 +8,45 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Sports Telemetry — dark by default */
-    --background: 220 30% 6%;
-    --foreground: 190 30% 95%;
+    /* Synthetic Sports Syndicate — green/black/gold */
+    --background: 0 0% 4%;             /* #0A0A0A */
+    --foreground: 0 0% 94%;             /* #F0F0F0 */
 
-    --card: 220 28% 9%;
-    --card-foreground: 190 30% 95%;
+    --card: 0 0% 7%;                    /* #111 surface */
+    --card-foreground: 0 0% 94%;
 
-    --popover: 220 30% 8%;
-    --popover-foreground: 190 30% 95%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 94%;
 
-    --primary: 175 95% 50%;
-    --primary-foreground: 220 40% 6%;
+    --primary: 150 100% 50%;            /* #00FF7F neon green */
+    --primary-foreground: 0 0% 4%;
 
-    --secondary: 220 25% 14%;
-    --secondary-foreground: 190 30% 95%;
+    --secondary: 0 0% 9%;               /* #181818 surface2 */
+    --secondary-foreground: 0 0% 94%;
 
-    --muted: 220 22% 14%;
-    --muted-foreground: 215 18% 65%;
+    --muted: 0 0% 9%;
+    --muted-foreground: 0 0% 47%;       /* #777 */
 
-    --accent: 142 75% 48%;
-    --accent-foreground: 220 40% 6%;
+    --accent: 45 65% 52%;               /* #D4AF37 gold */
+    --accent-foreground: 0 0% 4%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 53%;           /* #E24B4A */
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 200 60% 22%;
-    --input: 220 22% 16%;
-    --ring: 175 95% 50%;
+    --border: 150 100% 50% / 0.18;      /* green-tinted (used as raw) */
+    --input: 0 0% 9%;
+    --ring: 150 100% 50%;
 
-    /* Telemetry tokens */
+    /* Brand tokens */
+    --green: 150 100% 50%;
+    --green-dim: 144 100% 39%;          /* #00C85A */
+    --gold: 45 65% 52%;
     --hot: 0 90% 58%;
-    --win: 142 76% 50%;
-    --hud: 195 100% 55%;
-    --hud-glow: 195 100% 50%;
-    --steel-1: 220 25% 16%;
-    --steel-2: 220 30% 9%;
+    --win: 150 100% 50%;
+    --hud: 150 100% 50%;
+    --hud-glow: 150 100% 50%;
+    --steel-1: 0 0% 9%;
+    --steel-2: 0 0% 5%;
 
     --gradient-hud: linear-gradient(180deg, hsl(220 30% 12%), hsl(220 35% 6%));
     --gradient-cta: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
@@ -119,12 +122,32 @@ All colors MUST be HSL.
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-image:
-      radial-gradient(ellipse at top, hsl(var(--hud) / 0.08), transparent 60%),
-      radial-gradient(ellipse at bottom, hsl(var(--primary) / 0.06), transparent 60%);
+    font-family: Arial, system-ui, -apple-system, sans-serif;
   }
 }
+
+@layer utilities {
+  .border-syndicate {
+    border-color: hsl(var(--green) / 0.18);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+@keyframes frame-pulse {
+  0%   { box-shadow: inset 0 0 0 0 hsl(var(--green) / 0.6); }
+  70%  { box-shadow: inset 0 0 0 8px hsl(var(--green) / 0); }
+  100% { box-shadow: inset 0 0 0 0 hsl(var(--green) / 0); }
+}
+@keyframes pulse-frame {
+  0%   { opacity: 0.7; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.05); }
+}
+.animate-blink { animation: blink 1.5s ease-in-out infinite; }
+.animate-frame-pulse { animation: frame-pulse 2s ease-out infinite; }
+.animate-pulse-frame { animation: pulse-frame 2s ease-out infinite; }
 
 @layer components {
   .hud-panel {
