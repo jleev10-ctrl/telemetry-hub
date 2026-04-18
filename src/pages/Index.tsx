@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { DriverCard, type DriverData } from "@/components/DriverCard";
 import { JoinModal } from "@/components/JoinModal";
+import { NflScoreboard } from "@/components/NflScoreboard";
 import ironmike from "@/assets/ironmike.jpg";
 import swoosh from "@/assets/swoosh.jpg";
 import sarah from "@/assets/sarah.jpg";
@@ -172,6 +173,7 @@ const grand13 = [
 
 const Index = () => {
   const [joinOpen, setJoinOpen] = useState(false);
+  const [engaged, setEngaged] = useState(false);
   const grand13Ref = useRef<HTMLDivElement>(null);
 
   // Order: NFL (featured) → NBA → Sarah → MLB → NHL
@@ -294,8 +296,11 @@ const Index = () => {
               tap sequence active
             </span>
           </div>
-          <DriverCard driver={primary} onFreeze={scrollToGrand13} />
+          <DriverCard driver={primary} onFreeze={scrollToGrand13} onEngage={() => setEngaged(true)} />
         </section>
+
+        {/* NFL SCOREBOARD — appears once Mike is engaged */}
+        {engaged && primary.league === "NFL" && <NflScoreboard />}
 
         {/* GRAND 13 LEADERBOARD */}
         <section ref={grand13Ref} className="hud-panel border border-hud/30 overflow-hidden scroll-mt-24">

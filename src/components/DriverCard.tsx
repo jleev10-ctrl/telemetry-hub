@@ -39,9 +39,10 @@ const statusColor: Record<DriverData["status"], string> = {
 interface DriverCardProps {
   driver: DriverData;
   onFreeze: () => void;
+  onEngage?: () => void;
 }
 
-export const DriverCard = ({ driver, onFreeze }: DriverCardProps) => {
+export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
   // tap state machine: 0 = idle, 1 = games revealed, 2 = telemetry refreshed, 3 = frozen
   const [tap, setTap] = useState(0);
   const [voicePulse, setVoicePulse] = useState(false);
@@ -54,6 +55,7 @@ export const DriverCard = ({ driver, onFreeze }: DriverCardProps) => {
 
     if (tap === 0) {
       setTap(1);
+      onEngage?.();
       // Speak Mike's line on first tap
       if (typeof window !== "undefined" && "speechSynthesis" in window) {
         try {
