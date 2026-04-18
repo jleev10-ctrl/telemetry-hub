@@ -156,11 +156,13 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
   return (
     <div
       ref={ref}
+      key={speaking ? `pulse-${meterTick}` : "idle"}
       className={cn(
         "hud-panel border transition-all relative rounded-md",
         tap >= 1 ? "border-win/60 shadow-[0_0_40px_hsl(var(--win)/0.35)]" : "border-hud/30",
         speaking && "shadow-[0_0_40px_hsl(var(--win)/0.55),0_0_90px_hsl(var(--win)/0.3)]"
       )}
+      style={speaking ? { animation: "mike-outer-pulse 380ms ease-out forwards" } : undefined}
     >
       {/* Status bar */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-hud/20 bg-secondary/40">
