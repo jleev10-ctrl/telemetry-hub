@@ -39,6 +39,7 @@ const statusColor: Record<DriverData["status"], string> = {
 interface DriverCardProps {
   driver: DriverData;
   onFreeze: () => void;
+  onEngage?: () => void;
 }
 
 export const DriverCard = ({ driver, onFreeze }: DriverCardProps) => {
