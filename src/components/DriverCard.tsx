@@ -100,10 +100,8 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
       {/* Status bar */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-hud/20 bg-secondary/40">
         <div className="flex items-center gap-2">
-          <span className={cn("pulse-dot inline-block h-2 w-2 rounded-full", tap === 3 ? "bg-win" : "bg-win")} />
-          <span className="font-mono text-[10px] tracking-[0.3em] text-hud">
-            {tap === 3 ? "DRIVER LOCKED" : "DRIVER ONLINE"}
-          </span>
+          <span className="pulse-dot inline-block h-2 w-2 rounded-full bg-win" />
+          <span className="font-mono text-[10px] tracking-[0.3em] text-hud">DRIVER ONLINE</span>
         </div>
         <span className={cn("rounded px-1.5 py-0.5 text-[9px] font-mono border", statusColor[driver.status])}>
           {driver.status}
@@ -122,7 +120,7 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
           }
         }}
         className={cn(
-          "group relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden cursor-pointer outline-none",
+          "group relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden cursor-pointer outline-none bg-background",
           "transition-shadow duration-500",
           "hover:shadow-[inset_0_0_60px_hsl(var(--win)/0.35)]",
           "focus-visible:shadow-[inset_0_0_60px_hsl(var(--win)/0.5)]",
@@ -130,12 +128,19 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
           voicePulse && "shadow-[inset_0_0_110px_hsl(var(--win)/0.6)]"
         )}
       >
-        <img
-          key={heroSrc}
-          src={heroSrc}
-          alt={driver.name}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] animate-fade-in"
-        />
+        {/* Crossfade stack — render every scene, fade only the active one */}
+        {MIKE_SCENES.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt={driver.name}
+            loading={i === 0 ? "eager" : "lazy"}
+            className={cn(
+              "absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out",
+              i === sceneIndex ? "opacity-100" : "opacity-0"
+            )}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
 
         <div className="absolute top-3 left-3 flex flex-col gap-1.5">
