@@ -71,7 +71,7 @@ export const FeaturedDriver = () => {
 
         {/* Image */}
         <div className="relative w-full h-[300px] overflow-hidden bg-secondary">
-          <img src={ironmike} alt='Iron "Mike" K., featured NFL analyst' className="w-full h-full object-cover object-top" />
+          <img src={tapped ? ironmikeStadium : ironmike} alt='Iron "Mike" K., featured NFL analyst' className="w-full h-full object-cover object-top transition-opacity duration-500" />
 
           {/* Chart overlay */}
           <div className="absolute top-2.5 right-2.5 w-[110px] h-[55px] pointer-events-none">
