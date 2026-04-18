@@ -216,30 +216,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Partners sub-header */}
-        <div className="border-b border-border/60 bg-secondary/70">
-          <div className="mx-auto flex w-full max-w-full items-center justify-center flex-wrap gap-1.5 py-1.5 px-2">
-            <span className="w-full text-center font-mono text-[9px] tracking-[0.3em] text-muted-foreground uppercase pb-0.5">
-              partners
-            </span>
-            {sportsbooks.map((b) => (
-              <a
-                key={b.name}
-                href={withUtm(b.url, b.slug, "header_strip")}
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                data-book={b.slug}
-                className={cn(
-                  "shrink-0 rounded px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-foreground",
-                  "bg-gradient-to-b shadow-md shadow-black/40",
-                  b.color
-                )}
-              >
-                {b.name}
-              </a>
-            ))}
-          </div>
-        </div>
       </header>
 
       <div className="h-[68px]" />
