@@ -195,26 +195,24 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
           speaking && "shadow-[inset_0_0_110px_hsl(var(--win)/0.6)]"
         )}
       >
-        {/* Voice flash — bright color overlay that pops + decays on each word.
-            Lives INSIDE the hero (overflow-hidden won't clip it here). Opacity-only animation. */}
+        {/* Edge-only voice flash — pulses on each word from the rim inward, never bleeds onto Mike's face. */}
         {speaking && (
           <div
             key={`flash-${meterTick}`}
             aria-hidden
-            className="pointer-events-none absolute inset-0 z-[15] mix-blend-screen"
+            className="pointer-events-none absolute inset-0 z-[15]"
             style={{
-              background:
-                "radial-gradient(ellipse at center, hsl(var(--win) / 0.6) 0%, hsl(var(--win) / 0.25) 45%, transparent 75%)",
+              boxShadow: "inset 0 0 60px hsl(var(--win) / 0.75), inset 0 0 120px hsl(var(--win) / 0.35)",
               animation: "mike-flash 420ms ease-out forwards",
             }}
           />
         )}
-        {/* Steady speaking glow — always-on under the per-word flash */}
+        {/* Steady edge glow under the per-word pulse — also edge-only */}
         {speaking && (
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 z-[14]"
-            style={{ boxShadow: "inset 0 0 90px hsl(var(--win) / 0.5)" }}
+            style={{ boxShadow: "inset 0 0 50px hsl(var(--win) / 0.4)" }}
           />
         )}
         {/* Crossfade stack — render every scene, fade only the active one */}
