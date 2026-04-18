@@ -126,16 +126,18 @@ export const DriverCard = ({ driver, onFreeze }: DriverCardProps) => {
         }}
         className={cn(
           "group relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden cursor-pointer outline-none",
-          "transition-shadow duration-300",
+          "transition-shadow duration-500",
           "hover:shadow-[inset_0_0_60px_hsl(var(--win)/0.35)]",
           "focus-visible:shadow-[inset_0_0_60px_hsl(var(--win)/0.5)]",
-          voicePulse && "shadow-[inset_0_0_80px_hsl(var(--win)/0.55)]"
+          tap >= 1 && "shadow-[inset_0_0_90px_hsl(var(--win)/0.45),0_0_50px_hsl(var(--gold,45_95%_55%)/0.35)]",
+          voicePulse && "shadow-[inset_0_0_110px_hsl(var(--win)/0.6)]"
         )}
       >
         <img
-          src={driver.image}
+          key={heroSrc}
+          src={heroSrc}
           alt={driver.name}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] animate-fade-in"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
 
