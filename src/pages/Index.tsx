@@ -216,33 +216,9 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Partners sub-header */}
-        <div className="border-b border-border/60 bg-secondary/70">
-          <div className="mx-auto flex w-full max-w-full items-center justify-center flex-wrap gap-1.5 py-1.5 px-2">
-            <span className="w-full text-center font-mono text-[9px] tracking-[0.3em] text-muted-foreground uppercase pb-0.5">
-              partners
-            </span>
-            {sportsbooks.map((b) => (
-              <a
-                key={b.name}
-                href={withUtm(b.url, b.slug, "header_strip")}
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                data-book={b.slug}
-                className={cn(
-                  "shrink-0 rounded px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-foreground",
-                  "bg-gradient-to-b shadow-md shadow-black/40",
-                  b.color
-                )}
-              >
-                {b.name}
-              </a>
-            ))}
-          </div>
-        </div>
       </header>
 
-      <div className="h-[132px]" />
+      <div className="h-[68px]" />
 
       <main className="container max-w-2xl px-1 sm:px-4 pb-24 space-y-4">
         {/* MIKE IMAGE BOX */}
@@ -325,13 +301,31 @@ const Index = () => {
           </div>
         </section>
 
-        {/* BACK TO HOME BOX */}
-        <a
-          href="/"
-          className="block hud-panel border border-hud/30 rounded-md px-4 py-3 text-center hover:brightness-125 transition"
-        >
-          <span className="font-mono text-[11px] tracking-[0.3em] text-hud uppercase">← back to home</span>
-        </a>
+        {/* PARTNERS BOX — moved from header */}
+        <section className="hud-panel border border-hud/30 rounded-md overflow-hidden">
+          <div className="flex items-center gap-2 px-4 py-2 border-b border-hud/20 bg-secondary/40">
+            <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-[hsl(45_100%_60%)]" />
+            <span className="font-mono text-[10px] tracking-[0.3em] text-[hsl(45_100%_60%)] uppercase">official partners</span>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-1.5 px-3 py-3 bg-secondary/20">
+            {sportsbooks.map((b) => (
+              <a
+                key={b.name}
+                href={withUtm(b.url, b.slug, "partners_box")}
+                target="_blank"
+                rel="sponsored noopener noreferrer"
+                data-book={b.slug}
+                className={cn(
+                  "shrink-0 rounded px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-primary-foreground",
+                  "bg-gradient-to-b shadow-md shadow-black/40 hover:brightness-110 transition",
+                  b.color
+                )}
+              >
+                {b.name}
+              </a>
+            ))}
+          </div>
+        </section>
       </main>
 
       <JoinModal open={joinOpen} onOpenChange={setJoinOpen} />
