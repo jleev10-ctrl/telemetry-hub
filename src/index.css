@@ -193,3 +193,9 @@ All colors MUST be HSL.
   60%  { opacity: 0.55; transform: scale(1.004); filter: brightness(1.05); }
   100% { opacity: 0.35; transform: scale(1);     filter: brightness(1); }
 }
+
+@keyframes mike-flash {
+  0%   { opacity: 1; }
+  60%  { opacity: 0.45; }
+  100% { opacity: 0; }
+}
