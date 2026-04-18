@@ -163,10 +163,10 @@ const TeamRow = ({
   winning,
   hideScore,
 }: {
-  team: { abbr: string; logo: string };
+  team: { abbr: string; logo: string; score: number };
   winning: boolean;
   hideScore: boolean;
-} & { team: { abbr: string; logo: string; score: number } }) => (
+}) => (
   <div className="flex items-center justify-between gap-2 py-0.5">
     <div className="flex items-center gap-2 min-w-0">
       <img
