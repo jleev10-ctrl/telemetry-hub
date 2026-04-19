@@ -301,31 +301,11 @@ const SwooshBucket = () => {
           </div>
         </section>
 
-        {/* PARTNERS BOX */}
-        <section className="hud-panel border border-hud/30 rounded-md overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-2 border-b border-hud/20 bg-secondary/40">
-            <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-[hsl(45_100%_60%)]" />
-            <span className="font-mono text-[10px] tracking-[0.3em] text-[hsl(45_100%_60%)] uppercase">official partners</span>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-1.5 px-3 py-3 bg-secondary/20">
-            {sportsbooks.map((b) => (
-              <a
-                key={b.name}
-                href={withUtm(b.url, b.slug, "partners_box")}
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                data-book={b.slug}
-                className={cn(
-                  "shrink-0 rounded px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-primary-foreground",
-                  "bg-gradient-to-b shadow-md shadow-black/40 hover:brightness-110 transition",
-                  b.color
-                )}
-              >
-                {b.name}
-              </a>
-            ))}
-          </div>
-        </section>
+        {/* PARTNERS NODE — same flow as Home */}
+        <PartnersNode />
+
+        {/* LEGAL NODE — same flow as Home */}
+        <LegalNode />
 
         {/* BACK TO HOME */}
         <Link
