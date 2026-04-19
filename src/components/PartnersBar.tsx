@@ -15,7 +15,7 @@ export const PartnersBar = () => (
           key={p.name}
           href="#"
           className={`py-[5px] px-[4px] text-[11px] font-bold rounded-[2px] text-center hover:opacity-75 transition-opacity ${p.cls} ${
-            i === 4 ? "col-span-4 sm:col-span-1" : ""
+            i === 4 ? "col-start-2 col-span-2 sm:col-start-auto sm:col-span-1" : ""
           }`}
         >
           {p.name}
