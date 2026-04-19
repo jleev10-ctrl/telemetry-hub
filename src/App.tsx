@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import Home from "./pages/Home.tsx";
 import MikeBucket from "./pages/MikeBucket.tsx";
+import SwooshBucket from "./pages/SwooshBucket.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -21,7 +22,7 @@ const App = () => (
           <Route path="/" element={<Home />} />
           {/* All 5 driver tiles route here for now — each will get its own bucket next step */}
           <Route path="/drivers/mike" element={<MikeBucket />} />
-          <Route path="/drivers/swoosh" element={<MikeBucket />} />
+          <Route path="/drivers/swoosh" element={<SwooshBucket />} />
           <Route path="/drivers/sarah" element={<MikeBucket />} />
           <Route path="/drivers/baseburner" element={<MikeBucket />} />
           <Route path="/drivers/tommy" element={<MikeBucket />} />
