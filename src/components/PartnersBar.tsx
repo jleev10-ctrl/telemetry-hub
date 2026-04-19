@@ -4,11 +4,6 @@ const partners = [
   { name: "BetMGM", cls: "bg-[#E65100] text-white" },
   { name: "Caesars", cls: "bg-[#B71C1C] text-white" },
   { name: "BET365", cls: "bg-[#F9A825] text-[#111]" },
-  { name: "ESPN", cls: "bg-[#CC0000] text-white" },
-  { name: "NFL", cls: "bg-[#013369] text-white" },
-  { name: "NBA", cls: "bg-[#C9082A] text-white" },
-  { name: "NHL", cls: "bg-black text-white border border-[#444]" },
-  { name: "MLB", cls: "bg-[#002D72] text-white" },
 ];
 
 export const PartnersBar = () => (

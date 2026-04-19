@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export interface Expert {
   initials: string;
   name: string;
@@ -18,14 +16,8 @@ interface Props {
 }
 
 export const ExpertCard = ({ expert }: Props) => {
-  const [active, setActive] = useState(false);
   return (
-    <div
-      onClick={() => setActive((a) => !a)}
-      className={`relative bg-card border-[0.5px] flex flex-col overflow-hidden cursor-pointer transition-colors ${
-        active ? "border-green" : "border-syndicate hover:border-green"
-      }`}
-    >
+    <div className="relative bg-card border-[0.5px] border-syndicate hover:border-green flex flex-col overflow-hidden cursor-pointer transition-colors">
       {/* Image / placeholder */}
       <div className="relative w-full h-[140px] overflow-hidden bg-secondary">
         {expert.image ? (
@@ -35,21 +27,9 @@ export const ExpertCard = ({ expert }: Props) => {
             {expert.initials}
           </div>
         )}
-        <div
-          className={`absolute top-1.5 right-1.5 bg-black/75 border-[0.5px] text-[9px] py-[2px] px-1.5 tracking-[1px] uppercase ${
-            expert.badgeHot ? "text-green border-green" : "text-green border-green"
-          }`}
-        >
+        <div className="absolute top-1.5 right-1.5 bg-black/75 border-[0.5px] text-[9px] py-[2px] px-1.5 tracking-[1px] uppercase text-green border-green">
           {expert.badge}
         </div>
-
-        {/* Pulse rings */}
-        {active && (
-          <div className="absolute inset-0 pointer-events-none">
-            <span className="absolute -inset-1 border-[1.5px] border-green animate-pulse-frame" />
-            <span className="absolute -inset-1 border-[1.5px] border-green animate-pulse-frame" style={{ animationDelay: "0.8s" }} />
-          </div>
-        )}
       </div>
 
       {/* Body */}
@@ -83,17 +63,9 @@ export const ExpertCard = ({ expert }: Props) => {
           Pick: <span className="text-green font-bold">{expert.pick}</span>
         </div>
 
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setActive((a) => !a);
-          }}
-          className={`border-[0.5px] border-green text-[10px] font-bold tracking-[1px] uppercase py-1.5 w-full mt-1 transition-colors ${
-            active ? "bg-green text-background" : "bg-transparent text-green"
-          }`}
-        >
-          {active ? "Listening…" : "Voice"}
-        </button>
+        <div className="border-[0.5px] border-green text-[10px] font-bold tracking-[1px] uppercase py-1.5 w-full mt-1 text-center bg-transparent text-green">
+          Tap for Voice
+        </div>
       </div>
     </div>
   );
