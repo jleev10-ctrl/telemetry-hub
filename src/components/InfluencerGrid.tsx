@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ExpertCard, ExpertSocket, type Expert } from "./ExpertCard";
+import { ExpertCard, type Expert } from "./ExpertCard";
 import ironmike from "@/assets/ironmike.jpg";
 import swoosh from "@/assets/swoosh.jpg";
 import sarah from "@/assets/sarah.jpg";
@@ -60,7 +60,6 @@ export const InfluencerGrid = () => (
           <ExpertCard expert={r.expert} />
         </Link>
       ))}
-      <ExpertSocket />
     </div>
   </section>
 );
