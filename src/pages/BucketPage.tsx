@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { MikeImageBox } from "@/components/MikeImageBox";
-import { MikeTelemetryBox } from "@/components/MikeTelemetryBox";
+import { DriverImageBox } from "@/components/DriverImageBox";
+import { DriverTelemetryBox } from "@/components/DriverTelemetryBox";
 import { TodaysBoardBox } from "@/components/TodaysBoardBox";
 import { JoinModal } from "@/components/JoinModal";
 import { PartnersNode } from "@/components/PartnersNode";
@@ -165,7 +165,7 @@ const BucketPage = () => {
       <main className="container max-w-2xl px-1 sm:px-4 pb-24 space-y-4">
         {/* DRIVER IMAGE BOX */}
         <div className="origin-top scale-[0.82] sm:scale-100 -mb-[18%] sm:mb-0 px-2 sm:px-0 overflow-visible">
-          <MikeImageBox
+          <DriverImageBox
             name={driver.name}
             league={driver.league}
             tag={driver.tag}
@@ -181,11 +181,13 @@ const BucketPage = () => {
         </div>
 
         {/* TELEMETRY BOX */}
-        <MikeTelemetryBox
+        <DriverTelemetryBox
           tap={tap}
           winPct={driver.winPct}
           record={driver.record}
           units={driver.units}
+          label={driver.telemetryLabel}
+          tickerCallout={driver.tickerCallout}
         />
 
         {/* TODAY'S BOARD BOX */}
