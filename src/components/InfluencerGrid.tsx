@@ -57,7 +57,7 @@ export const InfluencerGrid = () => (
     <div className="flex flex-col gap-3 mt-2">
       {roster.map((r) => (
         <Link key={r.slug} to={`/drivers/${r.slug}`} className="block w-full">
-          <ExpertCard expert={r.expert} slug={r.slug} />
+          <ExpertCard expert={r.expert} />
         </Link>
       ))}
       <ExpertSocket />
