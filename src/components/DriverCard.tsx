@@ -201,7 +201,7 @@ export const DriverCard = ({ driver, onFreeze, onEngage }: DriverCardProps) => {
           }
         }}
         className={cn(
-          "group relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden cursor-pointer outline-none bg-background",
+          "group relative aspect-[4/5] sm:aspect-[4/3] lg:aspect-[16/10] sm:max-h-[70vh] overflow-hidden cursor-pointer outline-none bg-background",
           "transition-shadow duration-500"
         )}
       >
