@@ -1,4 +1,3 @@
-import { useState, useRef, useEffect } from "react";
 import { Radio, RefreshCw, Zap, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -14,6 +13,8 @@ interface MikeImageBoxProps {
   speaking: boolean;
   spokenWords: number;
   meterTick: number;
+  scenes?: string[];
+  quotes?: string[];
 }
 
 const statusColor: Record<MikeImageBoxProps["status"], string> = {
@@ -25,10 +26,11 @@ const statusColor: Record<MikeImageBoxProps["status"], string> = {
 
 export const MikeImageBox = ({
   name, league, tag, status, tap, onTap, speaking, spokenWords, meterTick,
+  scenes = MIKE_SCENES, quotes = MIKE_QUOTES,
 }: MikeImageBoxProps) => {
-  const sceneIndex = tap === 0 ? 0 : tap % MIKE_SCENES.length;
-  const quoteIndex = tap === 0 ? 0 : (tap - 1) % MIKE_QUOTES.length;
-  const currentPrompt = tap === 0 ? "" : MIKE_QUOTES[quoteIndex];
+  const sceneIndex = tap === 0 ? 0 : tap % scenes.length;
+  const quoteIndex = tap === 0 ? 0 : (tap - 1) % quotes.length;
+  const currentPrompt = tap === 0 ? "" : quotes[quoteIndex];
   const promptWords = currentPrompt ? currentPrompt.split(/\s+/) : [];
   const revealedCaption = speaking ? promptWords.slice(0, spokenWords).join(" ") : currentPrompt;
 
@@ -67,7 +69,7 @@ export const MikeImageBox = ({
         onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onTap(); } }}
         className="group relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden cursor-pointer outline-none bg-background transition-shadow duration-500"
       >
-        {MIKE_SCENES.map((src, i) => (
+        {scenes.map((src, i) => (
           <img
             key={src}
             src={src}
@@ -142,7 +144,7 @@ export const MikeImageBox = ({
         {tap > 0 && (
           <div className="flex items-center justify-center gap-1.5 mt-2">
             <span className="font-mono text-[9px] tracking-[0.3em] text-hud uppercase">
-              call {tap} · scene {sceneIndex + 1}/{MIKE_SCENES.length}
+              call {tap} · scene {sceneIndex + 1}/{scenes.length}
             </span>
           </div>
         )}
