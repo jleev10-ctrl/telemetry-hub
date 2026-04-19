@@ -1,30 +1,4 @@
-import p1 from "@/assets/g13/p1.jpg";
-import p2 from "@/assets/g13/p2.jpg";
-import p3 from "@/assets/g13/p3.jpg";
-import p4 from "@/assets/g13/p4.jpg";
-import p5 from "@/assets/g13/p5.jpg";
-import p6 from "@/assets/g13/p6.jpg";
-import p7 from "@/assets/g13/p7.jpg";
-
-const leaders = [
-  { rank: 1, name: '"Iron" Mike K.',          winPct: "83%", units: "+29.5u", img: p1 },
-  { rank: 2, name: 'Rick "Baseburner" B.',    winPct: "79%", units: "+27.2u", img: p2 },
-  { rank: 3, name: '"Stats" Sarah',           winPct: "78%", units: "+22.8u", img: p3 },
-  { rank: 4, name: '"Swoosh" D. James',       winPct: "76%", units: "+21.0u", img: p4 },
-  { rank: 5, name: 'Tommy "The Mask" C.',     winPct: "72%", units: "+18.4u", img: p5 },
-  { rank: 6, name: '"The Professor" Reyes',   winPct: "70%", units: "+15.1u", img: p6 },
-  { rank: 7, name: '"Vegas" V. Romano',       winPct: "68%", units: "+12.6u", img: p7 },
-];
-
-const feedItems = [
-  ["SHARP $", "78% DAL"],
-  ["LINE", "-3 → -2.5"],
-  ["STEAM", "DAL ML"],
-  ["HANDLE", "62%"],
-  ["TICKETS", "71%"],
-  ["RLM", "BAL UNDER"],
-  ["MIKE'S CALL", "RIDE IT"],
-];
+import { leaders } from "@/data/leaders";
 
 export const Grand13Hero = () => {
   return (
@@ -38,51 +12,6 @@ export const Grand13Hero = () => {
         <span className="ml-auto font-mono text-[9px] text-win tracking-widest uppercase">
           live
         </span>
-      </div>
-
-
-      {/* Dueling tickers */}
-      <div className="border-b border-[hsl(45_100%_55%)]/20">
-        {/* FEED — scrolls left */}
-        <div className="flex items-center bg-background/60">
-          <div className="w-14 px-3 py-1.5 border-r border-hud/30 bg-secondary/60 shrink-0 text-center">
-            <span className="font-mono text-[9px] tracking-[0.25em] text-win">FEED</span>
-          </div>
-          <div className="relative flex-1 overflow-hidden py-1.5">
-            <div className="ticker flex gap-8 whitespace-nowrap font-mono text-[10px] text-foreground/80 pl-4">
-              {[...Array(2)].map((_, i) => (
-                <div key={i} className="flex gap-8 shrink-0">
-                  {feedItems.map(([k, v], j) => (
-                    <span key={j}>
-                      {k} <span className="text-win">{v}</span>
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        {/* G13 — scrolls right (reverse) */}
-        <div className="flex items-center bg-background/40 border-t border-hud/20">
-          <div className="w-14 px-3 py-1.5 border-r border-[hsl(45_100%_55%)]/30 bg-secondary/60 shrink-0 text-center">
-            <span className="font-mono text-[9px] tracking-[0.25em] text-[hsl(45_100%_60%)]">G13</span>
-          </div>
-          <div className="relative flex-1 overflow-hidden py-1.5">
-            <div className="ticker-reverse flex gap-8 whitespace-nowrap font-mono text-[10px] text-foreground/80 pl-4">
-              {[...Array(2)].map((_, i) => (
-                <div key={i} className="flex gap-8 shrink-0">
-                  {leaders.map((r) => (
-                    <span key={r.rank}>
-                      #{r.rank} <span className="text-hud">{r.name}</span>{" "}
-                      <span className="text-win">{r.winPct}</span>{" "}
-                      <span className="text-[hsl(45_100%_60%)]">{r.units}</span>
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Leaderboard — top 7 */}

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { JoinModal } from "@/components/JoinModal";
 import { InfluencerGrid } from "@/components/InfluencerGrid";
 import { PartnersNode } from "@/components/PartnersNode";
+import { TickersNode } from "@/components/TickersNode";
 import { Grand13Hero } from "@/components/Grand13Hero";
 import { LegalNode } from "@/components/LegalNode";
 import { Button } from "@/components/ui/button";
@@ -54,6 +55,7 @@ const Home = () => {
 
       <main className="mx-auto w-full max-w-2xl px-2.5 pb-24 space-y-3">
         <PartnersNode />
+        <TickersNode />
         <InfluencerGrid />
         <Grand13Hero />
         <PartnersNode />
