@@ -9,14 +9,12 @@ const partners = [
 export const PartnersBar = () => (
   <div className="bg-card border-b border-syndicate py-[7px] px-2.5 text-center">
     <span className="block text-[9px] text-muted-foreground tracking-[3px] uppercase mb-[5px]">Partners</span>
-    <div className="grid grid-cols-4 sm:grid-cols-5 gap-[5px]">
-      {partners.map((p, i) => (
+    <div className="grid grid-cols-5 gap-[3px]">
+      {partners.map((p) => (
         <a
           key={p.name}
           href="#"
-          className={`py-[5px] px-[4px] text-[11px] font-bold rounded-[2px] text-center hover:opacity-75 transition-opacity ${p.cls} ${
-            i === 4 ? "col-start-2 col-span-2 sm:col-start-auto sm:col-span-1" : ""
-          }`}
+          className={`py-[5px] px-[2px] text-[10px] sm:text-[11px] font-bold rounded-[2px] text-center hover:opacity-75 transition-opacity ${p.cls}`}
         >
           {p.name}
         </a>
