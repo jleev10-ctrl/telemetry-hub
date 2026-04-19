@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export interface Expert {
   initials: string;
@@ -16,12 +15,10 @@ export interface Expert {
 
 interface Props {
   expert: Expert;
-  slug?: string;
 }
 
-export const ExpertCard = ({ expert, slug }: Props) => {
+export const ExpertCard = ({ expert }: Props) => {
   const [active, setActive] = useState(false);
-  const navigate = useNavigate();
   return (
     <div
       onClick={() => setActive((a) => !a)}
@@ -29,7 +26,8 @@ export const ExpertCard = ({ expert, slug }: Props) => {
         active ? "border-green" : "border-syndicate hover:border-green"
       }`}
     >
-      <div className="relative w-full h-[140px] sm:h-[260px] md:h-[320px] overflow-hidden bg-secondary">
+      {/* Image / placeholder */}
+      <div className="relative w-full h-[140px] overflow-hidden bg-secondary">
         {expert.image ? (
           <img src={expert.image} alt={`${expert.name}, ${expert.role}`} className="w-full h-full object-cover object-top" />
         ) : (
@@ -45,6 +43,7 @@ export const ExpertCard = ({ expert, slug }: Props) => {
           {expert.badge}
         </div>
 
+        {/* Pulse rings */}
         {active && (
           <div className="absolute inset-0 pointer-events-none">
             <span className="absolute -inset-1 border-[1.5px] border-green animate-pulse-frame" />
@@ -53,6 +52,7 @@ export const ExpertCard = ({ expert, slug }: Props) => {
         )}
       </div>
 
+      {/* Body */}
       <div className="p-2.5 flex-1 flex flex-col gap-[5px]">
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-secondary border border-green text-[10px] font-black text-green">
@@ -86,12 +86,13 @@ export const ExpertCard = ({ expert, slug }: Props) => {
         <button
           onClick={(e) => {
             e.stopPropagation();
-            e.preventDefault();
-            if (slug) navigate(`/drivers/${slug}`);
+            setActive((a) => !a);
           }}
-          className="border-[0.5px] border-green text-[10px] font-bold tracking-[1px] uppercase py-1.5 w-full mt-1 transition-colors bg-transparent text-green hover:bg-green hover:text-background"
+          className={`border-[0.5px] border-green text-[10px] font-bold tracking-[1px] uppercase py-1.5 w-full mt-1 transition-colors ${
+            active ? "bg-green text-background" : "bg-transparent text-green"
+          }`}
         >
-          Listen
+          {active ? "Listening…" : "Voice"}
         </button>
       </div>
     </div>
