@@ -1,6 +1,24 @@
 import type { Game } from "@/components/DriverCard";
-import { MIKE_SCENES, MIKE_QUOTES } from "@/data/mikeScenes";
-import { SWOOSH_SCENES, SWOOSH_QUOTES } from "@/data/swooshScenes";
+
+// Bucket scene + portrait imports
+import mikeStadium from "@/assets/mike-stadium.jpg";
+import mikeStadiumSunny from "@/assets/mike-stadium-sunny.jpg";
+import mikeRainyField from "@/assets/mike-rainy-field.jpg";
+import mikeBroadcastBooth from "@/assets/mike-broadcast-booth.jpg";
+import mikeLockerRoom from "@/assets/mike-locker-room.jpg";
+import mikeSportsbook from "@/assets/mike-sportsbook.jpg";
+import swooshCourt from "@/assets/swoosh-court.jpg";
+import swooshNet from "@/assets/swoosh-net.jpg";
+import swooshArena from "@/assets/swoosh-arena.jpg";
+import swooshBall from "@/assets/swoosh-ball.jpg";
+import swooshScoreboard from "@/assets/swoosh-scoreboard.jpg";
+
+// Home portrait imports
+import ironmike from "@/assets/ironmike.jpg";
+import swooshPortrait from "@/assets/swoosh.jpg";
+import sarah from "@/assets/sarah.jpg";
+import mlb from "@/assets/mlb.jpg";
+import nhl from "@/assets/nhl.jpg";
 
 export interface LeagueGame {
   away: string;
@@ -25,22 +43,38 @@ export interface VoiceTuning {
 }
 
 export interface Driver {
+  // identity
   slug: string;
-  name: string;
+  name: string;            // bucket display name
   league: string;
   tag: string;
   status: "HOT" | "COOLDOWN" | "LEADER" | "VERIFIED";
+
+  // home card
+  homeImage: string;
+  homeName: string;        // home card display name (often title-cased)
+  homeRole: string;        // e.g. "NFL • 15 yrs"
+
+  // telemetry / stats
   record: string;
   winPct: string;
   units: string;
+  telemetryLabel: string;  // e.g. "mike · telemetry"
+  tickerCallout: string;   // e.g. "MIKE'S CALL: RIDE IT" suffix label
+
+  // picks
   games: Game[];
   gamesV2: Game[];
+
+  // bucket scenes + voice
   scenes: string[];
   quotes: string[];
   voice: VoiceTuning;
-  betsTitle: string;       // e.g. "mike's bets · today"
-  boardTitle: string;      // e.g. "nfl · live board"
-  boardSubLabel: string;   // e.g. "week 12" or "tonight"
+
+  // bets + league board
+  betsTitle: string;
+  boardTitle: string;
+  boardSubLabel: string;
   leagueBoard: LeagueGame[];
   bets: BetSlate[];
 }
@@ -51,9 +85,17 @@ const MIKE: Driver = {
   league: "NFL",
   tag: "professional · analytic",
   status: "HOT",
+
+  homeImage: ironmike,
+  homeName: '"Iron" Mike K.',
+  homeRole: "NFL • 15 yrs",
+
   record: "22-8",
   winPct: "73%",
   units: "+18.5u",
+  telemetryLabel: "mike · telemetry",
+  tickerCallout: "MIKE'S CALL",
+
   games: [
     { matchup: "Raiders @ Chiefs", pick: "RAIDERS +3.5", odds: "-110", confidence: 92 },
     { matchup: "Bills @ Dolphins", pick: "OVER 48.5", odds: "-105", confidence: 78 },
@@ -64,9 +106,17 @@ const MIKE: Driver = {
     { matchup: "Bills @ Dolphins", pick: "OVER 48.5", odds: "-110", confidence: 81 },
     { matchup: "49ers @ Seahawks", pick: "49ERS -6.5", odds: "-110", confidence: 73 },
   ],
-  scenes: MIKE_SCENES,
-  quotes: MIKE_QUOTES,
+
+  scenes: [mikeStadium, mikeStadiumSunny, mikeRainyField, mikeBroadcastBooth, mikeLockerRoom, mikeSportsbook],
+  quotes: [
+    "Winning isn't everything — it's the only thing.",
+    "Show me a good loser, I'll show you a loser.",
+    "Fortune favors the bold. Money moves on Dallas.",
+    "You miss 100% of the shots you don't take.",
+    "Pressure is a privilege. Ride it.",
+  ],
   voice: { rate: 0.95, pitch: 0.85 },
+
   betsTitle: "mike's bets · today",
   boardTitle: "nfl · live board",
   boardSubLabel: "week 12",
@@ -101,9 +151,17 @@ const SWOOSH: Driver = {
   league: "NBA",
   tag: "professional · hot hand",
   status: "HOT",
+
+  homeImage: swooshPortrait,
+  homeName: '"Swoosh" D. James',
+  homeRole: "NBA • 8 yrs",
+
   record: "19-6",
   winPct: "76%",
   units: "+21u",
+  telemetryLabel: "swoosh · telemetry",
+  tickerCallout: "SWOOSH'S CALL",
+
   games: [
     { matchup: "Lakers @ Warriors", pick: "LAKERS ML", odds: "+105", confidence: 88 },
     { matchup: "Celtics @ Heat",    pick: "OVER 218.5", odds: "-110", confidence: 76 },
@@ -114,9 +172,17 @@ const SWOOSH: Driver = {
     { matchup: "Celtics @ Heat",    pick: "OVER 219.5", odds: "-110", confidence: 80 },
     { matchup: "Nuggets @ Suns",    pick: "NUGGETS -5",  odds: "-110", confidence: 74 },
   ],
-  scenes: SWOOSH_SCENES,
-  quotes: SWOOSH_QUOTES,
+
+  scenes: [swooshCourt, swooshNet, swooshArena, swooshBall, swooshScoreboard],
+  quotes: [
+    "Ball don't lie. Lakers cover.",
+    "Defense wins championships. Bet the under.",
+    "When the threes are falling, ride the wave.",
+    "Never bet against a closer. Take the moneyline.",
+    "Garbage time stats kill bad lines. Trust the spread.",
+  ],
   voice: { rate: 1.0, pitch: 1.05 },
+
   betsTitle: "swoosh's bets · today",
   boardTitle: "nba · live board",
   boardSubLabel: "tonight",
@@ -145,10 +211,38 @@ const SWOOSH: Driver = {
   ],
 };
 
-export const DRIVERS: Record<string, Driver> = {
-  mike: MIKE,
-  swoosh: SWOOSH,
+// Sarah / Baseburner / Tommy: home cards only for now — buckets fall back to Mike's content.
+// To activate them as full buckets, expand each into a complete Driver object like MIKE/SWOOSH above.
+const SARAH_PLACEHOLDER: Driver = {
+  ...MIKE,
+  slug: "sarah",
+  homeImage: sarah,
+  homeName: '"Stats" Sarah',
+  homeRole: "MLB • Clinical Quant",
 };
+
+const BASEBURNER_PLACEHOLDER: Driver = {
+  ...MIKE,
+  slug: "baseburner",
+  homeImage: mlb,
+  homeName: 'Rick "The Baseburner" B.',
+  homeRole: "MLB • 11 yrs",
+};
+
+const TOMMY_PLACEHOLDER: Driver = {
+  ...MIKE,
+  slug: "tommy",
+  homeImage: nhl,
+  homeName: 'Tommy "The Mask" C.',
+  homeRole: "NHL • 9 yrs",
+};
+
+// Order = display order on home grid
+export const DRIVERS_LIST: Driver[] = [MIKE, SWOOSH, SARAH_PLACEHOLDER, BASEBURNER_PLACEHOLDER, TOMMY_PLACEHOLDER];
+
+export const DRIVERS: Record<string, Driver> = Object.fromEntries(
+  DRIVERS_LIST.map((d) => [d.slug, d])
+);
 
 export const getDriver = (slug?: string): Driver =>
   (slug && DRIVERS[slug]) || MIKE;
