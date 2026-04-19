@@ -40,21 +40,6 @@ export const Grand13Hero = () => {
         </span>
       </div>
 
-      {/* Stat strip */}
-      <div className="grid grid-cols-3 divide-x divide-border border-b border-[hsl(45_100%_55%)]/20">
-        {[
-          { label: "analysts", value: "5/13" },
-          { label: "win rate", value: "74%" },
-          { label: "units (wk)", value: "+119u" },
-        ].map((s) => (
-          <div key={s.label} className="px-3 py-2.5 text-center">
-            <div className="text-[9px] font-mono uppercase tracking-widest text-muted-foreground">
-              {s.label}
-            </div>
-            <div className="mt-0.5 text-lg font-bold text-win font-mono">{s.value}</div>
-          </div>
-        ))}
-      </div>
 
       {/* Dueling tickers */}
       <div className="border-b border-[hsl(45_100%_55%)]/20">
