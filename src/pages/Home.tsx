@@ -48,6 +48,7 @@ const Home = () => {
       <div className="h-[68px]" />
 
       <main className="mx-auto w-full max-w-2xl px-2.5 pb-24 space-y-3">
+        <PartnersNode />
         <InfluencerGrid />
         <PartnersNode />
         <LegalNode />
