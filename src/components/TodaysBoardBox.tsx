@@ -1,5 +1,5 @@
 import { RefreshCw } from "lucide-react";
-import type { Game } from "@/components/DriverCard";
+import type { Game } from "@/data/drivers";
 
 interface TodaysBoardBoxProps {
   tap: number;
