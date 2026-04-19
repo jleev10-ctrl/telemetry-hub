@@ -37,11 +37,3 @@ export const ExpertCard = ({ expert }: Props) => {
   );
 };
 
-export const ExpertSocket = () => (
-  <div className="bg-card border border-dashed border-[#222] rounded-2xl flex flex-col items-center justify-center gap-2 min-h-[200px] cursor-pointer hover:border-[#444] transition-colors">
-    <div className="w-9 h-9 rounded-full border border-dashed border-[#333] grid place-items-center text-[18px] text-[#333]">
-      +
-    </div>
-    <span className="text-[10px] text-[#333] tracking-[2px] uppercase">Slot 6</span>
-  </div>
-);
