@@ -7,9 +7,9 @@ const partners = [
 ];
 
 export const PartnersBar = () => (
-  <div className="bg-card border-b border-syndicate py-[7px] px-2.5 overflow-x-auto whitespace-nowrap">
+  <div className="bg-card border-b border-syndicate py-[7px] px-2.5 text-center">
     <span className="block text-[9px] text-muted-foreground tracking-[3px] uppercase mb-[5px]">Partners</span>
-    <div className="flex gap-[5px]">
+    <div className="flex flex-wrap justify-center gap-[5px]">
       {partners.map((p) => (
         <a
           key={p.name}
