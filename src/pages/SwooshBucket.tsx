@@ -7,6 +7,8 @@ import { MikeImageBox } from "@/components/MikeImageBox";
 import { MikeTelemetryBox } from "@/components/MikeTelemetryBox";
 import { TodaysBoardBox } from "@/components/TodaysBoardBox";
 import { JoinModal } from "@/components/JoinModal";
+import { PartnersNode } from "@/components/PartnersNode";
+import { LegalNode } from "@/components/LegalNode";
 import { SWOOSH_SCENES, SWOOSH_QUOTES } from "@/data/swooshScenes";
 
 const SWOOSH = {
@@ -188,8 +190,12 @@ const SwooshBucket = () => {
                 $$$
               </span>
             </Link>
-            <div className="leading-none text-center min-w-0 flex justify-center">
-              <div className="inline-flex flex-col items-center rounded-md border-2 border-[hsl(45_100%_55%)] bg-gradient-to-b from-[hsl(45_100%_55%/0.15)] to-[hsl(45_100%_45%/0.05)] px-3 py-1.5 shadow-[0_0_18px_hsl(45_100%_55%/0.45),inset_0_0_12px_hsl(45_100%_55%/0.15)]">
+            <Link
+              to="/"
+              aria-label="Grand13 home"
+              className="leading-none text-center min-w-0 flex justify-stretch"
+            >
+              <div className="w-full flex flex-col items-center justify-center rounded-md border-2 border-[hsl(45_100%_55%)] bg-gradient-to-b from-[hsl(45_100%_55%/0.15)] to-[hsl(45_100%_45%/0.05)] px-2 py-1.5 shadow-[0_0_18px_hsl(45_100%_55%/0.45),inset_0_0_12px_hsl(45_100%_55%/0.15)] hover:brightness-125 transition">
                 <div className="font-mono text-base sm:text-lg font-black tracking-[0.3em] text-[hsl(45_100%_60%)] drop-shadow-[0_0_8px_hsl(45_100%_55%/0.8)]">
                   GRAND<span className="ml-1.5 text-win drop-shadow-[0_0_8px_hsl(var(--win)/0.7)]">13</span>
                 </div>
@@ -197,7 +203,7 @@ const SwooshBucket = () => {
                   the sports syndicate
                 </div>
               </div>
-            </div>
+            </Link>
             <Button
               onClick={() => setJoinOpen(true)}
               size="sm"
@@ -295,31 +301,11 @@ const SwooshBucket = () => {
           </div>
         </section>
 
-        {/* PARTNERS BOX */}
-        <section className="hud-panel border border-hud/30 rounded-md overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-2 border-b border-hud/20 bg-secondary/40">
-            <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-[hsl(45_100%_60%)]" />
-            <span className="font-mono text-[10px] tracking-[0.3em] text-[hsl(45_100%_60%)] uppercase">official partners</span>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-1.5 px-3 py-3 bg-secondary/20">
-            {sportsbooks.map((b) => (
-              <a
-                key={b.name}
-                href={withUtm(b.url, b.slug, "partners_box")}
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                data-book={b.slug}
-                className={cn(
-                  "shrink-0 rounded px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-primary-foreground",
-                  "bg-gradient-to-b shadow-md shadow-black/40 hover:brightness-110 transition",
-                  b.color
-                )}
-              >
-                {b.name}
-              </a>
-            ))}
-          </div>
-        </section>
+        {/* PARTNERS NODE — same flow as Home */}
+        <PartnersNode />
+
+        {/* LEGAL NODE — same flow as Home */}
+        <LegalNode />
 
         {/* BACK TO HOME */}
         <Link
