@@ -55,7 +55,7 @@ const Home = () => {
       <main className="mx-auto w-full max-w-2xl px-2.5 pb-24 space-y-3">
         <PartnersNode />
         <InfluencerGrid />
-        <Grand13Node />
+        <Grand13Hero />
         <PartnersNode />
         <LegalNode />
       </main>
