@@ -1,15 +1,28 @@
-# Memory: index.md
-Updated: now
-
 # Project Memory
 
 ## Core
 GOLDEN RULE: One step at a time. Propose → wait for approval → execute → confirm → propose next. Never bundle.
-Keep the build clean, lean, minimal. No dead files, no unused imports, no orphaned components.
-Live featured-driver card is `DriverCard` (used in `Index.tsx`). `FeaturedDriver.tsx` is NOT mounted — do not edit it expecting the page to change.
-Source of truth for original UI = uploaded `index-2.html` (1218 lines, full original). `lovable.html` is deprecated.
-Home `ExpertCard` = stripped clean: image (4/5 aspect, object-top) + "TAP TO ENGAGE" pill under it. NO stats overlay, NO badges, NO full-bleed gradient. User explicitly killed that layer.
-Each home card links to its bucket (`/drivers/<slug>`). Mike bucket exists; Swoosh/Sarah/Baseburner/Tommy buckets to be built from Mike's template.
+NEVER auto-delete files/components/code — even if orphaned. Always ask first.
+ALL drivers live in `src/data/drivers/` — one file per driver (mike.ts, swoosh.ts, sarah.ts, baseburner.ts, tommy.ts) + types.ts + index.ts. Public API: `import { DRIVERS_LIST, DRIVERS, getDriver, type Driver } from "@/data/drivers"`.
+ALL bucket pages render through ONE component: `src/pages/BucketPage.tsx` (route `/drivers/:slug`).
+Home grid (`InfluencerGrid`) reads from `DRIVERS_LIST` — adding a driver = new file in `src/data/drivers/` + append to DRIVERS_LIST in index.ts.
+Shared bucket UI: `DriverImageBox`, `DriverTelemetryBox`. Telemetry label + ticker callout fed via props.
+User likes the current card design — preserve its look.
+Age verification feature is parked (not active) — keep in mind for later.
+`index-3.html` (1218 lines) = baseline reference only — do NOT overwrite our buckets/improvements with it.
+GitHub sync: ACTIVE. Repo on user's account. Every change auto-pushes.
 
-## Checkpoint (resume here)
-ExpertCard simplified ✓. Next: tweak cards per user feedback, then scale buckets (NBA Swoosh next), then backend plumbing.
+## Checkpoint (current Home stack, top → bottom)
+Header: $$$ link · GRAND13 wide banner link · JOIN FREE button.
+Body: PartnersNode → TickersNode → InfluencerGrid (5 cards from DRIVERS_LIST) → Grand13Hero → PartnersNode → LegalNode.
+
+## Bucket page (shared)
+Route `/drivers/:slug` → `BucketPage.tsx`. Fully active drivers: mike, swoosh, baseburner, tommy. Placeholder: sarah (uses Mike's bucket data, only home card differs). To activate Sarah = build her own object in `src/data/drivers/sarah.ts`.
+Layout: Header → DriverImageBox → DriverTelemetryBox → TodaysBoardBox → League Live Board → Bets → PartnersNode → LegalNode → Back-to-home.
+
+## Components (live)
+PartnersNode, TickersNode, Grand13Hero, LegalNode, InfluencerGrid, ExpertCard, JoinModal, DriverImageBox, DriverTelemetryBox, TodaysBoardBox, BucketPage.
+
+## Memories
+- [No auto-delete](mem://preferences/no-auto-delete) — never remove files/code without explicit approval
+- [Bucket architecture](mem://features/bucket-architecture) — one BucketPage + per-driver files in src/data/drivers/, never inline driver data in pages
