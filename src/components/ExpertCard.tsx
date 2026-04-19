@@ -27,7 +27,7 @@ export const ExpertCard = ({ expert }: Props) => {
       }`}
     >
       {/* Image / placeholder */}
-      <div className="relative w-full h-[140px] overflow-hidden bg-secondary">
+      <div className="relative w-full h-[140px] sm:h-[260px] md:h-[320px] overflow-hidden bg-secondary">
         {expert.image ? (
           <img src={expert.image} alt={`${expert.name}, ${expert.role}`} className="w-full h-full object-cover object-top" />
         ) : (

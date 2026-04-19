@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { JoinModal } from "@/components/JoinModal";
 import { InfluencerGrid } from "@/components/InfluencerGrid";
+import { PartnersBar } from "@/components/PartnersBar";
 import { Button } from "@/components/ui/button";
 
 const Home = () => {
@@ -46,6 +47,7 @@ const Home = () => {
       <div className="h-[68px]" />
 
       <main className="container max-w-2xl px-1 sm:px-4 pb-24">
+        <PartnersBar />
         <InfluencerGrid />
       </main>
 
