@@ -7,6 +7,8 @@ import { MikeImageBox } from "@/components/MikeImageBox";
 import { MikeTelemetryBox } from "@/components/MikeTelemetryBox";
 import { TodaysBoardBox } from "@/components/TodaysBoardBox";
 import { JoinModal } from "@/components/JoinModal";
+import { PartnersNode } from "@/components/PartnersNode";
+import { LegalNode } from "@/components/LegalNode";
 import { SWOOSH_SCENES, SWOOSH_QUOTES } from "@/data/swooshScenes";
 
 const SWOOSH = {
@@ -188,8 +190,12 @@ const SwooshBucket = () => {
                 $$$
               </span>
             </Link>
-            <div className="leading-none text-center min-w-0 flex justify-center">
-              <div className="inline-flex flex-col items-center rounded-md border-2 border-[hsl(45_100%_55%)] bg-gradient-to-b from-[hsl(45_100%_55%/0.15)] to-[hsl(45_100%_45%/0.05)] px-3 py-1.5 shadow-[0_0_18px_hsl(45_100%_55%/0.45),inset_0_0_12px_hsl(45_100%_55%/0.15)]">
+            <Link
+              to="/"
+              aria-label="Grand13 home"
+              className="leading-none text-center min-w-0 flex justify-stretch"
+            >
+              <div className="w-full flex flex-col items-center justify-center rounded-md border-2 border-[hsl(45_100%_55%)] bg-gradient-to-b from-[hsl(45_100%_55%/0.15)] to-[hsl(45_100%_45%/0.05)] px-2 py-1.5 shadow-[0_0_18px_hsl(45_100%_55%/0.45),inset_0_0_12px_hsl(45_100%_55%/0.15)] hover:brightness-125 transition">
                 <div className="font-mono text-base sm:text-lg font-black tracking-[0.3em] text-[hsl(45_100%_60%)] drop-shadow-[0_0_8px_hsl(45_100%_55%/0.8)]">
                   GRAND<span className="ml-1.5 text-win drop-shadow-[0_0_8px_hsl(var(--win)/0.7)]">13</span>
                 </div>
@@ -197,7 +203,7 @@ const SwooshBucket = () => {
                   the sports syndicate
                 </div>
               </div>
-            </div>
+            </Link>
             <Button
               onClick={() => setJoinOpen(true)}
               size="sm"
