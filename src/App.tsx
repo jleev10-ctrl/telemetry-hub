@@ -5,8 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import Home from "./pages/Home.tsx";
-import MikeBucket from "./pages/MikeBucket.tsx";
-import SwooshBucket from "./pages/SwooshBucket.tsx";
+import BucketPage from "./pages/BucketPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -20,12 +19,8 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* All 5 driver tiles route here for now — each will get its own bucket next step */}
-          <Route path="/drivers/mike" element={<MikeBucket />} />
-          <Route path="/drivers/swoosh" element={<SwooshBucket />} />
-          <Route path="/drivers/sarah" element={<MikeBucket />} />
-          <Route path="/drivers/baseburner" element={<MikeBucket />} />
-          <Route path="/drivers/tommy" element={<MikeBucket />} />
+          {/* All driver buckets share one page, fed by src/data/drivers.ts */}
+          <Route path="/drivers/:slug" element={<BucketPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
