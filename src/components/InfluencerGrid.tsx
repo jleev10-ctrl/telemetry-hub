@@ -22,6 +22,7 @@ export const InfluencerGrid = () => (
               units: d.units,
               pick: d.games[0]?.pick ?? "",
               image: d.homeImage,
+              videoSrc: d.slug === "mike" ? "/videos/mike-daily.mp4" : undefined,
             }}
           />
         </Link>
