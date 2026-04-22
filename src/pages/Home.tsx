@@ -70,28 +70,30 @@ const Home = () => {
                   <Link
                     to="/"
                     aria-label="Home"
-                    className="group relative h-14 w-[82px] hover:brightness-125 transition"
+                    className="group relative h-14 w-[88px] hover:brightness-125 transition"
                     style={{
                       clipPath:
-                        "polygon(0 0, 100% 0, 100% 68%, 84% 100%, 0 100%)",
+                        "polygon(0 0, 70% 0, 100% 55%, 100% 100%, 0 100%)",
                     }}
                   >
+                    {/* outer chrome rim */}
                     <div
                       className="absolute inset-0"
                       style={{
                         background:
-                          "linear-gradient(180deg, hsl(210 24% 68%) 0%, hsl(212 20% 40%) 28%, hsl(215 16% 18%) 70%, hsl(215 18% 10%) 100%)",
+                          "linear-gradient(160deg, hsl(210 28% 78%) 0%, hsl(212 22% 48%) 22%, hsl(215 18% 22%) 60%, hsl(215 22% 8%) 100%)",
                       }}
                     />
+                    {/* inner inset face */}
                     <div
                       className="absolute inset-[2px]"
                       style={{
                         clipPath:
-                          "polygon(0 0, 100% 0, 100% 68%, 84% 100%, 0 100%)",
+                          "polygon(0 0, 70% 0, 100% 55%, 100% 100%, 0 100%)",
                         background:
-                          "linear-gradient(180deg, hsl(215 16% 22%) 0%, hsl(215 18% 9%) 100%)",
+                          "linear-gradient(180deg, hsl(215 18% 24%) 0%, hsl(215 20% 8%) 100%)",
                         boxShadow:
-                          "inset 0 1px 0 hsl(0 0% 100% / 0.18), inset 0 -1px 0 hsl(0 0% 0% / 0.8)",
+                          "inset 0 1px 0 hsl(0 0% 100% / 0.22), inset 0 -1px 0 hsl(0 0% 0% / 0.85), inset 0 0 14px hsl(var(--hud) / 0.18)",
                       }}
                     />
                     <span
@@ -151,28 +153,28 @@ const Home = () => {
                     type="button"
                     onClick={() => setJoinOpen(true)}
                     aria-label="Account / Join Free"
-                    className="group relative h-14 w-[82px] hover:brightness-125 transition"
+                    className="group relative h-14 w-[88px] hover:brightness-125 transition"
                     style={{
                       clipPath:
-                        "polygon(0 0, 100% 0, 100% 100%, 16% 100%, 0 68%)",
+                        "polygon(30% 0, 100% 0, 100% 100%, 0 100%, 0 55%)",
                     }}
                   >
                     <div
                       className="absolute inset-0"
                       style={{
                         background:
-                          "linear-gradient(180deg, hsl(210 24% 68%) 0%, hsl(212 20% 40%) 28%, hsl(215 16% 18%) 70%, hsl(215 18% 10%) 100%)",
+                          "linear-gradient(200deg, hsl(210 28% 78%) 0%, hsl(212 22% 48%) 22%, hsl(215 18% 22%) 60%, hsl(215 22% 8%) 100%)",
                       }}
                     />
                     <div
                       className="absolute inset-[2px]"
                       style={{
                         clipPath:
-                          "polygon(0 0, 100% 0, 100% 100%, 16% 100%, 0 68%)",
+                          "polygon(30% 0, 100% 0, 100% 100%, 0 100%, 0 55%)",
                         background:
-                          "linear-gradient(180deg, hsl(215 16% 22%) 0%, hsl(215 18% 9%) 100%)",
+                          "linear-gradient(180deg, hsl(215 18% 24%) 0%, hsl(215 20% 8%) 100%)",
                         boxShadow:
-                          "inset 0 1px 0 hsl(0 0% 100% / 0.18), inset 0 -1px 0 hsl(0 0% 0% / 0.8)",
+                          "inset 0 1px 0 hsl(0 0% 100% / 0.22), inset 0 -1px 0 hsl(0 0% 0% / 0.85), inset 0 0 14px hsl(var(--hud) / 0.18)",
                       }}
                     />
                     <span
