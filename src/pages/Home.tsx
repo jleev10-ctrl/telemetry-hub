@@ -70,18 +70,18 @@ const Home = () => {
                   <Link
                     to="/"
                     aria-label="Home"
-                    className="group relative h-14 w-[88px] hover:brightness-125 transition"
+                    className="group relative h-14 w-[92px] hover:brightness-110 transition"
                     style={{
                       clipPath:
-                        "polygon(0 0, 70% 0, 100% 55%, 100% 100%, 0 100%)",
+                        "polygon(0 0, 100% 0, 100% 60%, 78% 100%, 0 100%)",
                     }}
                   >
-                    {/* outer chrome rim */}
+                    {/* outer brushed-chrome rim */}
                     <div
                       className="absolute inset-0"
                       style={{
                         background:
-                          "linear-gradient(160deg, hsl(210 28% 78%) 0%, hsl(212 22% 48%) 22%, hsl(215 18% 22%) 60%, hsl(215 22% 8%) 100%)",
+                          "linear-gradient(180deg, hsl(210 18% 78%) 0%, hsl(212 14% 55%) 30%, hsl(215 12% 32%) 70%, hsl(215 14% 18%) 100%)",
                       }}
                     />
                     {/* inner inset face */}
@@ -89,11 +89,11 @@ const Home = () => {
                       className="absolute inset-[2px]"
                       style={{
                         clipPath:
-                          "polygon(0 0, 70% 0, 100% 55%, 100% 100%, 0 100%)",
+                          "polygon(0 0, 100% 0, 100% 60%, 78% 100%, 0 100%)",
                         background:
-                          "linear-gradient(180deg, hsl(215 18% 24%) 0%, hsl(215 20% 8%) 100%)",
+                          "linear-gradient(180deg, hsl(215 16% 22%) 0%, hsl(215 20% 10%) 100%)",
                         boxShadow:
-                          "inset 0 1px 0 hsl(0 0% 100% / 0.22), inset 0 -1px 0 hsl(0 0% 0% / 0.85), inset 0 0 14px hsl(var(--hud) / 0.18)",
+                          "inset 0 1px 0 hsl(0 0% 100% / 0.25), inset 0 -1px 2px hsl(0 0% 0% / 0.85), inset 0 0 16px hsl(var(--hud) / 0.22)",
                       }}
                     />
                     <span
@@ -153,28 +153,28 @@ const Home = () => {
                     type="button"
                     onClick={() => setJoinOpen(true)}
                     aria-label="Account / Join Free"
-                    className="group relative h-14 w-[88px] hover:brightness-125 transition"
+                    className="group relative h-14 w-[92px] hover:brightness-110 transition"
                     style={{
                       clipPath:
-                        "polygon(30% 0, 100% 0, 100% 100%, 0 100%, 0 55%)",
+                        "polygon(0 0, 100% 0, 100% 100%, 22% 100%, 0 60%)",
                     }}
                   >
                     <div
                       className="absolute inset-0"
                       style={{
                         background:
-                          "linear-gradient(200deg, hsl(210 28% 78%) 0%, hsl(212 22% 48%) 22%, hsl(215 18% 22%) 60%, hsl(215 22% 8%) 100%)",
+                          "linear-gradient(180deg, hsl(210 18% 78%) 0%, hsl(212 14% 55%) 30%, hsl(215 12% 32%) 70%, hsl(215 14% 18%) 100%)",
                       }}
                     />
                     <div
                       className="absolute inset-[2px]"
                       style={{
                         clipPath:
-                          "polygon(30% 0, 100% 0, 100% 100%, 0 100%, 0 55%)",
+                          "polygon(0 0, 100% 0, 100% 100%, 22% 100%, 0 60%)",
                         background:
-                          "linear-gradient(180deg, hsl(215 18% 24%) 0%, hsl(215 20% 8%) 100%)",
+                          "linear-gradient(180deg, hsl(215 16% 22%) 0%, hsl(215 20% 10%) 100%)",
                         boxShadow:
-                          "inset 0 1px 0 hsl(0 0% 100% / 0.22), inset 0 -1px 0 hsl(0 0% 0% / 0.85), inset 0 0 14px hsl(var(--hud) / 0.18)",
+                          "inset 0 1px 0 hsl(0 0% 100% / 0.25), inset 0 -1px 2px hsl(0 0% 0% / 0.85), inset 0 0 16px hsl(var(--hud) / 0.22)",
                       }}
                     />
                     <span
