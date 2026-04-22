@@ -8,8 +8,8 @@ export const InfluencerGrid = () => (
       AI Influencer Picks
     </div>
     <div className="flex flex-col gap-3 mt-2">
-      {DRIVERS_LIST.map((d) => (
-        <Link key={d.slug} to={`/drivers/${d.slug}`} className="block w-full">
+      {DRIVERS_LIST.map((d) => {
+        const card = (
           <ExpertCard
             expert={{
               initials: d.homeName.split(/\s+/).map((w) => w.replace(/[^A-Za-z]/g, "")[0]).filter(Boolean).slice(0, 2).join("") || "??",
@@ -25,8 +25,18 @@ export const InfluencerGrid = () => (
               videoSrc: d.slug === "mike" ? "/videos/mike-daily.mp4" : undefined,
             }}
           />
-        </Link>
-      ))}
+        );
+
+        // Mike: video-only, no navigation. Everyone else: link to bucket.
+        if (d.slug === "mike") {
+          return <div key={d.slug} className="block w-full">{card}</div>;
+        }
+        return (
+          <Link key={d.slug} to={`/drivers/${d.slug}`} className="block w-full">
+            {card}
+          </Link>
+        );
+      })}
     </div>
   </section>
 );
