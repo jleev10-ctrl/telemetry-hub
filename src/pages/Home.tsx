@@ -6,6 +6,7 @@ import { PartnersNode } from "@/components/PartnersNode";
 import { TickersNode } from "@/components/TickersNode";
 import { Grand13Hero } from "@/components/Grand13Hero";
 import { LegalNode } from "@/components/LegalNode";
+import { ChromeBevel } from "@/components/ChromeBevel";
 import { Button } from "@/components/ui/button";
 import { User, BarChart3 } from "lucide-react";
 
@@ -122,30 +123,20 @@ const Home = () => {
                     aria-label="Synthetic Syndicate home"
                     className="leading-none text-center min-w-0 flex justify-stretch hover:brightness-110 transition"
                   >
-                    <div
-                      className="relative w-full flex flex-col items-center justify-center rounded-[10px] px-2.5 py-2"
-                      style={{
-                        background:
-                          "linear-gradient(180deg, hsl(215 18% 8%) 0%, hsl(215 16% 14%) 50%, hsl(215 18% 10%) 100%)",
-                        boxShadow:
-                          "inset 0 3px 6px hsl(0 0% 0% / 0.85), inset 0 -1px 0 hsl(0 0% 100% / 0.1), 0 1px 0 hsl(0 0% 100% / 0.28), 0 0 18px hsl(var(--hud) / 0.18)",
-                        border: "1px solid hsl(215 22% 6%)",
-                      }}
+                    <ChromeBevel
+                      tone="steel"
+                      radius={12}
+                      rimWidth={3}
+                      className="w-full"
+                      innerClassName="flex flex-col items-center justify-center px-3 py-2"
                     >
-                      <span
-                        className="pointer-events-none absolute inset-x-4 top-px h-px"
-                        style={{
-                          background:
-                            "linear-gradient(90deg, transparent, hsl(0 0% 100% / 0.5), transparent)",
-                        }}
-                      />
                       <div className="font-mono text-[16px] sm:text-xl font-black tracking-[0.26em] text-foreground drop-shadow-[0_1px_0_hsl(0_0%_0%/0.95)] leading-none">
                         SYNTHETIC
                       </div>
                       <div className="mt-1 font-mono text-[16px] sm:text-xl font-black tracking-[0.26em] text-[hsl(var(--hud))] drop-shadow-[0_0_10px_hsl(var(--hud)/0.7)] leading-none">
                         SYNDICATE
                       </div>
-                    </div>
+                    </ChromeBevel>
                   </Link>
 
                   {/* RIGHT POD */}
