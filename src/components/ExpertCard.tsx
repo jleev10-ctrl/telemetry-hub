@@ -77,10 +77,17 @@ export const ExpertCard = ({ expert }: Props) => {
           )
         )}
       </div>
-      <div className="px-4 py-3 text-center border-t border-syndicate">
-        <div className="font-mono text-[13px] font-bold tracking-[0.18em] uppercase text-green">
-          Tap to Engage
-        </div>
+      <div className="px-4 py-3 text-center border-t border-syndicate flex items-center justify-center gap-2">
+        <span
+          className="inline-block h-2 w-2 rounded-full bg-[hsl(0_85%_55%)] shadow-[0_0_6px_hsl(0_85%_55%/0.8)]"
+          aria-label="Offline"
+        />
+        <span className="font-mono text-[10px] font-bold tracking-[0.25em] uppercase text-[hsl(0_85%_60%)]">
+          Offline
+        </span>
+        <span className="font-mono text-[13px] font-bold tracking-[0.18em] uppercase text-green">
+          · Tap to Engage
+        </span>
       </div>
     </article>
   );
