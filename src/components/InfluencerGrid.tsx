@@ -5,7 +5,7 @@ import { DRIVERS_LIST } from "@/data/drivers";
 export const InfluencerGrid = () => (
   <section className="px-2.5 pb-4">
     <div className="pt-3 pb-1.5 text-[10px] font-bold text-muted-foreground tracking-[3px] uppercase">
-      Expert Picks
+      AI Expert Picks
     </div>
     <div className="flex flex-col gap-3 mt-2">
       {DRIVERS_LIST.map((d) => {
