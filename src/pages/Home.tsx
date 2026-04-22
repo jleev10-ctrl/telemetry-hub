@@ -7,6 +7,7 @@ import { TickersNode } from "@/components/TickersNode";
 import { Grand13Hero } from "@/components/Grand13Hero";
 import { LegalNode } from "@/components/LegalNode";
 import { Button } from "@/components/ui/button";
+import { User } from "lucide-react";
 
 const Home = () => {
   const [joinOpen, setJoinOpen] = useState(false);
