@@ -22,8 +22,8 @@ export const JoinModal = ({ open, onOpenChange }: JoinModalProps) => {
     // Frontend-only stub. Backend wiring (Lovable Cloud leads table) coming later.
     setTimeout(() => {
       toast({
-        title: "you're on the list",
-        description: "syndicate intel inbound. backend capture activates at launch.",
+        title: "you're at the window",
+        description: "we'll ping you the moment the next daily drops.",
       });
       setEmail("");
       setSubmitting(false);
@@ -37,11 +37,11 @@ export const JoinModal = ({ open, onOpenChange }: JoinModalProps) => {
         <DialogHeader>
           <div className="flex items-center gap-2 mb-2">
             <Mail className="h-4 w-4 text-hud" />
-            <span className="font-mono text-[10px] tracking-[0.3em] text-hud">SYNDICATE ACCESS</span>
+            <span className="font-mono text-[10px] tracking-[0.3em] text-hud">FIRST AT THE WINDOW</span>
           </div>
-          <DialogTitle className="text-xl">join the grand 13</DialogTitle>
+          <DialogTitle className="text-xl">be first when the daily drops</DialogTitle>
           <DialogDescription className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
-            drop your email · receive verified picks
+            drop your email · get the ping when new calls hit the feed
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3 mt-2">
@@ -58,7 +58,7 @@ export const JoinModal = ({ open, onOpenChange }: JoinModalProps) => {
             disabled={submitting}
             className="font-bold uppercase tracking-wider bg-gradient-to-r from-primary to-accent text-primary-foreground"
           >
-            {submitting ? "transmitting..." : "lock me in →"}
+            {submitting ? "transmitting..." : "ping me when it drops →"}
           </Button>
           <p className="text-[9px] font-mono uppercase tracking-widest text-muted-foreground text-center">
             21+ · play responsibly
