@@ -73,7 +73,7 @@ const Home = () => {
                     className="group relative h-14 w-[92px] hover:brightness-110 transition"
                     style={{
                       clipPath:
-                        "polygon(0 0, 100% 0, 100% 60%, 78% 100%, 0 100%)",
+                        "polygon(0 0, 100% 0, 100% 55%, 60% 100%, 0 100%)",
                     }}
                   >
                     {/* outer brushed-chrome rim */}
@@ -89,7 +89,7 @@ const Home = () => {
                       className="absolute inset-[2px]"
                       style={{
                         clipPath:
-                          "polygon(0 0, 100% 0, 100% 60%, 78% 100%, 0 100%)",
+                          "polygon(0 0, 100% 0, 100% 55%, 60% 100%, 0 100%)",
                         background:
                           "linear-gradient(180deg, hsl(215 16% 22%) 0%, hsl(215 20% 10%) 100%)",
                         boxShadow:
@@ -156,7 +156,7 @@ const Home = () => {
                     className="group relative h-14 w-[92px] hover:brightness-110 transition"
                     style={{
                       clipPath:
-                        "polygon(0 0, 100% 0, 100% 100%, 22% 100%, 0 60%)",
+                        "polygon(0 0, 100% 0, 100% 100%, 40% 100%, 0 55%)",
                     }}
                   >
                     <div
@@ -170,7 +170,7 @@ const Home = () => {
                       className="absolute inset-[2px]"
                       style={{
                         clipPath:
-                          "polygon(0 0, 100% 0, 100% 100%, 22% 100%, 0 60%)",
+                          "polygon(0 0, 100% 0, 100% 100%, 40% 100%, 0 55%)",
                         background:
                           "linear-gradient(180deg, hsl(215 16% 22%) 0%, hsl(215 20% 10%) 100%)",
                         boxShadow:
