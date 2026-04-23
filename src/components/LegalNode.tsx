@@ -1,7 +1,7 @@
 // Deterministic counter: grows by small random-ish amount every few hours.
 // Base anchored to a fixed epoch so all visitors see ~the same number, and it
 // only ticks up over time (never resets between reloads).
-const BASE_COUNT = 1248;
+const BASE_COUNT = 1100;
 const BASE_EPOCH_MS = Date.UTC(2025, 0, 1); // Jan 1, 2025
 const HOURS_PER_TICK = 3;
 
