@@ -163,6 +163,17 @@ const BucketPage = () => {
       <div className="h-[68px]" />
 
       <main className="container max-w-2xl px-1 sm:px-4 pb-24 space-y-4">
+        {/* SARAH-ONLY: Agree/Disagree intro video */}
+        {driver.slug === "sarah" && (
+          <div className="rounded-md overflow-hidden border border-hud/30 bg-background/40">
+            <video
+              src={new URL("@/assets/sarah-agree-disagree.mp4", import.meta.url).href}
+              controls
+              playsInline
+              className="w-full h-auto block"
+            />
+          </div>
+        )}
         {/* DRIVER IMAGE BOX */}
         <div className="origin-top scale-[0.82] sm:scale-100 -mb-[18%] sm:mb-0 px-2 sm:px-0 overflow-visible">
           <DriverImageBox
