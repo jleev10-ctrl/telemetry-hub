@@ -1,19 +1,20 @@
-// Deterministic counter: grows by small random-ish amount every few hours.
-// Base anchored to a fixed epoch so all visitors see ~the same number, and it
-// only ticks up over time (never resets between reloads).
+// Counter: starts at 1,100 and grows by a tiny % every 5 hours.
+// Anchored to a fixed "start" date so all visitors see ~the same number
+// and it only ticks up over time (never resets between reloads).
 const BASE_COUNT = 1100;
-const BASE_EPOCH_MS = Date.UTC(2025, 0, 1); // Jan 1, 2025
-const HOURS_PER_TICK = 3;
+const BASE_EPOCH_MS = Date.UTC(2026, 3, 23); // Apr 23, 2026 — start of growth
+const HOURS_PER_TICK = 5;
 
 const getActiveMembers = () => {
   const now = Date.now();
   const ticks = Math.max(0, Math.floor((now - BASE_EPOCH_MS) / (HOURS_PER_TICK * 60 * 60 * 1000)));
   let total = BASE_COUNT;
-  // Pseudo-random small bump per tick (1-7), seeded by tick index — stable across reloads.
+  // Tiny pseudo-random % bump per tick (0.05% – 0.25%), seeded by tick index.
   for (let i = 0; i < ticks; i++) {
     const seed = Math.sin(i * 9301 + 49297) * 233280;
     const frac = seed - Math.floor(seed);
-    total += 1 + Math.floor(frac * 7);
+    const pct = 0.0005 + frac * 0.002; // 0.05% to 0.25%
+    total = total + Math.max(1, Math.floor(total * pct));
   }
   return total;
 };
