@@ -15,6 +15,7 @@ interface DriverImageBoxProps {
   spokenWords: number;
   meterTick: number;
   scenes: string[];
+  heroVideo?: string;
   quotes: string[];
 }
 
@@ -27,7 +28,7 @@ const statusColor: Record<DriverImageBoxProps["status"], string> = {
 
 export const DriverImageBox = ({
   name, league, tag, status, tap, onTap, speaking, spokenWords, meterTick,
-  scenes, quotes,
+  scenes, heroVideo, quotes,
 }: DriverImageBoxProps) => {
   const sceneIndex = tap === 0 ? 0 : tap % scenes.length;
   const quoteIndex = tap === 0 ? 0 : (tap - 1) % quotes.length;
@@ -68,18 +69,32 @@ export const DriverImageBox = ({
         onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onTap(); } }}
         className="group relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden cursor-pointer outline-none bg-background transition-shadow duration-500"
       >
-        {scenes.map((src, i) => (
-          <img
-            key={src}
-            src={src}
-            alt={name}
-            loading={i === 0 ? "eager" : "lazy"}
-            className={cn(
-              "absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out",
-              i === sceneIndex ? "opacity-100" : "opacity-0"
-            )}
+        {heroVideo ? (
+          <video
+            src={heroVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            controls
+            onClick={(e) => e.stopPropagation()}
+            onPointerDown={(e) => e.stopPropagation()}
+            className="absolute inset-0 h-full w-full object-cover"
           />
-        ))}
+        ) : (
+          scenes.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt={name}
+              loading={i === 0 ? "eager" : "lazy"}
+              className={cn(
+                "absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out",
+                i === sceneIndex ? "opacity-100" : "opacity-0"
+              )}
+            />
+          ))
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
 
         <div className="absolute top-3 left-3 flex flex-col gap-1.5">

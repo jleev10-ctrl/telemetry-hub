@@ -55,6 +55,7 @@ export interface Driver {
 
   // bucket scenes + voice
   scenes: string[];
+  heroVideo?: string;
   quotes: string[];
   voice: VoiceTuning;
 
