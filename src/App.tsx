@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { PageViewBeacon } from "@/components/PageViewBeacon";
 import Home from "./pages/Home.tsx";
 import BucketPage from "./pages/BucketPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -17,6 +18,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <PageViewBeacon />
         <Routes>
           <Route path="/" element={<Home />} />
           {/* All driver buckets share one page, fed by src/data/drivers.ts */}
