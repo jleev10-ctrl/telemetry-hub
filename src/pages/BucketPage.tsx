@@ -163,18 +163,36 @@ const BucketPage = () => {
       <div className="h-[68px]" />
 
       <main className="container max-w-2xl px-1 sm:px-4 pb-24 space-y-4">
-        {/* SARAH-ONLY: Agree/Disagree intro video — autoplay hero */}
+        {/* SARAH-ONLY: Agree/Disagree intro video — wrapped to match Mike's DriverImageBox chrome */}
         {driver.slug === "sarah" && (
-          <div className="rounded-md overflow-hidden border border-hud/30 bg-background/40">
-            <video
-              src={new URL("@/assets/sarah-agree-disagree.mp4", import.meta.url).href}
-              autoPlay
-              muted
-              loop
-              playsInline
-              controls
-              className="w-full h-auto block"
-            />
+          <div className="origin-top scale-[0.82] sm:scale-100 -mb-[18%] sm:mb-0 px-2 sm:px-0 overflow-visible">
+            <div className="hud-panel border border-hud/30 rounded-md">
+              <div className="flex items-center justify-between px-4 py-2 border-b border-hud/20 bg-secondary/40">
+                <div className="flex items-center gap-2">
+                  <span className="pulse-dot inline-block h-2 w-2 rounded-full bg-win" />
+                  <span className="font-mono text-[10px] tracking-[0.3em] text-hud">DRIVER ONLINE · VIDEO</span>
+                </div>
+                <span className="rounded px-1.5 py-0.5 text-[9px] font-mono border text-win border-win/40 bg-win/10">
+                  LIVE
+                </span>
+              </div>
+              <div className="relative aspect-[4/5] sm:aspect-[16/10] overflow-hidden bg-background">
+                <video
+                  src={new URL("@/assets/sarah-agree-disagree.mp4", import.meta.url).href}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
+              <div className="p-3 border-t border-hud/20 bg-gradient-to-b from-transparent to-secondary/60">
+                <p className="font-mono text-[10px] tracking-[0.3em] text-hud uppercase text-center">
+                  stats sarah · agree or disagree
+                </p>
+              </div>
+            </div>
           </div>
         )}
         {/* DRIVER IMAGE BOX */}
