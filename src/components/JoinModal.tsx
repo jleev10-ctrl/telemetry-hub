@@ -15,20 +15,40 @@ export const JoinModal = ({ open, onOpenChange }: JoinModalProps) => {
   const [submitting, setSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/27340465/ujnzwlp/";
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     setSubmitting(true);
-    // Frontend-only stub. Backend wiring (Lovable Cloud leads table) coming later.
-    setTimeout(() => {
+
+    try {
+      await fetch(ZAPIER_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        mode: "no-cors",
+        body: JSON.stringify({
+          email,
+          timestamp: new Date().toISOString(),
+          source: window.location.origin,
+        }),
+      });
       toast({
         title: "you're at the window",
         description: "we'll ping you the moment the next daily drops.",
       });
       setEmail("");
-      setSubmitting(false);
       onOpenChange(false);
-    }, 600);
+    } catch (err) {
+      console.error("Zapier webhook error:", err);
+      toast({
+        title: "transmission failed",
+        description: "try again in a moment.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
