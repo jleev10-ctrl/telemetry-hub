@@ -163,13 +163,16 @@ const BucketPage = () => {
       <div className="h-[68px]" />
 
       <main className="container max-w-2xl px-1 sm:px-4 pb-24 space-y-4">
-        {/* SARAH-ONLY: Agree/Disagree intro video */}
+        {/* SARAH-ONLY: Agree/Disagree intro video — autoplay hero */}
         {driver.slug === "sarah" && (
           <div className="rounded-md overflow-hidden border border-hud/30 bg-background/40">
             <video
               src={new URL("@/assets/sarah-agree-disagree.mp4", import.meta.url).href}
-              controls
+              autoPlay
+              muted
+              loop
               playsInline
+              controls
               className="w-full h-auto block"
             />
           </div>
