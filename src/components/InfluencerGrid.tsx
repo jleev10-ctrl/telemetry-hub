@@ -27,8 +27,8 @@ export const InfluencerGrid = () => (
           />
         );
 
-        // Mike: video-only, no navigation. Everyone else: link to bucket.
-        if (d.slug === "mike") {
+        // Mike + Sarah: video-only, no navigation. Everyone else: link to bucket.
+        if (d.slug === "mike" || d.slug === "sarah") {
           return <div key={d.slug} className="block w-full">{card}</div>;
         }
         return (

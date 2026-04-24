@@ -58,7 +58,7 @@ export const ExpertCard = ({ expert }: Props) => {
               type="button"
               onClick={toggleMute}
               aria-label={muted ? "Unmute video" : "Mute video"}
-              className="absolute bottom-2 right-2 z-10 grid place-items-center h-8 w-8 rounded-full bg-background/70 backdrop-blur-sm border border-syndicate text-foreground hover:bg-background/90"
+              className="absolute bottom-2 right-2 z-10 grid place-items-center h-11 w-11 rounded-full bg-background/70 backdrop-blur-sm border border-syndicate text-foreground hover:bg-background/90"
             >
               {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
             </button>
