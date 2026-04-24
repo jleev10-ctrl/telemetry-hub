@@ -37,6 +37,9 @@ export interface Driver {
   tag: string;
   status: "HOT" | "COOLDOWN" | "LEADER" | "VERIFIED";
 
+  // gating: when false, home card renders but click is dead (no nav to bucket)
+  active?: boolean;
+
   // home card
   homeImage: string;
   homeName: string;

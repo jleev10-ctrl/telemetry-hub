@@ -13,6 +13,7 @@ export const MIKE: Driver = {
   league: "NFL",
   tag: "professional · analytic",
   status: "HOT",
+  active: false,
 
   homeImage: ironmike,
   homeName: '"Iron" Mike K.',

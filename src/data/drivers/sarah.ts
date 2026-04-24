@@ -15,4 +15,5 @@ export const SARAH: Driver = {
   homeName: '"Stats" Sarah',
   homeRole: "MLB • Clinical Quant",
   heroVideo: sarahAgreeDisagreeVideo,
+  active: false,
 };
