@@ -27,8 +27,9 @@ export const InfluencerGrid = () => (
           />
         );
 
-        // Mike + Sarah: video-only, no navigation. Everyone else: link to bucket.
-        if (d.slug === "mike" || d.slug === "sarah") {
+        // Driver bucket gating: active === false → card renders but click is dead.
+        // Flip `active: true` in the driver's data file to open the bucket route.
+        if (d.active === false) {
           return <div key={d.slug} className="block w-full">{card}</div>;
         }
         return (
