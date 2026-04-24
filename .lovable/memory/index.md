@@ -6,6 +6,7 @@ NEVER auto-delete files/components/code — even if orphaned. Always ask first.
 ALL drivers live in `src/data/drivers/` — one file per driver (mike.ts, swoosh.ts, sarah.ts, baseburner.ts, tommy.ts) + types.ts + index.ts. Public API: `import { DRIVERS_LIST, DRIVERS, getDriver, type Driver } from "@/data/drivers"`.
 ALL bucket pages render through ONE component: `src/pages/BucketPage.tsx` (route `/drivers/:slug`).
 Home grid (`InfluencerGrid`) reads from `DRIVERS_LIST` — adding a driver = new file in `src/data/drivers/` + append to DRIVERS_LIST in index.ts.
+Driver bucket gating: `active?: boolean` on Driver. `active: false` → home card renders but click is dead (no nav). Currently Mike + Sarah are `active: false`. Flip to `true` to open the bucket route.
 Shared bucket UI: `DriverImageBox`, `DriverTelemetryBox`. Telemetry label + ticker callout fed via props.
 User likes the current card design — preserve its look.
 Age verification feature is parked (not active) — keep in mind for later.
