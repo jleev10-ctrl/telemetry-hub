@@ -12,6 +12,7 @@ export const SWOOSH: Driver = {
   league: "NBA",
   tag: "professional · hot hand",
   status: "HOT",
+  active: false,
 
   homeImage: swooshPortrait,
   homeName: '"Swoosh" D. James',
