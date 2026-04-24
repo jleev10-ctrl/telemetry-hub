@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { AddToPhoneButton } from "@/components/AddToPhoneButton";
 
 interface Sportsbook {
   name: string;
@@ -27,9 +28,10 @@ const withUtm = (url: string, book: string, placement: string) => {
 
 export const PartnersNode = () => (
   <section className="hud-panel border border-hud/30 rounded-md overflow-hidden">
-    <div className="flex items-center gap-2 px-4 py-2 border-b border-hud/20 bg-secondary/40">
+    <div className="flex items-center gap-2 px-4 py-1.5 border-b border-hud/20 bg-secondary/40">
       <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-[hsl(45_100%_60%)]" />
       <span className="font-mono text-[10px] tracking-[0.3em] text-[hsl(45_100%_60%)] uppercase">official partners</span>
+      <div className="ml-auto"><AddToPhoneButton /></div>
     </div>
     <div className="grid grid-cols-5 gap-1.5 px-3 py-3 bg-secondary/20">
       {sportsbooks.map((b) => (
