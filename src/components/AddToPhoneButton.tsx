@@ -54,7 +54,7 @@ export const AddToPhoneButton = () => {
         <img
           src={appIcon}
           alt="Add Synthetic Syndicate to phone"
-          className="h-7 w-7 rounded-full block"
+          className="h-14 w-14 rounded-full block"
         />
         <span className="pointer-events-none absolute -bottom-1 -right-1 h-2 w-2 rounded-full bg-[hsl(var(--hud))] shadow-[0_0_4px_hsl(var(--hud))] animate-pulse" />
       </button>
