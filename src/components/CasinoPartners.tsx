@@ -40,11 +40,11 @@ export const CasinoPartners = () => (
           {CASINOS.map((c) => (
             <li
               key={c.name}
-              className="snap-start shrink-0 w-[140px] rounded-md border border-[hsl(140_100%_55%/0.25)] bg-[hsl(220_30%_4%)] p-2.5 flex flex-col gap-2 hover:border-[hsl(140_100%_55%/0.7)] hover:shadow-[0_0_14px_hsl(140_100%_55%/0.35)] transition"
+              className="snap-start shrink-0 w-[155px] sm:w-[calc(25%-7.5px)] rounded-md border border-[hsl(140_100%_55%/0.25)] bg-[hsl(220_30%_4%)] p-2 flex flex-col gap-2 hover:border-[hsl(140_100%_55%/0.7)] hover:shadow-[0_0_14px_hsl(140_100%_55%/0.35)] transition"
             >
               {/* Logo block */}
-              <div className="h-12 rounded-sm flex items-center justify-center overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(220 20% 10%) 0%, hsl(220 25% 5%) 100%)", border: "1px solid hsl(140 100% 55% / 0.3)" }}>
-                <img src={c.logo} alt={c.name} loading="lazy" className="max-h-10 max-w-[90%] object-contain" />
+              <div className="h-16 rounded-sm flex items-center justify-center overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(220 20% 10%) 0%, hsl(220 25% 5%) 100%)", border: "1px solid hsl(140 100% 55% / 0.3)" }}>
+                <img src={c.logo} alt={c.name} loading="lazy" className="max-h-14 max-w-[92%] object-contain" />
               </div>
               <div className="font-mono text-[10px] font-bold tracking-[1.5px] uppercase text-foreground/85 text-center truncate">
                 {c.name}
