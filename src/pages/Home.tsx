@@ -4,6 +4,7 @@ import { JoinModal } from "@/components/JoinModal";
 import { InfluencerGrid } from "@/components/InfluencerGrid";
 import { PartnersNode } from "@/components/PartnersNode";
 import { TickersNode } from "@/components/TickersNode";
+import { CasinoPartners } from "@/components/CasinoPartners";
 import { Grand13Hero } from "@/components/Grand13Hero";
 import { LegalNode } from "@/components/LegalNode";
 import { ChromeBevel } from "@/components/ChromeBevel";
@@ -190,6 +191,7 @@ const Home = () => {
             <main className="px-2.5 pb-6 pt-3 space-y-3">
               <PartnersNode />
               <TickersNode />
+              <CasinoPartners />
               <InfluencerGrid />
               <Grand13Hero />
               <PartnersNode />
