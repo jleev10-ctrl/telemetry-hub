@@ -14,8 +14,8 @@ const CASINOS = [
 const NEON = "hsl(140 100% 55%)";
 
 export const CasinoPartners = () => (
-  <section className="px-2.5">
-    <div className="rounded-lg border border-[hsl(140_100%_55%/0.35)] bg-gradient-to-b from-[hsl(220_25%_6%)] to-[hsl(220_30%_3%)] shadow-[0_0_18px_hsl(140_100%_55%/0.15),inset_0_0_24px_hsl(0_0%_0%/0.6)]">
+  <section>
+    <div className="rounded-md overflow-hidden border border-[hsl(140_100%_55%/0.35)] bg-gradient-to-b from-[hsl(220_25%_6%)] to-[hsl(220_30%_3%)] shadow-[0_0_18px_hsl(140_100%_55%/0.15),inset_0_0_24px_hsl(0_0%_0%/0.6)]">
       {/* Header */}
       <div className="flex items-center gap-2 px-3 py-1.5 border-b border-[hsl(140_100%_55%/0.25)]">
         <span
