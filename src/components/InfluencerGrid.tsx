@@ -30,13 +30,19 @@ export const InfluencerGrid = () => (
 
         // Driver bucket gating: active === false → card renders but click is dead.
         // Flip `active: true` in the driver's data file to open the bucket route.
-        if (d.active === false) {
-          return <div key={d.slug} className="block w-full">{card}</div>;
-        }
-        return (
+        const cardWrapped = d.active === false ? (
+          <div key={d.slug} className="block w-full">{card}</div>
+        ) : (
           <Link key={d.slug} to={`/drivers/${d.slug}`} className="block w-full">
             {card}
           </Link>
+        );
+
+        return (
+          <div key={d.slug} className="w-full">
+            {cardWrapped}
+            {d.slug === "mike" && <BetBucket league="NFL" />}
+          </div>
         );
       })}
     </div>
