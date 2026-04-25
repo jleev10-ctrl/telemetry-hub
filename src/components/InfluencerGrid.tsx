@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ExpertCard } from "./ExpertCard";
+import { BetBucket } from "./BetBucket";
 import { DRIVERS_LIST } from "@/data/drivers";
 
 export const InfluencerGrid = () => (
