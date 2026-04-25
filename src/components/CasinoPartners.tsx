@@ -1,9 +1,15 @@
+import jackpotCityLogo from "@/assets/jackpot-city-logo.png";
+import spinCasinoLogo from "@/assets/spin-casino-logo.png";
+import casino888Logo from "@/assets/888casino-logo.png";
+import tonybetLogo from "@/assets/tonybet-logo.png";
+import leovegasLogo from "@/assets/leovegas-logo.png";
+
 const CASINOS = [
-  { name: "Jackpot City", tag: "JC", url: "https://www.jackpotcity.com" },
-  { name: "Spin Casino", tag: "SPIN", url: "https://www.spincasino.com" },
-  { name: "888casino", tag: "888", url: "https://www.888casino.com" },
-  { name: "TonyBet", tag: "TB", url: "https://tonybet.com" },
-  { name: "LeoVegas", tag: "LEO", url: "https://www.leovegas.com" },
+  { name: "Jackpot City", url: "https://www.jackpotcity.com", logo: jackpotCityLogo },
+  { name: "Spin Casino", url: "https://www.spincasino.com", logo: spinCasinoLogo },
+  { name: "888casino", url: "https://www.888casino.com", logo: casino888Logo },
+  { name: "TonyBet", url: "https://tonybet.com", logo: tonybetLogo },
+  { name: "LeoVegas", url: "https://www.leovegas.com", logo: leovegasLogo },
 ];
 
 const NEON = "hsl(140 100% 55%)";
