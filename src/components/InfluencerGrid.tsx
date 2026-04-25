@@ -42,6 +42,10 @@ export const InfluencerGrid = () => (
           <div key={d.slug} className="w-full">
             {cardWrapped}
             {d.slug === "mike" && <BetBucket league="NFL" />}
+            {d.slug === "swoosh" && <BetBucket league="NBA" />}
+            {d.slug === "sarah" && <BetBucket league="STATS" />}
+            {d.slug === "baseburner" && <BetBucket league="MLB" />}
+            {d.slug === "tommy" && <BetBucket league="NHL" />}
           </div>
         );
       })}
