@@ -45,9 +45,16 @@ export const BetBucket = ({
       {/* LEFT — Parlay */}
       <a
         href={parlayHref}
-        className="px-3 py-3 text-center font-mono text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.3em] text-foreground hover:text-[hsl(var(--hud))] transition"
+        className="px-3 py-2.5 flex flex-col items-center justify-center gap-1 font-mono text-foreground hover:text-[hsl(var(--hud))] transition"
       >
-        Parlay
+        <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-[hsl(var(--hud))]">
+          Parlay
+        </span>
+        {league === "NBA" ? (
+          <span className="text-[10px] sm:text-[11px] font-semibold tracking-wider leading-tight text-center">
+            DETROIT <span className="text-foreground/40">/</span> CLEVELAND <span className="text-foreground/40">/</span> LA LAKERS
+          </span>
+        ) : null}
       </a>
       {/* RIGHT — Sportsbook */}
       <a
