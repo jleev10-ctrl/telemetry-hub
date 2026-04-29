@@ -193,7 +193,7 @@ const Home = () => {
               <TickersNode />
               <CasinoPartners />
               <InfluencerGrid />
-              <Grand13Hero />
+              {/* <Grand13Hero /> — hidden per user request, billboard mode */}
               <PartnersNode />
               <LegalNode />
             </main>
