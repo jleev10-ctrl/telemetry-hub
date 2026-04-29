@@ -70,8 +70,8 @@ const Home = () => {
                 <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2.5 h-[74px] px-3">
                   {/* LEFT POD */}
                   <Link
-                    to="/"
-                    aria-label="Home"
+                    to="/stats"
+                    aria-label="Owner stats"
                     className="group relative h-14 w-[92px] hover:brightness-110 transition"
                     style={{
                       clipPath:
