@@ -60,6 +60,11 @@ export const BetBucket = ({
             ORL <span className="text-[hsl(var(--hud))]">+9.5</span> <span className="text-foreground/40">/</span> TOR <span className="text-[hsl(var(--hud))]">+8.5</span> <span className="text-foreground/40">/</span> LA <span className="text-[hsl(var(--hud))]">-4.5</span>
           </span>
         ) : null}
+        {league === "NHL" ? (
+          <span className="text-[10px] sm:text-[11px] font-semibold tracking-wider leading-tight text-center">
+            ALL <span className="text-[hsl(var(--hud))]">OVER 5.5</span>
+          </span>
+        ) : null}
       </a>
       {/* RIGHT — Sportsbook */}
       <a
