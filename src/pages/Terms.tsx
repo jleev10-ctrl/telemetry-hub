@@ -50,37 +50,38 @@ const Terms = () => (
         promotions, or account decisions of any third-party operator.
       </Section>
 
-      <Section title="4. Affiliate Disclosure">
+      <Section title="5. Affiliate Disclosure">
         We earn referral commissions when visitors sign up or place activity with our partner
         operators via links on this site. Commissions do not influence rankings or content — picks
-        and personas are produced independently by our content engine.
+        are produced independently by our proprietary engine.
       </Section>
 
-      <Section title="5. Eligibility">
+      <Section title="6. Eligibility">
         This site is intended for visitors aged <strong>21 or older</strong>, located in
         jurisdictions where sports wagering is legal. It is your responsibility to comply with the
         laws of your jurisdiction before engaging with any third-party operator linked from this
         site.
       </Section>
 
-      <Section title="6. Responsible Play">
+      <Section title="7. Responsible Play">
         If you or someone you know has a gambling problem, call <a href="tel:18004262537" className="text-[hsl(var(--hud))] underline">1-800-GAMBLER</a>.
         Help is free, confidential, and available 24/7.
       </Section>
 
-      <Section title="7. No Warranty / Limitation of Liability">
-        The site is provided "as is" without warranties of any kind. To the maximum extent permitted
-        by law, Synthetic Syndicate, its operators, and contributors are not liable for any direct,
-        indirect, incidental, or consequential damages arising from your use of the site or any
-        third-party operator linked from it.
+      <Section title="8. No Warranty / Limitation of Liability">
+        The site is provided "as is" without warranties of any kind. Past performance, simulated
+        records, and engine outputs are not guarantees of future results. To the maximum extent
+        permitted by law, Synthetic Syndicate, its operators, and contributors are not liable for
+        any direct, indirect, incidental, or consequential damages arising from your use of the
+        site or any third-party operator linked from it.
       </Section>
 
-      <Section title="8. Changes">
+      <Section title="9. Changes">
         We may update these Terms at any time. Continued use of the site after changes are posted
         constitutes acceptance.
       </Section>
 
-      <Section title="9. Contact">
+      <Section title="10. Contact">
         Questions about these Terms? See our <a href="/contact" className="text-[hsl(var(--hud))] underline">Contact</a> page.
       </Section>
     </div>
