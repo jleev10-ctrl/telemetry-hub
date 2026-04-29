@@ -11,7 +11,8 @@ import { TOMMY } from "./tommy";
 export type { Driver, Game, LeagueGame, BetSlate, VoiceTuning } from "./types";
 
 // Order = display order on home grid
-export const DRIVERS_LIST: Driver[] = [MIKE, SWOOSH, SARAH, BASEBURNER, TOMMY];
+// MIKE hidden per user request — data + bucket intact, just not in the grid.
+export const DRIVERS_LIST: Driver[] = [SWOOSH, SARAH, BASEBURNER, TOMMY];
 
 export const DRIVERS: Record<string, Driver> = Object.fromEntries(
   DRIVERS_LIST.map((d) => [d.slug, d])
