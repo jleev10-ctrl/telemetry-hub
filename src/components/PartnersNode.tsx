@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { AddToPhoneButton } from "@/components/AddToPhoneButton";
+import { trackAffiliateClick } from "@/hooks/useAffiliateClick";
 
 interface Sportsbook {
   name: string;
@@ -41,6 +42,11 @@ export const PartnersNode = () => (
           target="_blank"
           rel="sponsored noopener noreferrer"
           data-book={b.slug}
+          onClick={() => trackAffiliateClick({
+            placement: "home_partners_node",
+            book: b.slug,
+            destination_url: b.url,
+          })}
           className={cn(
             "rounded px-1 py-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-primary-foreground text-center truncate",
             "bg-gradient-to-b shadow-md shadow-black/40 hover:brightness-110 transition",

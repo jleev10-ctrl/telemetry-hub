@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { trackAffiliateClick } from "@/hooks/useAffiliateClick";
 
 interface BetBucketProps {
   league: string; // e.g. "NFL"
@@ -72,6 +73,11 @@ export const BetBucket = ({
         target="_blank"
         rel="sponsored noopener noreferrer"
         data-book={bookName.toLowerCase()}
+        onClick={() => trackAffiliateClick({
+          placement: `${league.toLowerCase()}_bet_bucket`,
+          book: bookName.toLowerCase(),
+          destination_url: bookHref,
+        })}
         className={cn(
           "mx-3 my-2 rounded px-2 py-2 text-center text-[11px] sm:text-[12px] font-bold uppercase tracking-wider text-primary-foreground",
           "bg-gradient-to-b shadow-md shadow-black/40 hover:brightness-110 transition",
