@@ -55,6 +55,11 @@ export const BetBucket = ({
             DETROIT <span className="text-foreground/40">/</span> CLEVELAND <span className="text-foreground/40">/</span> LA LAKERS
           </span>
         ) : null}
+        {league === "STATS" ? (
+          <span className="text-[10px] sm:text-[11px] font-semibold tracking-wider leading-tight text-center">
+            ORL <span className="text-[hsl(var(--hud))]">+9.5</span> <span className="text-foreground/40">/</span> TOR <span className="text-[hsl(var(--hud))]">+8.5</span> <span className="text-foreground/40">/</span> LA <span className="text-[hsl(var(--hud))]">-4.5</span>
+          </span>
+        ) : null}
       </a>
       {/* RIGHT — Sportsbook */}
       <a
