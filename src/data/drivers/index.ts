@@ -12,7 +12,7 @@ export type { Driver, Game, LeagueGame, BetSlate, VoiceTuning } from "./types";
 
 // Order = display order on home grid
 // MIKE, BASEBURNER (MLB), TOMMY (NHL) hidden per user request — data + buckets intact, just not in the grid.
-export const DRIVERS_LIST: Driver[] = [SWOOSH, SARAH];
+export const DRIVERS_LIST: Driver[] = [SWOOSH, SARAH, BASEBURNER];
 
 export const DRIVERS: Record<string, Driver> = Object.fromEntries(
   DRIVERS_LIST.map((d) => [d.slug, d])
