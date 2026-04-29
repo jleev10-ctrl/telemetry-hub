@@ -15,5 +15,5 @@ export const TOMMY: Driver = {
   homeName: 'Tommy "The Mask" C.',
   homeRole: "NHL • 9 yrs",
   heroVideo: tommyHeroVideo,
-  active: false,
+  active: true,
 };
