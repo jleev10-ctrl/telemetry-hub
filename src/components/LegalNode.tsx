@@ -23,7 +23,7 @@ export const LegalNode = () => (
       <div className="flex items-start gap-2">
         <span className="font-mono text-[9px] text-win tracking-widest mt-0.5 shrink-0">[02]</span>
         <p className="font-mono text-[10px] leading-relaxed text-foreground/80 uppercase tracking-wide">
-          All analysts are AI-generated synthetic personas. Picks &amp; stats are simulated for entertainment.
+          Picks powered by a proprietary computer model + moderated by a 30-year sports handicapping veteran. Analyst avatars are AI-generated personas — the analysis behind them is real.
         </p>
       </div>
       <div className="flex items-start gap-2">
