@@ -7,6 +7,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { PageViewBeacon } from "@/components/PageViewBeacon";
 import Home from "./pages/Home.tsx";
 import BucketPage from "./pages/BucketPage.tsx";
+import Stats from "./pages/Stats.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/" element={<Home />} />
           {/* All driver buckets share one page, fed by src/data/drivers.ts */}
           <Route path="/drivers/:slug" element={<BucketPage />} />
+          <Route path="/stats" element={<Stats />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
