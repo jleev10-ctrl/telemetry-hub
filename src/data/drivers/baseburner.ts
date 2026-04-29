@@ -15,5 +15,5 @@ export const BASEBURNER: Driver = {
   homeName: 'Rick "The Baseburner" B.',
   homeRole: "MLB • 11 yrs",
   heroVideo: baseburnerHeroVideo,
-  active: true,
+  active: false,
 };
