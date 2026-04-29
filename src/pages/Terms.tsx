@@ -32,7 +32,18 @@ const Terms = () => (
         any content for real-money decisions.
       </Section>
 
-      <Section title="3. Third-Party Operators">
+      <Section title="3. Proprietary Picks Engine">
+        Picks displayed on this site are produced by our <strong>proprietary sports analytics
+        engine</strong>, combining quantitative modeling with the operator's <strong>30+ years of
+        sports-handicapping experience</strong>. The engine ingests publicly available sports data
+        (schedules, results, lines, situational factors), applies our own weighting and pattern
+        recognition, and surfaces selections that are then dressed in AI-generated synthetic
+        analyst personas for entertainment delivery. While the underlying analysis is real and
+        proprietary, all on-site presentation — names, faces, voices, win/loss records, unit
+        counts, and commentary — is synthetic and presented for entertainment only.
+      </Section>
+
+      <Section title="4. Third-Party Operators">
         When you click an outbound link to a sportsbook or casino, you leave Synthetic Syndicate and
         enter a third-party site governed by that operator's own terms, privacy policy, and
         licensing. Synthetic Syndicate is not responsible for the conduct, content, payouts,
