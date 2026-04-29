@@ -21,7 +21,7 @@ const withUtm = (url: string, book: string, placement: string) => {
   const u = new URL(url);
   u.searchParams.set("utm_source", "synthetic_syndicate");
   u.searchParams.set("utm_medium", "affiliate");
-  u.searchParams.set("utm_campaign", "telemetry_funnel");
+  u.searchParams.set("utm_campaign", "pro_picks");
   u.searchParams.set("utm_content", placement);
   u.searchParams.set("utm_term", book);
   return u.toString();
