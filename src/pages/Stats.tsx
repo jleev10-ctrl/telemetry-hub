@@ -17,6 +17,20 @@ interface Stats {
     referrer: string;
     at: string;
   }[];
+  clicks?: {
+    totals: { today: number; week: number; all: number };
+    topPlacements: { label: string; count: number }[];
+    topBooks: { label: string; count: number }[];
+    recent: {
+      placement: string;
+      book: string;
+      page: string | null;
+      country: string | null;
+      city: string | null;
+      device: string | null;
+      at: string;
+    }[];
+  };
 }
 
 const Stats = () => {
@@ -133,6 +147,58 @@ const Stats = () => {
                 ))}
               </div>
             </section>
+
+            {/* AFFILIATE CLICKS */}
+            {stats.clicks && (
+              <>
+                <div className="border-t border-hud/30 pt-5">
+                  <h2 className="text-xs tracking-[0.3em] uppercase text-[hsl(45_100%_60%)] mb-3 font-black">
+                    Affiliate Clicks · Outbound
+                  </h2>
+                  <section className="grid grid-cols-3 gap-2 sm:gap-3">
+                    {[
+                      { label: "Today", value: stats.clicks.totals.today },
+                      { label: "7 days", value: stats.clicks.totals.week },
+                      { label: "All time", value: stats.clicks.totals.all },
+                    ].map((t) => (
+                      <div key={t.label} className="hud-panel border border-[hsl(45_100%_60%/0.4)] rounded-md p-3 text-center">
+                        <div className="text-[9px] tracking-[0.25em] uppercase text-muted-foreground">{t.label}</div>
+                        <div className="text-2xl sm:text-3xl font-black text-[hsl(45_100%_60%)] mt-1">
+                          {t.value.toLocaleString()}
+                        </div>
+                      </div>
+                    ))}
+                  </section>
+                </div>
+
+                <Block title="Top placements" rows={stats.clicks.topPlacements} />
+                <Block title="Top books" rows={stats.clicks.topBooks} />
+
+                <section>
+                  <h2 className="text-[10px] tracking-[0.3em] uppercase text-[hsl(45_100%_60%)] mb-2">
+                    Last 20 clicks
+                  </h2>
+                  <div className="border border-hud/30 rounded-md overflow-hidden">
+                    {stats.clicks.recent.length === 0 && (
+                      <div className="p-3 text-xs text-muted-foreground">No clicks yet.</div>
+                    )}
+                    {stats.clicks.recent.map((r, i) => (
+                      <div key={i} className="grid grid-cols-[1fr_auto] gap-2 px-3 py-2 text-[11px] border-b border-hud/15 last:border-b-0">
+                        <div className="truncate">
+                          <span className="text-[hsl(45_100%_60%)] font-bold uppercase">{r.book}</span>
+                          <span className="text-muted-foreground"> · {r.placement}</span>
+                          {r.page && <span className="text-muted-foreground/60"> · {r.page}</span>}
+                        </div>
+                        <div className="text-muted-foreground whitespace-nowrap">
+                          {[r.city, r.country].filter(Boolean).join(", ") || "—"} · {r.device || "—"} ·{" "}
+                          {new Date(r.at).toLocaleString()}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </>
+            )}
 
             <Button variant="outline" onClick={load} disabled={loading} className="w-full">
               {loading ? "Refreshing..." : "Refresh"}

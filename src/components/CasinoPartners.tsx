@@ -3,6 +3,7 @@ import spinCasinoLogo from "@/assets/spin-casino-logo.png";
 import casino888Logo from "@/assets/888casino-logo.png";
 import tonybetLogo from "@/assets/tonybet-logo.png";
 import leovegasLogo from "@/assets/leovegas-logo.png";
+import { trackAffiliateClick } from "@/hooks/useAffiliateClick";
 
 const CASINOS = [
   { name: "Jackpot City", url: "https://www.jackpotcity.com", logo: jackpotCityLogo },
@@ -52,6 +53,11 @@ export const CasinoPartners = () => (
                 href={c.url}
                 target="_blank"
                 rel="noopener noreferrer sponsored"
+                onClick={() => trackAffiliateClick({
+                  placement: "casino_partners",
+                  book: c.name.toLowerCase().replace(/\s+/g, "_"),
+                  destination_url: c.url,
+                })}
                 className="block text-center font-mono text-[9px] font-bold tracking-[2px] uppercase rounded-sm py-1.5 border transition"
                 style={{
                   color: NEON,

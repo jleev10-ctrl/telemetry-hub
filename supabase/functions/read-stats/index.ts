@@ -71,6 +71,19 @@ Deno.serve(async (req) => {
         : "(direct)",
     }));
 
+    // Affiliate click totals + breakdowns
+    const [{ count: clicksAll }, { count: clicksWeek }, { count: clicksToday }] = await Promise.all([
+      supabase.from("affiliate_clicks").select("*", { count: "exact", head: true }),
+      supabase.from("affiliate_clicks").select("*", { count: "exact", head: true }).gte("created_at", sevenDaysAgo.toISOString()),
+      supabase.from("affiliate_clicks").select("*", { count: "exact", head: true }).gte("created_at", startOfToday.toISOString()),
+    ]);
+
+    const { data: clickRows } = await supabase
+      .from("affiliate_clicks")
+      .select("placement, book, destination_url, page, country, city, device, created_at")
+      .order("created_at", { ascending: false })
+      .limit(1000);
+
     const stats = {
       totals: {
         today: totalToday || 0,
@@ -97,6 +110,24 @@ Deno.serve(async (req) => {
           : "(direct)",
         at: r.created_at,
       })),
+      clicks: {
+        totals: {
+          today: clicksToday || 0,
+          week: clicksWeek || 0,
+          all: clicksAll || 0,
+        },
+        topPlacements: tally("placement", clickRows),
+        topBooks: tally("book", clickRows),
+        recent: (clickRows || []).slice(0, 20).map((r) => ({
+          placement: r.placement,
+          book: r.book,
+          page: r.page,
+          country: r.country,
+          city: r.city,
+          device: r.device,
+          at: r.created_at,
+        })),
+      },
     };
 
     return new Response(JSON.stringify(stats), {
