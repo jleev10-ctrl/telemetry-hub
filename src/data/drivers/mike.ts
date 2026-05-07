@@ -16,8 +16,8 @@ export const MIKE: Driver = {
   active: false,
 
   homeImage: ironmike,
-  homeName: '"Iron" Mike K.',
-  homeRole: "NFL • 15 yrs",
+  homeName: 'NFL',
+  homeRole: '"Iron" Mike K. • 15 yrs',
 
   record: "22-8",
   winPct: "73%",
