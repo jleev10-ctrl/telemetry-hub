@@ -12,8 +12,8 @@ export const TOMMY: Driver = {
   league: "NHL",
   tag: "professional · ice & pucks",
   homeImage: nhl,
-  homeName: 'Tommy "The Mask" C.',
-  homeRole: "NHL • 9 yrs",
+  homeName: 'NHL',
+  homeRole: 'Tommy "The Mask" C. • 9 yrs',
   heroVideo: tommyHeroVideo,
   active: false,
 };

@@ -12,8 +12,8 @@ export const BASEBURNER: Driver = {
   league: "MLB",
   tag: "professional · power hitter",
   homeImage: mlb,
-  homeName: 'Rick "The Baseburner" B.',
-  homeRole: "MLB • 11 yrs",
+  homeName: 'MLB',
+  homeRole: 'Rick "The Baseburner" B. • 11 yrs',
   heroVideo: baseburnerHeroVideo,
   active: false,
 };

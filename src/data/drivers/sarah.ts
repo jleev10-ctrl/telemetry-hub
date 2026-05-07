@@ -12,8 +12,8 @@ export const SARAH: Driver = {
   league: "MLB",
   tag: "clinical · quant",
   homeImage: sarah,
-  homeName: '"Stats" Sarah',
-  homeRole: "MLB • Clinical Quant",
+  homeName: 'STATS',
+  homeRole: '"Stats" Sarah • Clinical Quant',
   heroVideo: sarahAgreeDisagreeVideo,
   active: false,
 
