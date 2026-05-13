@@ -8,12 +8,12 @@ import { MIKE } from "./mike";
 export const TOMMY: Driver = {
   ...MIKE,
   slug: "tommy",
-  name: 'tommy "the mask" c.',
+  name: 'NHL',
   league: "NHL",
   tag: "professional · ice & pucks",
   homeImage: nhl,
   homeName: 'NHL',
-  homeRole: 'Tommy "The Mask" C. • 9 yrs',
+  homeRole: 'NHL',
   heroVideo: tommyHeroVideo,
   active: false,
 };
