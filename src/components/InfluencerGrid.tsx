@@ -45,7 +45,7 @@ export const InfluencerGrid = () => (
             {d.slug === "swoosh" && <BetBucket league="NBA" />}
             {d.slug === "sarah" && <BetBucket league="STATS" bookName="Bet365" bookHref="https://www.bet365.com/" bookColor="from-[hsl(75_100%_50%)] to-[hsl(75_100%_40%)]" />}
             {d.slug === "baseburner" && <BetBucket league="MLB" />}
-            {d.slug === "tommy" && <BetBucket league="NHL" />}
+            {d.slug === "tommy" && <BetBucket league="NHL" bookName="FanDuel" bookHref="https://sportsbook.fanduel.com/" bookColor="from-[hsl(210_100%_50%)] to-[hsl(210_100%_40%)]" />}
           </div>
         );
       })}
