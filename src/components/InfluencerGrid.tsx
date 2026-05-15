@@ -43,7 +43,7 @@ export const InfluencerGrid = () => (
             {cardWrapped}
             {d.slug === "mike" && <BetBucket league="NFL" />}
             {d.slug === "swoosh" && <BetBucket league="NBA" />}
-            {d.slug === "sarah" && <BetBucket league="STATS" bookName="Bet365" bookHref="https://www.bet365.com/" bookColor="from-[hsl(120_65%_35%)] to-[hsl(120_65%_25%)]" />}
+            {d.slug === "sarah" && <BetBucket league="STATS" bookName="Bet365" bookHref="https://www.bet365.com/" bookColor="from-[hsl(75_100%_50%)] to-[hsl(75_100%_40%)]" />}
             {d.slug === "baseburner" && <BetBucket league="MLB" />}
             {d.slug === "tommy" && <BetBucket league="NHL" />}
           </div>
