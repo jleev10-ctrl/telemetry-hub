@@ -1,4 +1,4 @@
-const EMAIL = "leeverity65@gmail.com";
+const EMAIL = "contact@syntheticsportsyndicate.com";
 
 const Contact = () => (
   <div className="min-h-screen bg-background text-foreground font-mono">
