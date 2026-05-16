@@ -63,7 +63,7 @@ export const BetBucket = ({
         ) : null}
         {league === "NHL" ? (
           <span className="text-[10px] sm:text-[11px] font-semibold tracking-wider leading-tight text-center">
-            ALL <span className="text-[hsl(var(--hud))]">OVER 5.5</span>
+            MONTREAL <span className="text-foreground/40">/</span> <span className="text-[hsl(var(--hud))]">OVER</span>
           </span>
         ) : null}
       </a>
